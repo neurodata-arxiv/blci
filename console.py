@@ -22,10 +22,13 @@
 import argparse
 
 def main():
-  parser = argparse.ArgumentParser(description="The BLCI user interface script")
-  parser.add_argument("-i", "--ingest", action="store_true", help="")
+  parser = argparse.ArgumentParser(description="The BLCI user interface. Pass "
+          "-h for help")
+  parser.add_argument("-i", "--ingest", action="store_true", help="Ingest "
+          "(non-existing) module")
+  parser.add_argument("-u", "--update", action="store_true", help="Update "
+          "existing module")
   result = parser.parse_args()
-
 
 if __name__ == "__main__":
   main()
