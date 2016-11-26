@@ -25,27 +25,81 @@
 #   - Parse the dependencies file and create a configuration file for the CI
 
 import argparse
+import os
+import json
+
+from common import isdir
+import exceptions
+
+
+comment = {
+    ".py": "#", ".r": "#", ".j": "#", ".jl": "#",
+    ".c": "//", ".cpp": "//", ".java": "//",
+    ".mat": "%"
+    }
+
+supported_filetypes = comment.keys()
+
+ml_comment = {
+    ".py": "'''", ".py": '"""',
+    ".j": "#=", ".jl": "=#",
+    ".c": "/*", ".cpp": "/*", ".java": "/*"
+    }
+
+close_ml_comment = {
+    ".py": '"""',
+    ".j": "=#", ".jl": "=#",
+    ".c": "*/", ".cpp": "*/", ".java": "*/"
+    }
 
 class DependParser(object):
+
     def __init__(self):
         pass
 
-    def generic_read(self, fn):
-        raise NotImplementedError("generic_read")
+    def readcode(self, path, outfn, fileext=None):
+        """
+        @param path: The dir in which the code resides
+        @param outfn: The path/name of dep file
+        """
 
-    def py_read(self, fn):
+        for fsobj in os.walk(path):
+            if isdir(fsobj):
+                self.readcode(fsobj, outfn) # Don't overflow stack!
+            else:
+                if fileext is None:
+                    fileext = os.path.splitext(fsobj).strip().lower()
+                    if fileext not in supported_filetypes():
+                        raise exceptions.UnsupportedFileException(fileext)
+                self.read(fsobj, filetype=fileext)
+
+    def read(fn, filetype):
+        comm = comment(filetype)
+        ml_comm = ml_comment(filetype)
+        ml_cl_comm = close_ml_comment(filetype)
+        raise NotImplementedError("readfile")
+
+    def py_read(self):
         raise NotImplementedError("py_read")
 
-    def r_read(self, fn):
+    def r_read(self):
         raise NotImplementedError("cpp_read")
 
-    def julia_read(self, fn):
+    def julia_read(self):
         raise NotImplementedError("java_read")
 
+    def read_deps(self):
+        # read the dependency graph from disk
+        raise NotImplementedError("read_deps")
+
 def main():
-  parser = argparse.ArgumentParser(description="")
-  parser.add_argument("ARG", action="", help="")
-  parser.add_argument("-O", "--OPT", action="", help="")
+  parser = argparse.ArgumentParser(description="Dependency builder outputs a "
+          "file given a dir structure with all (local) non-package deps")
+  parser.add_argument("dir", action="store", help="The directory containing "
+          "files for which we want to build a dep graph")
+  parser.add_argument("-o", "--outputfn", action="store", help="The output "
+          "filename for the dep file written to disk")
+
   result = parser.parse_args()
 
 if __name__ == "__main__":

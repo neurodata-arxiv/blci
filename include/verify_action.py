@@ -23,10 +23,7 @@ import argparse
 
 def main():
   parser = argparse.ArgumentParser(description="")
-  parser.add_argument("ARG", action="", help="")
-  parser.add_argument("-O", "--OPT", action="", help="")
   result = parser.parse_args()
-
 
 if __name__ == "__main__":
   main()
