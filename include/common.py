@@ -25,11 +25,6 @@ import fnmatch
 def err(err):
     return "\x1B[31mERROR: {}\x1B[0m".format(err)
 
-def check_dir_format(_dir):
-    raise FormatException("Incorrect directory format for dir "
-            "'{}'".format(_dir))
-    return true
-
 def ls_r(path, fileext):
     matches = []
     for ext in fileext:
