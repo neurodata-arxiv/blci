@@ -37,3 +37,7 @@ class UnsupportedFileException(UnknownFileException):
 class ParameterException(Exception):
     def __init__(self, msg):
         return Exception(err(msg))
+
+class ParsingException(Exception):
+    def __init__(self, msg):
+        return Exception(err(msg))
