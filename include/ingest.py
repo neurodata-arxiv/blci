@@ -20,13 +20,24 @@
 # Email: disa@jhu.edu
 
 import os
-from common import check_dir_format
-from exceptions import *
+from exceptions import ParameterException, FormatException
+from dependencies import DependParser
 
-def isdir(path):
-    return bool(list(os.walk("./console.py")))
+def check_ingest_format(_dir, dep_outfn, codedir, datadir):
+    if os.path.isfile(dep_outfn):
+        raise FormatException("Dependency file {} already exists. Either update"
+                " project or delete project first".format(dep_outfn))
+    if not os.path.isdir(codedir):
+        raise FormatException("Incorrect code directory format. Expected a dir "
+                "'{}'".format(codedir))
+    if not os.path.isdir(datadir):
+        raise FormatException("Incorrect data directory format. Expected a dir "
+                "'{}'".format(datadir))
+    print "Correct format!"
 
-def ingest(_dir, projectname=None):
+def ingest(_dir, fileext, projectname=""):
+    assert isinstance(fileext, list)
+
     if _dir.endswith("/"): _dir = _dir[:-1]
 
     # try to deduce project name from dir name
@@ -35,13 +46,15 @@ def ingest(_dir, projectname=None):
         if not projectname:
             raise ParameterException("Unable to infer project name parameter")
 
-    check_dir_format(_dir)
-    print "Correct format!"
-
-    # code dir must exist
-    dp = DependParser()
-    codedir = os.path.join(_dir, "code")
     dep_outfn = os.path.join(_dir, "deps.json")
-    dp.readcode(codedir, dep_outfn)
+    codedir = os.path.join(_dir, "code")
+    datadir = os.path.join(_dir, "data")
+    check_ingest_format(_dir, dep_outfn, codedir, datadir) #TODO
+
+    # Ingest code
+    dp = DependParser(fileext)
+    dp.readcode(codedir)
+    dp.write_deps(dep_outfn)
     print "Dependencies written!"
 
+    # TODO: Ingest data
