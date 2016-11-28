@@ -20,20 +20,9 @@
 # Email: disa@jhu.edu
 
 import os
-from exceptions import ParameterException, FormatException
+from exceptions import ParameterException
 from dependencies import DependParser
-
-def check_ingest_format(_dir, dep_outfn, codedir, datadir):
-    if os.path.isfile(dep_outfn):
-        raise FormatException("Dependency file {} already exists. Either update"
-                " project or delete project first".format(dep_outfn))
-    if not os.path.isdir(codedir):
-        raise FormatException("Incorrect code directory format. Expected a dir "
-                "'{}'".format(codedir))
-    if not os.path.isdir(datadir):
-        raise FormatException("Incorrect data directory format. Expected a dir "
-                "'{}'".format(datadir))
-    print "Correct format!"
+from format import check_project_format
 
 def ingest(_dir, fileext, projectname=""):
     assert isinstance(fileext, list)
@@ -49,7 +38,7 @@ def ingest(_dir, fileext, projectname=""):
     dep_outfn = os.path.join(_dir, "deps.json")
     codedir = os.path.join(_dir, "code")
     datadir = os.path.join(_dir, "data")
-    check_ingest_format(_dir, dep_outfn, codedir, datadir) #TODO
+    check_project_format(_dir, dep_outfn, codedir, datadir) #TODO
 
     # Ingest code
     dp = DependParser(fileext)
