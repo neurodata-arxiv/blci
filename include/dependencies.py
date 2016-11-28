@@ -226,31 +226,3 @@ class DependParser(object):
 
     def __ne__(self, other):
         return not self.__eq__(other)
-
-def test(path, outputfn, fileext):
-        dp = DependParser(fileext)
-        dp.readcode(path)
-        dp.write_deps(outputfn)
-
-        outdp = DependParser(fileext)
-        outdp.read(outputfn)
-        assert dp == outdp
-
-def main():
-  parser = argparse.ArgumentParser(description="Dependency builder outputs a "
-          "dir structure with all (local) non-package deps")
-  parser.add_argument("path", action="store", help="The file or a directory "
-          "containing files for which we want to build a dep graph")
-  parser.add_argument("fileext", action="store", help="The file "
-          "type we should parse for deps (others ignored) when given a "
-          "directory", nargs="+")
-  parser.add_argument("-o", "--outputfn", action="store", help="The output "
-          "filename for the dep file written to disk", default="test_deps.json")
-
- # TODO: make ignore files arg
-  args = parser.parse_args()
-
-  test(args.path, args.outputfn, args.fileext)
-
-if __name__ == "__main__":
-  main()
