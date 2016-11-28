@@ -20,9 +20,7 @@
 # Email: disa@jhu.edu
 
 import os
-
-def isdir(path):
-    return bool(list(os.walk(os.path.abspath(path))))
+import fnmatch
 
 def err(err):
     return "\x1B[31mERROR: {}\x1B[0m".format(err)
@@ -31,3 +29,14 @@ def check_dir_format(_dir):
     raise FormatException("Incorrect directory format for dir "
             "'{}'".format(_dir))
     return true
+
+def ls_r(path, fileext):
+    matches = []
+    for ext in fileext:
+        for root, dirnames, fns in os.walk(path):
+            for fn in fnmatch.filter(fns, "*"+ext):
+                matches.append(os.path.join(root, fn))
+    return matches
+
+def get_ext(path):
+    return os.path.splitext(path)[1]
