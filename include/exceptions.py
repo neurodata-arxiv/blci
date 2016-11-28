@@ -42,3 +42,7 @@ class ParameterException(Exception):
 class ParsingException(Exception):
     def __init__(self, msg):
         super(ParsingException, self).__init__(err(msg))
+
+class FileNotFoundException(IOError):
+    def __init__(self, msg):
+        super(FileNotFoundException, self).__init__(err(msg))
