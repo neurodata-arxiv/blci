@@ -24,20 +24,21 @@ from common import err
 
 class FormatException(Exception):
     def __init__(self, msg):
-        return Exception(err(msg))
+        super(FormatException, self).__init__(err(msg))
 
 class UnknownFileException(Exception):
     def __init__(self, msg):
-        return Exception(err(msg))
+        super(UnknownFileException, self).__init__(err(msg))
 
 class UnsupportedFileException(UnknownFileException):
     def __init__(self, _type):
-        return UnknownFileException(err("Unsupported type '{}'".format(_type)))
+        super(UnsupportedFileException, self).__init__\
+            (err("Unsupported type '{}'".format(_type)))
 
 class ParameterException(Exception):
     def __init__(self, msg):
-        return Exception(err(msg))
+        super(ParameterException, self).__init__(err(msg))
 
 class ParsingException(Exception):
     def __init__(self, msg):
-        return Exception(err(msg))
+        super(ParsingException, self).__init__(err(msg))
