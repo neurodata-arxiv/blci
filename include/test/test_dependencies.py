@@ -26,7 +26,8 @@ sys.path.append(os.path.abspath("../"))
 
 from dependencies import DependParser
 
-def test(path, outputfn, fileext):
+def test(path="./test-blci/code",
+        outputfn="./test-blci/blci_deps.json", fileext=[".py"]):
     dp = DependParser(fileext)
     dp.readcode(path)
     dp.write_deps(outputfn)
@@ -44,13 +45,13 @@ def main():
             "type we should parse for deps (others ignored) when given a "
             "directory", nargs="+")
     parser.add_argument("-o", "--outputfn", action="store", help="The output "
-            "filename for the dep file written to disk", default="test_deps.json")
+            "filename for the dep file written to disk", default=
+            os.path.abspath(os.path.join(sys.argv[1], "blci_deps.json")))
     #TODO: Use me
     parser.add_argument("-i", "--ignore", action="store", help="The paths/exps "
           "to ignore", nargs="*")
 
     args = parser.parse_args()
-
     test(args.path, args.outputfn, args.fileext)
 
 if __name__ == "__main__":
