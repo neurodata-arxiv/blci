@@ -1,0 +1,18 @@
+# This is a comment, BUT only use alone not inline with config args
+
+# We infer to track .py and .pyx files only, you can change by specifying `read`
+language: python
+version: 2.7
+
+# How many thread you wish to launch as readers of your code
+nthreads: 2
+
+# This is inferred because of python, but any others may be specified here
+ignores:
+    - .pyc
+    - .*
+
+# One can explicitly specify which files to read here
+read:
+    - .py
+    - .pyx
