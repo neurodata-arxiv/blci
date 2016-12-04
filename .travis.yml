@@ -10,7 +10,7 @@ notifications:
 
 # command to run tests
 script:
-    - cd include/test; pytest; rm -f test-blci/blci_deps.json
+    - cd include/test && pytest .
 
 after_script:
     -  rm include/tests/test-blci/blci_deps.json
