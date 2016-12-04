@@ -1,0 +1,2 @@
+def wtup():
+    print "wtup"
