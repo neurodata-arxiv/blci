@@ -11,3 +11,7 @@ script:
 
 after_script:
     -  rm include/tests/test-blci/blci_deps.json
+
+branches:
+    only:
+        disa-dev
