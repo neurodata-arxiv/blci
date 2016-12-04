@@ -1,4 +1,4 @@
 argparse
-yaml
+pyyaml
 json
 pytest

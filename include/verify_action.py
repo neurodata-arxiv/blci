@@ -22,8 +22,8 @@
 import argparse
 
 def main():
-  parser = argparse.ArgumentParser(description="")
-  result = parser.parse_args()
+    parser = argparse.ArgumentParser(description="")
+    result = parser.parse_args()
 
 if __name__ == "__main__":
-  main()
+    main()
