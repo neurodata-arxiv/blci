@@ -5,6 +5,9 @@ python:
 # Install dependencies
 install: "pip install -r requirements.txt"
 
+notifications:
+    email: false
+
 # command to run tests
 script:
     - cd include/test; pytest; rm -f test-blci/blci_deps.json
