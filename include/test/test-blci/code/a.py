@@ -1,6 +1,6 @@
 import os
 import b
-import numpy
+import numpy as np
 import sys
 from analysis import c
 
@@ -15,3 +15,7 @@ def last():
 
 def sum(a , b):
     return a + b
+
+if __name__ == "__main__":
+    mat = np.loadtxt("../otherdata/data.txt")
+    np.savetxt("../data/databy2.txt", mat*2, "%.3f")
