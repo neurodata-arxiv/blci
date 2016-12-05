@@ -16,3 +16,24 @@ ignore:
 read:
     - .py
     - .pyx
+
+# Where code you want tracked by blci is. Default is $PROJECT_HOME/code
+code_loc:
+    - ./code
+
+# Where code you want tracked by blci is. Default is $PROJECT_HOME/data
+data_loc:
+    - ./data
+    - ./otherdata
+
+# Dictionary noting which programs call it for output use tracked data
+data_dep:
+    - read:
+        - data/data.txt:
+            - code/analysis/c.py
+
+# TODO: Script should add: otherdata/data.txt, data/databy2.txt
+
+script:
+    python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt
+    python code/a.py
