@@ -21,12 +21,13 @@
 
 import argparse
 from include.ingest import ingest
+from include.init import init
 from include.exceptions import ParameterException
 
 def main():
     parser = argparse.ArgumentParser(description="The BLCI CLI. Pass "
             "-h for help")
-    parser.add_argument("projectdir", action="store", help="The root "
+    parser.add_argument("projecthome", action="store", help="The root "
             "folder of the project (should contain 'code' and 'data "
             "directories")
     parser.add_argument("-e", "--fileext", action="store", help="The file "
@@ -37,10 +38,20 @@ def main():
     parser.add_argument("-g", "--ignore", action="store", help="The file "
           "paths, wildcards we should ignore when looking at code/data ",
           nargs="+")
-    parser.add_argument("-i", "--ingest", action="store_true", help="Ingest "
+    parser.add_argument("-i", "--init", action="store_true", help="Intiate "
+            "a project with dependency dump and blci configuration file.")
+    parser.add_argument("-I", "--ingest", action="store_true", help="Ingest "
             "(non-existing) module")
     parser.add_argument("-u", "--update", action="store_true", help="Update "
             "existing module")
+    parser.add_argument("-d", "--data_loc", action="store", help="The "
+            "directories where data that is to be tracked resides",
+            default=[], nargs="+")
+    parser.add_argument("-o", "--overwrite", action="store_true", help=
+            "Overwrite the config when performing actions? This is not remove"
+            " old setting, but instead append & merge.")
+    parser.add_argument("-b", "--bare", action="store_true", help="Scrap all "
+            "configs and start afresh?")
     # TODO: use ignore files arg
     args = parser.parse_args()
 
@@ -48,7 +59,9 @@ def main():
         raise ParameterException("-e [--fileext] flag must be passed!")
 
     if args.ingest:
-        ingest(args.projectdir, args.fileext, args.name)
+        ingest(args.projecthome, args.fileext, args.name)
+    elif args.init:
+        init(args.projecthome, args.data_loc, args.overwrite, args.bare)
     else:
         raise NotImplementedError("Other methods incomplete!")
 
