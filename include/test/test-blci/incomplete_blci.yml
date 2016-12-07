@@ -1,4 +1,4 @@
-# This is a comment
+# This is a comment, BUT only use alone not inline with config args
 
 # We infer to track .py and .pyx files only, you can change by specifying `read`
 language: python
@@ -19,27 +19,21 @@ read:
 
 # Where code you want tracked by blci is. Default is $PROJECT_HOME/code
 code_loc:
-    - code
+    - ./code
 
 # Where code you want tracked by blci is. Default is $PROJECT_HOME/data
 data_loc:
-    - data
-    - otherdata
+    - ./data
+    - ./otherdata
 
 # Dictionary noting which programs call it for output use tracked data
 data_dep:
     read: # Note no `-` to start this line. This is not a list
         data/data.txt:
-            - code/analysis/c.py # Either bullets or an explict list [a, b, ..]
-        data/databy2.txt: []
-        otherdata/data.txt:
-            - code/a.py
-    write:
-        data/data.txt: []
-        data/databy2.txt: [code/a.py, code/analysis/c.py]
-        otherdata/data.txt: [code/analysis/c.py]
+            - code/analysis/c.py
+
+# NOTE: `Init` will add: the `write` key & data/databy2.txt, otherdata/data.txt
 
 script:
     python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt
     python code/a.py
-    python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt

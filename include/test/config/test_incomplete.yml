@@ -1,0 +1,27 @@
+# Written by BLCI automated script on Wed Dec  7 14:12:40 2016
+
+code_loc:
+- ./code
+data_dep:
+  read:
+    data/data.txt:
+    - code/analysis/c.py
+    data/databy2.txt: []
+    otherdata/data.txt: []
+  write:
+    data/data.txt: []
+    data/databy2.txt: []
+    otherdata/data.txt: []
+data_loc:
+- ./data
+- ./otherdata
+ignore:
+- .pyc
+- .*
+language: python
+nthread: 2
+read:
+- .py
+- .pyx
+script: python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt python code/a.py
+version: 2.7
