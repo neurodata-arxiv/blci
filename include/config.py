@@ -26,6 +26,7 @@ import exceptions
 from glob import glob
 import re
 import os
+import time
 
 # These are all the settings/parameters blci supports
 BL_SETTINGS = {
@@ -43,7 +44,7 @@ BL_SETTINGS = {
 # These are the default parameters blci uses
 BL_DEFAULTS = {
         "nthread": 1,
-        "version": None,
+        "version": "",
         "ignore": "",
         "code_loc": "code",
         "data_loc": "data",
@@ -53,14 +54,24 @@ BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
     set((BL_DEFAULTS.keys())))
 
 class config():
-    def __init__(self, fn=None, silent_fail=False):
-        self.fn = fn
-        self.projecthome = None
+    def __init__(self, fn="", projecthome="", silent_fail=False):
+        """
+        The blci configuration reader, writer and init project stub creator
 
-        if fn:
-            self.read_config(fn, silent_fail)
+        @param fn: The config filename that you are reading or intend to write
+        @param projecthome: The relative/absolute path to the root of your
+            project
+        @param silent_fail: If you specify an invalid/incomplete config file via
+            the `fn` argument. Should blci throw an exception?
+        """
+        # Give defaults if building a new config
+        self.fn = fn
+        self.projecthome = projecthome
+
+        if self.fn:
+            self.read_config(self.fn, silent_fail)
         else:
-            self._conf = {}
+            self._conf = BL_DEFAULTS
             self.valid = False
 
     def read_config(self, fn, silent_fail=False):
@@ -87,7 +98,17 @@ class config():
             for setting in BL_REQUIRED:
                 if setting not in self._conf:
                     self.valid = False
-                    break
+                    return
+
+            # Now make sure they exist
+            for loc in self.get("code_loc"):
+                if not os.path.exists(os.path.join(self.projecthome, loc)):
+                    self.valid = False
+                    return
+            for loc in self.get("data_loc"):
+                if not os.path.exists(os.path.join(self.projecthome, loc)):
+                    self.valid = False
+                    return
 
     def isvalid_data(self):
         """
@@ -140,6 +161,9 @@ class config():
 
     def unique_fn(self, path):
         # Create a unique fn using the path but don't overwrite if exists
+        if os.path.isdir(path):
+            raise exceptions.ParameterException("Path '{}' must be a file, not "
+                    "a directory ...".format(path))
         count = 1
         while (os.path.exists(path)):
             sp = os.path.splitext(path)
@@ -160,7 +184,9 @@ class config():
 
         print "Writing config file {} ..".format(self.fn)
         with open(self.fn, "wb") as f:
-            yaml.dump(self._conf, f)
+            f.write("# Written by BLCI's automated script on "
+                    "{}\n\n".format(time.strftime("%c")))
+            yaml.dump(self._conf, f, default_flow_style=False)
 
     def __check_and_stub_dat_dep__(self):
         if not self.has_setting("data_dep"):
@@ -202,8 +228,6 @@ class config():
                 if not self.isignored(_file):
                     self.track_datafile(_file)
 
-        self.write(overwrite)
-
     def isvalid(self):
         return self.valid
 
@@ -221,3 +245,9 @@ class config():
 
     def __repr__(self):
         return str(self._conf)
+
+    def __eq__(self, other):
+        return self._conf == other._conf
+
+    def __ne__(self, other):
+        return not self.__eq__(other)

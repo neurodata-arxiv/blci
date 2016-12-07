@@ -28,13 +28,24 @@ from config import *
 
 def test_valid():
     fn = "test-blci/blci.yml"
-    c = config(fn, silent_fail=True)
+    c = config(fn, projecthome="test-blci", silent_fail=True)
     assert c.isvalid(), "Invalid configuration file '{}'".format(fn)
 
     for setting in c.getall():
-        assert setting in BLCI_SETTINGS
+        assert setting in BL_SETTINGS
 
 def test_invalid():
     fn = "config/error.yml"
-    c = config(fn, silent_fail=True)
+    c = config(fn, projecthome="test-blci", silent_fail=True)
     assert not c.isvalid(), "Invalid configuration file '{}'".format(fn)
+
+def test_unique():
+    fn = "config/error.yml"
+    c = config(fn, silent_fail=True)
+    sp = os.path.splitext(fn)
+    assert sp[0] + "_1" + sp[1] == c.unique_fn(fn)
+
+def test_data_dep_stub():
+    fn = "test-blci/incomplete_blci.yml"
+    c = config(fn, projecthome="test-blci", silent_fail=True)
+    assert(not(c == config("config/test_incomplete.yml", silent_fail=True)))
