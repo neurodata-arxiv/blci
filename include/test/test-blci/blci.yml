@@ -28,11 +28,11 @@ data_loc:
 
 # Dictionary noting which programs call it for output use tracked data
 data_dep:
-    - read:
-        - data/data.txt:
+    read: # Note no `-` to start this line. This is not a list
+        data/data.txt:
             - code/analysis/c.py
 
-# TODO: Script should add: otherdata/data.txt, data/databy2.txt
+# NOTE: `Init` will add: the `write` key & data/databy2.txt, otherdata/data.txt
 
 script:
     python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt

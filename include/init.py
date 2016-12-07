@@ -35,4 +35,4 @@ def init(projecthome, data_loc=[], overwrite=False, bare=False):
     else:
         c = config(os.path.join(projecthome, "blci.yml"))
 
-    c.build_data_dep_stub(data_loc, overwrite)
+    c.build_data_dep_stub(projecthome, data_loc, overwrite)

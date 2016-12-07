@@ -19,8 +19,6 @@
 # Created by Disa Mhembere on 2016-12-03.
 # Email: disa@jhu.edu
 
-# FIXME: Ensure all paths are relative the $PROJECT_HOME
-
 import argparse
 import sys
 import yaml
@@ -29,6 +27,7 @@ from glob import glob
 import re
 import os
 
+# These are all the settings/parameters blci supports
 BL_SETTINGS = {
         "language",
         "version",
@@ -41,6 +40,7 @@ BL_SETTINGS = {
         "script"
         }
 
+# These are the default parameters blci uses
 BL_DEFAULTS = {
         "nthread": 1,
         "version": None,
@@ -55,6 +55,7 @@ BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
 class config():
     def __init__(self, fn=None, silent_fail=False):
         self.fn = fn
+        self.projecthome = None
 
         if fn:
             self.read_config(fn, silent_fail)
@@ -63,7 +64,7 @@ class config():
             self.valid = False
 
     def read_config(self, fn, silent_fail=False):
-        with open(fn, "r") as f:
+        with open(fn, "rb") as f:
             try:
                 self._conf = yaml.load(f)
             except yaml.YAMLError as err:
@@ -89,13 +90,14 @@ class config():
                     break
 
     def isvalid_data(self):
-        """ Does the config contain data_dep for the
+        """
+        Does the config contain data_dep for the
                 files stated in data_loc?
         """
         pass # FIXME: Stub
 
     def bashRE_2_pyRE(self, regex):
-        """ FIXME: Very rudimentary """
+        """ TODO: Very rudimentary """
         return regex.replace(".", "\.").replace("*", "+")
 
     def isignored(self, path):
@@ -103,59 +105,79 @@ class config():
             return False # No way to know so assume not to ignore
 
         # First attempt a direct match ...
-        if os.path.exists(path):
+        if path in self._conf["ignore"]:
             return True # if it exists then ignore it
 
         for item in self.get("ignore"):
-            if re.match(self.bashRE_2_pyRE(item)):
+            if re.match(self.bashRE_2_pyRE(item), path):
                 return True
         return False
 
-    def isdatafile_tracked(self, path):
-        if not self.has_setting("data_dep"): return False
-
-        for ioattr in self.get("data_dep"):
-            if path in ioattr:
-                return True
-        return False
+    def localize(self, path):
+        """ Returns a localized path with respect to the project home """
+        home_len = len(os.path.abspath(self.projecthome))
+        absolute_path = os.path.abspath(path)
+        return absolute_path[home_len+1:]
 
     def track_datafile(self, path):
-        if not self.has_setting("data_dep"):
-            self._conf["data_dep"] = [{"read":[]}, {"write":[]}]
+        path = self.localize(path)
+        self.__check_and_stub_dat_dep__()
 
-        # Add to read
-        self._conf["data_dep"]["read"].append(path)
-
-        # Add to write
-        self._conf["data_dep"]["write"].append(path)
+        for ioattr in self.get("data_dep"):
+            if path not in self._conf["data_dep"][ioattr].keys():
+                # Add it to read or write
+                print "Adding '{}' to data_dep: {} ...".format(path, ioattr)
+                self._conf["data_dep"][ioattr][path] = []
 
     def add_data_loc_path(self, path):
-        if not has_setting("data_loc"):
+        path = self.localize(path)
+
+        if not self.has_setting("data_loc"):
             self._conf["data_loc"] = []
 
-        if path not in self.get("data_loc"):
+        if path not in map(os.path.relpath, self.get("data_loc")):
             self._conf["data_loc"].append(path)
 
     def unique_fn(self, path):
         # Create a unique fn using the path but don't overwrite if exists
-        return "_stub" # TODO: Stub todo
+        count = 1
+        while (os.path.exists(path)):
+            sp = os.path.splitext(path)
+            prospective_path = sp[0] +"_" + str(count) + sp[1]
+            if os.path.exists(prospective_path):
+                count += 1
+            else:
+                path = prospective_path
+
+        return path
 
     def write(self, overwrite=True):
         if not self.fn:
             self.fn = "blci.yml"
 
         if not overwrite:
-            sp = os.path.splitext(self.fn)
-            self.fn = self.unique_fn(sp[0]) + sp[1]
+            self.fn = self.unique_fn(self.fn)
 
+        print "Writing config file {} ..".format(self.fn)
         with open(self.fn, "wb") as f:
             yaml.dump(self._conf, f)
 
-    def build_data_dep_stub(self, data_loc=[], overwrite=True):
+    def __check_and_stub_dat_dep__(self):
+        if not self.has_setting("data_dep"):
+            self._conf["data_dep"] = {"read":{}, "write":{}}
+            return
+
+        if not self._conf["data_dep"].has_key("read"):
+            self._conf["data_dep"]["read"] = {}
+        if not self._conf["data_dep"].has_key("write"):
+            self._conf["data_dep"]["write"] = {}
+
+    def build_data_dep_stub(self, projecthome, data_loc=[], overwrite=True):
         """
         Build a stub of a config or add data dependencies to an existing
         config given one or more directories containing data
         """
+        self.projecthome = projecthome
         data_loc_not_found = False
         if not data_loc and not self.fn:
             data_loc_not_found = True
@@ -169,8 +191,7 @@ class config():
             raise exceptions.ParameterException("Specify param "
                     "'data_loc' in config or pass 'data_loc' argument")
 
-        if not self.has_setting("data_dep"):
-            self._conf["data_dep"] = []
+        self.__check_and_stub_dat_dep__()
 
         if data_loc:
             for path in data_loc:
@@ -178,7 +199,7 @@ class config():
 
         for _dir in data_loc:
             for _file in glob(os.path.join(_dir,"*")):
-                if not self.isignored(_file) and not isdatafile_tracked(_file):
+                if not self.isignored(_file):
                     self.track_datafile(_file)
 
         self.write(overwrite)
@@ -197,3 +218,6 @@ class config():
 
     def __getitem__(self, setting):
         return self._conf[setting]
+
+    def __repr__(self):
+        return str(self._conf)

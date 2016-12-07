@@ -39,7 +39,7 @@ def main():
           "paths, wildcards we should ignore when looking at code/data ",
           nargs="+")
     parser.add_argument("-i", "--init", action="store_true", help="Intiate "
-            "a project with dependency dump and blci configuration file.")
+            "a project with dependency and BLCI configuration file.")
     parser.add_argument("-I", "--ingest", action="store_true", help="Ingest "
             "(non-existing) module")
     parser.add_argument("-u", "--update", action="store_true", help="Update "
@@ -48,8 +48,8 @@ def main():
             "directories where data that is to be tracked resides",
             default=[], nargs="+")
     parser.add_argument("-o", "--overwrite", action="store_true", help=
-            "Overwrite the config when performing actions? This is not remove"
-            " old setting, but instead append & merge.")
+            "Overwrite the config when performing actions? This will not remove"
+            " old settings, but instead append & merge.")
     parser.add_argument("-b", "--bare", action="store_true", help="Scrap all "
             "configs and start afresh?")
     # TODO: use ignore files arg
