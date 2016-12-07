@@ -24,7 +24,17 @@ from exceptions import ParameterException
 from dependencies import DependParser
 from format import check_project_format
 
+def build_code_dep_config(fileext, codedir):
+    # Ingest code
+    dp = DependParser(fileext)
+    dp.readcode(codedir)
+    return dp
+
 def ingest(_dir, fileext, projectname=""):
+    # TODO: Attempt to read config first to figure out
+        # - projectname, codedir, datadir
+    # TODO: Use BLCI defaults to populate these if they don't exist
+
     assert isinstance(fileext, list)
 
     if _dir.endswith("/"): _dir = _dir[:-1]
@@ -41,8 +51,7 @@ def ingest(_dir, fileext, projectname=""):
     check_project_format(_dir, dep_outfn, codedir, datadir) #TODO
 
     # Ingest code
-    dp = DependParser(fileext)
-    dp.readcode(codedir)
+    dp = build_depend_config(fileext, codedir)
     dp.write_deps(dep_outfn)
     print "Dependencies written!"
 
