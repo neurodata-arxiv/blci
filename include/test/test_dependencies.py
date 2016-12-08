@@ -26,13 +26,14 @@ sys.path.append(os.path.abspath("../"))
 
 from dependencies import DependParser
 
-def test(path="./test-blci/code",
+def test(path=["./test-blci/code"],
         outputfn="./test-blci/blci_deps.json", fileext=[".py"]):
-    dp = DependParser(fileext)
-    dp.readcode(path)
-    dp.write_deps(outputfn)
 
-    outdp = DependParser(fileext)
+    dp = DependParser(fileext=fileext, projecthome="./test-blci")
+    dp.readcode(path)
+    dp.write(outputfn)
+
+    outdp = DependParser(fileext, projecthome="")
     outdp.read(outputfn)
     assert dp == outdp
 
@@ -52,7 +53,7 @@ def main():
           "to ignore", nargs="*")
 
     args = parser.parse_args()
-    test(args.path, args.outputfn, args.fileext)
+    test([args.path], args.outputfn, args.fileext)
 
 if __name__ == "__main__":
     main()

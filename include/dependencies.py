@@ -30,6 +30,7 @@ import json
 
 from common import ls_r
 from common import get_ext
+from common import localize
 import exceptions
 from os.path import dirname
 
@@ -66,25 +67,32 @@ module_keywords = {
         ".r": ["source"],
         ".c": ["#include"], ".cpp": ["#include"],
         "java": ["import"],
-
         }
 
 class DependParser(object):
-    def __init__(self, fileext):
+    def __init__(self, fileext, projecthome):
         """
         @param fileext: The file extensions that we will inspect for deps
         """
         assert isinstance(fileext, list), "Accepted file extensions must be a "
         "list"
         self.fileext = fileext
-        self.__map__ = {} # key: is file, v: list(all files that depend on the file)
+        self.projecthome = projecthome
 
-    def readcode(self, path):
+        # key: is file, v: list(all files that depend on the file)
+        self.__map__ = {}
+
+    def readcode(self, code_loc):
         """
         @param path: The dir in which the code resides
         """
 
-        files = ls_r(path, self.fileext)
+        assert isinstance(code_loc, list), "Code locations must be a list"
+
+        files = []
+        for path in code_loc:
+            files.extend(ls_r(path, self.fileext))
+
         for ext in self.fileext:
             if ext not in supported_fileexts:
                 raise exceptions.UnsupportedFileException(ext)
@@ -95,6 +103,14 @@ class DependParser(object):
             self.read(fn)
 
     def __put_dep__(self, mod, importer):
+        """
+        Add a dependency to the dep file.
+        @param mod: is the file that is being imported/included
+        @param importer: the file that includes/imports `mod`
+        """
+        mod = localize(self.projecthome, mod)
+        importer = localize(self.projecthome, importer)
+
         if self.__map__.has_key(mod):
             self.__map__[mod].append(importer)
         else:
@@ -211,10 +227,11 @@ class DependParser(object):
             if (dep_encoding_lines): # Ignore empty dep files
                 self.__build_map__(fn, dep_encoding_lines)
 
-    def write_deps(self, outfn):
+    def write(self, outfn=""):
         """
         @param outfn: The path/name of dep fileext
         """
+        print "Writing dependency file '{}' ..".format(outfn)
         with open(outfn, "wb") as f:
             json.dump(self.__map__, f)
 
