@@ -27,9 +27,11 @@ from glob import glob
 import re
 import os
 import time
+from common import localize
 
 # These are all the settings/parameters blci supports
 BL_SETTINGS = {
+        "name", # The name of your project
         "language",
         "version",
         "ignore",
@@ -45,16 +47,27 @@ BL_SETTINGS = {
 BL_DEFAULTS = {
         "nthread": 1,
         "version": "",
-        "ignore": "",
+        "ignore": [".*"],
         "code_loc": "code",
         "data_loc": "data",
+        }
+
+BL_READ_DEFAULTS = {
+        "python": [".py", ".ipynb"],
+        "julia": [".j", ".jl"],
+        "cpp": [".cpp", ".c", ".h", ".hpp"],
+        "c": [".c", ".h"],
+        "r": [".r"],
+        "java": [".java"],
+        "mat": [".m"],
         }
 
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
     set((BL_DEFAULTS.keys())))
 
 class config():
-    def __init__(self, fn="", projecthome="", silent_fail=False):
+    def __init__(self, fn="", projecthome="", silent_fail=False,
+            add_defaults=True):
         """
         The blci configuration reader, writer and init project stub creator
 
@@ -73,6 +86,21 @@ class config():
         else:
             self._conf = BL_DEFAULTS
             self.valid = False
+
+        if add_defaults:
+            self.add_defaults()
+
+    def add_defaults(self):
+        for conf in BL_DEFAULTS:
+            if not self.has_setting(conf) or not self.get(conf):
+                self._conf[conf] = BL_DEFAULTS[conf]
+
+        if not self.has_setting("read"):
+            if self._conf["language"] not in BL_READ_DEFAULTS.keys():
+                raise exceptions.UnsupportedFileException("{}".format(
+                    self._conf["language"]))
+
+            self._conf["read"] = BL_READ_DEFAULTS[self._conf["language"]]
 
     def read_config(self, fn, silent_fail=False):
         with open(fn, "rb") as f:
@@ -134,14 +162,8 @@ class config():
                 return True
         return False
 
-    def localize(self, path):
-        """ Returns a localized path with respect to the project home """
-        home_len = len(os.path.abspath(self.projecthome))
-        absolute_path = os.path.abspath(path)
-        return absolute_path[home_len+1:]
-
     def track_datafile(self, path):
-        path = self.localize(path)
+        path = localize(self.projecthome, path)
         self.__check_and_stub_dat_dep__()
 
         for ioattr in self.get("data_dep"):
@@ -151,8 +173,6 @@ class config():
                 self._conf["data_dep"][ioattr][path] = []
 
     def add_data_loc_path(self, path):
-        path = self.localize(path)
-
         if not self.has_setting("data_loc"):
             self._conf["data_loc"] = []
 
@@ -219,9 +239,8 @@ class config():
 
         self.__check_and_stub_dat_dep__()
 
-        if data_loc:
-            for path in data_loc:
-                self.add_data_loc_path(path)
+        for path in data_loc:
+            self.add_data_loc_path(path)
 
         for _dir in data_loc:
             for _file in glob(os.path.join(_dir,"*")):

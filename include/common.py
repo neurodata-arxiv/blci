@@ -35,3 +35,9 @@ def ls_r(path, fileext):
 
 def get_ext(path):
     return os.path.splitext(path)[1]
+
+def localize(base, path):
+    """ Returns a localized path with respect to a base path """
+    base_len = len(os.path.abspath(base))
+    absolute_path = os.path.abspath(path)
+    return absolute_path[base_len+1:]

@@ -28,40 +28,24 @@ def main():
     parser = argparse.ArgumentParser(description="The BLCI CLI. Pass "
             "-h for help")
     parser.add_argument("projecthome", action="store", help="The root "
-            "folder of the project (should contain 'code' and 'data "
-            "directories")
-    parser.add_argument("-e", "--fileext", action="store", help="The file "
-          "type we should parse for deps (others ignored) when given a "
-          "directory", nargs="+")
-    parser.add_argument("-n", "--name", action="store", help="The name "
-            "(non-existing) module", default="")
-    parser.add_argument("-g", "--ignore", action="store", help="The file "
-          "paths, wildcards we should ignore when looking at code/data ",
-          nargs="+")
+            "folder of the project")
     parser.add_argument("-i", "--init", action="store_true", help="Intiate "
             "a project with dependency and BLCI configuration file.")
     parser.add_argument("-I", "--ingest", action="store_true", help="Ingest "
             "(non-existing) module")
     parser.add_argument("-u", "--update", action="store_true", help="Update "
             "existing module")
-    parser.add_argument("-d", "--data_loc", action="store", help="The "
-            "directories where data that is to be tracked resides",
-            default=[], nargs="+")
     parser.add_argument("-o", "--overwrite", action="store_true", help=
             "Overwrite the config when performing actions? This will not remove"
             " old settings, but instead append & merge.")
     parser.add_argument("-b", "--bare", action="store_true", help="Scrap all "
             "configs and start afresh?")
-    # TODO: use ignore files arg
     args = parser.parse_args()
 
-    if not args.fileext:
-        raise ParameterException("-e [--fileext] flag must be passed!")
-
-    if args.ingest:
-        ingest(args.projecthome, args.fileext, args.name)
-    elif args.init:
-        init(args.projecthome, args.data_loc, args.overwrite, args.bare)
+    if args.init:
+        init(args.projecthome, args.overwrite, args.bare)
+    elif args.ingest:
+        ingest()
     else:
         raise NotImplementedError("Other methods incomplete!")
 

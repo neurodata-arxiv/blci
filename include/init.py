@@ -20,14 +20,12 @@
 # Email: disa@jhu.edu
 
 from include.config import config
+from dependencies import DependParser
 import os
-from ingest import build_code_dep_config
 
-def init(fileext, projecthome, code_dir=[],
-        data_loc=[], overwrite=False, bare=False):
+def init(projecthome, overwrite=False, bare=False):
     """
     @param projecthome: the root dir of the project
-    @param data_loc: the location(s) of where the data resides
     @param: bare means ignore the current config and write a new one
     """
     c = None
@@ -37,10 +35,12 @@ def init(fileext, projecthome, code_dir=[],
         c = config(os.path.join(projecthome, "blci.yml"))
 
     # Build code dependencies
-    dp = build_code_dep_config(fileext)
-
+    dp = DependParser(c.get("read"), projecthome)
+    abs_code_loc = \
+            map(lambda x : os.path.join(projecthome, x), c.get("code_loc"))
+    dp.readcode(abs_code_loc)
+    dp.write(os.path.join(projecthome, "blci.deps"))
 
     # Build data dependencies
-
-    c.build_data_dep_stub(projecthome, data_loc, overwrite)
+    c.build_data_dep_stub(projecthome, c.get("data_loc"), overwrite)
     c.write()
