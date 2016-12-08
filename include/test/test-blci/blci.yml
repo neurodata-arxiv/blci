@@ -1,7 +1,9 @@
 # This is a comment
 
+name: test-blci # required
+
 # We infer to track .py and .pyx files only, you can change by specifying `read`
-language: python
+language: python # required
 version: 2.7
 
 # How many thread you wish to launch as readers of your code
@@ -15,14 +17,13 @@ ignore:
 # One can explicitly specify which files to read here
 read:
     - .py
-    - .pyx
 
 # Where code you want tracked by blci is. Default is $PROJECT_HOME/code
-code_loc:
+code_loc: # required
     - code
 
 # Where code you want tracked by blci is. Default is $PROJECT_HOME/data
-data_loc:
+data_loc: # required
     - data
     - otherdata
 
