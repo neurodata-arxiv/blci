@@ -21,6 +21,7 @@
 
 import os
 import fnmatch
+import exceptions
 
 def err(err):
     return "\x1B[31mERROR: {}\x1B[0m".format(err)
@@ -41,3 +42,13 @@ def localize(base, path):
     base_len = len(os.path.abspath(base))
     absolute_path = os.path.abspath(path)
     return absolute_path[base_len+1:]
+
+def is_git_branch(branchname, _dir="./"):
+    return False # FIXME: Urgent
+
+def write_yml(yamldict, fn):
+    pass # FIXME
+
+def read_yml(fn):
+    if not os.path.exists(fn):
+        raise FileNotFoundException("{fn}".format(fn))

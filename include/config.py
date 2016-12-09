@@ -28,42 +28,7 @@ import re
 import os
 import time
 from common import localize
-
-# These are all the settings/parameters blci supports
-BL_SETTINGS = {
-        "name", # The name of your project
-        "language",
-        "version",
-        "ignore",
-        "nthread",
-        "read",
-        "code_loc",
-        "data_loc",
-        "data_dep",
-        "script"
-        }
-
-# These are the default parameters blci uses
-BL_DEFAULTS = {
-        "nthread": 1,
-        "version": "",
-        "ignore": [".*"],
-        "code_loc": "code",
-        "data_loc": "data",
-        }
-
-BL_READ_DEFAULTS = {
-        "python": [".py", ".ipynb"],
-        "julia": [".j", ".jl"],
-        "cpp": [".cpp", ".c", ".h", ".hpp"],
-        "c": [".c", ".h"],
-        "r": [".r"],
-        "java": [".java"],
-        "mat": [".m"],
-        }
-
-BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
-    set((BL_DEFAULTS.keys())))
+from settings import *
 
 class config():
     def __init__(self, fn="", projecthome="", silent_fail=False,
@@ -197,7 +162,7 @@ class config():
 
     def write(self, overwrite=True):
         if not self.fn:
-            self.fn = "blci.yml"
+            self.fn = BL_DEFAULT_CONFIG_FN
 
         if not overwrite:
             self.fn = self.unique_fn(self.fn)
@@ -263,7 +228,10 @@ class config():
         return self._conf[setting]
 
     def __repr__(self):
-        return str(self._conf)
+        s = "BLCI configuration object:\n"
+        for k,v in self._conf.iteritems():
+            s += "{}: {}\n".format(k, v)
+        return s
 
     def __eq__(self, other):
         return self._conf == other._conf

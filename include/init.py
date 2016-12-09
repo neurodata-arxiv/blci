@@ -19,7 +19,8 @@
 # Created by Disa Mhembere on 2016-12-05.
 # Email: disa@jhu.edu
 
-from include.config import config
+from include.config import config, BL_DEFAULT_CONFIG_FN
+from dependencies import BL_DEFAULT_DEPS_FN
 from dependencies import DependParser
 import os
 
@@ -32,14 +33,14 @@ def init(projecthome, overwrite=False, bare=False):
     if bare:
         c = config()
     else:
-        c = config(os.path.join(projecthome, "blci.yml"))
+        c = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN))
 
     # Build code dependencies
     dp = DependParser(c.get("read"), projecthome)
     abs_code_loc = \
             map(lambda x : os.path.join(projecthome, x), c.get("code_loc"))
     dp.readcode(abs_code_loc)
-    dp.write(os.path.join(projecthome, "blci.deps"))
+    dp.write(os.path.join(projecthome, BL_DEFAULT_DEPS_FN))
 
     # Build data dependencies
     c.build_data_dep_stub(projecthome, c.get("data_loc"), overwrite)

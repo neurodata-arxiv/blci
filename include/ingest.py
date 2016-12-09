@@ -19,6 +19,14 @@
 # Created by Disa Mhembere on 2016-11-25.
 # Email: disa@jhu.edu
 
-def ingest():
-    # TODO: Ingest data
-    raise NotImplementedError("ingest is a TODO")
+import sys
+from config import config, BL_DEFAULT_CONFIG_FN
+
+def ingest(projecthome):
+    """
+    Add a new project as a blci repo
+    """
+
+    conf = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN))
+    is_git_branch()
+

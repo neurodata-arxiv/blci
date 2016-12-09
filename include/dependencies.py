@@ -33,6 +33,7 @@ from common import get_ext
 from common import localize
 import exceptions
 from os.path import dirname
+from settings import *
 
 # Inline comment
 comment = {
@@ -61,6 +62,7 @@ close_ml_comment = {
         ".c": "*/", ".cpp": "*/", ".java": "*/"
     }
 
+# How we figure out if the
 module_keywords = {
         ".py": ["import", "from"], ".ipynb": ["import", "from"],
         ".j": ["using", "import", "importall"],
