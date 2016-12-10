@@ -1,6 +1,7 @@
 # This is a comment
 
 name: test-blci # required
+blci_root: "../../.." # This is the directory where ` console.py` lives
 
 # We infer to track .py and .pyx files only, you can change by specifying `read`
 language: python # required

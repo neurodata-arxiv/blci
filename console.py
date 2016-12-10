@@ -45,7 +45,7 @@ def main():
     if args.init:
         init(args.projecthome, args.overwrite, args.bare)
     elif args.ingest:
-        ingest()
+        ingest(args.projecthome)
     else:
         raise NotImplementedError("Other methods incomplete!")
 

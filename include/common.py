@@ -44,11 +44,27 @@ def localize(base, path):
     return absolute_path[base_len+1:]
 
 def is_git_branch(branchname, _dir="./"):
-    return False # FIXME: Urgent
+    from git import Repo
+    repo = Repo(_dir)
+    for branch in repo.refs:
+        if branchname == branch.name:
+            return True
+    return False
 
-def write_yml(yamldict, fn):
-    pass # FIXME
+def write_yml(yamldict, fn, verbose=False):
+    with open(fn, "wb") as f:
+        yaml.dump(yamldict, f, default_flow_style=False)
+
+    if verbose:
+        print "Write yml {} ..".format(f)
 
 def read_yml(fn):
     if not os.path.exists(fn):
         raise FileNotFoundException("{fn}".format(fn))
+
+    with open(fn, "rb") as f:
+        try:
+            return yaml.load(f)
+        except yaml.YAMLError as err:
+            sys.stderr.write("Config load ERROR:" + err + "\n")
+            exit(911)

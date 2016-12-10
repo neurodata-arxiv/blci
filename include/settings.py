@@ -22,6 +22,7 @@
 # Constants
 BL_DEFAULT_DEPS_FN = "blci.deps"
 BL_DEFAULT_CONFIG_FN = "blci.yml"
+BASE_CI_CONFIG_FN = ".travis.yml"
 
 BL_READ_DEFAULTS = {
         "python": [".py", ".ipynb"],
@@ -40,11 +41,13 @@ BL_VERSION = "version"
 BL_IGNORE = "ignore"
 BL_NTHREAD = "nthread"
 BL_READ = "read"
+BL_WRITE = "write"
 BL_CODE_LOCATION = "code_loc"
 BL_DATA_LOCATION = "data_loc"
 BL_DATA_DEP = "data_dep"
 BL_SCRIPT = "script"
 BL_PATH = "path"
+BL_ROOT = "blci_root" # Root with respect to users project
 
 # Define some defaults
 BL_DEFAULT_NTHREAD = "nthread"
@@ -66,7 +69,8 @@ BL_SETTINGS = {
         BL_DATA_LOCATION,
         BL_DATA_DEP,
         BL_SCRIPT,
-        BL_PATH
+        BL_PATH,
+        BL_ROOT,
         }
 
 # These are the default parameters blci uses
