@@ -60,19 +60,20 @@ class config():
             if not self.has_setting(conf) or not self.get(conf):
                 self._conf[conf] = BL_DEFAULTS[conf]
 
-        if not self.has_setting("read"):
-            if self._conf["language"] not in BL_READ_DEFAULTS.keys():
+        if not self.has_setting(BL_READ):
+            if self.get(BL_LANGUAGE) not in BL_READ_DEFAULTS.keys():
                 raise exceptions.UnsupportedFileException("{}".format(
-                    self._conf["language"]))
+                    self.get(BL_LANGUAGE)))
 
-            self._conf["read"] = BL_READ_DEFAULTS[self._conf["language"]]
+            self._conf[BL_READ] = BL_READ_DEFAULTS[self.get(BL_LANGUAGE)]
 
     def read_config(self, fn, silent_fail=False):
         with open(fn, "rb") as f:
             try:
                 self._conf = yaml.load(f)
             except yaml.YAMLError as err:
-                sys.stderr.write("Config load ERROR:" + err + "\n")
+                raise exceptions.FileNotFoundException(
+                        "Config load ERROR:" + err)
 
         one_failed = False
         for setting in self._conf:
@@ -94,11 +95,11 @@ class config():
                     return
 
             # Now make sure they exist
-            for loc in self.get("code_loc"):
+            for loc in self.get(BL_CODE_LOCATION):
                 if not os.path.exists(os.path.join(self.projecthome, loc)):
                     self.valid = False
                     return
-            for loc in self.get("data_loc"):
+            for loc in self.get(BL_DATA_LOCATION):
                 if not os.path.exists(os.path.join(self.projecthome, loc)):
                     self.valid = False
                     return
@@ -115,14 +116,14 @@ class config():
         return regex.replace(".", "\.").replace("*", "+")
 
     def isignored(self, path):
-        if not self.has_setting("ignore"):
+        if not self.has_setting(BL_IGNORE):
             return False # No way to know so assume not to ignore
 
         # First attempt a direct match ...
-        if path in self._conf["ignore"]:
+        if path in self.get(BL_IGNORE):
             return True # if it exists then ignore it
 
-        for item in self.get("ignore"):
+        for item in self.get(BL_IGNORE):
             if re.match(self.bashRE_2_pyRE(item), path):
                 return True
         return False
@@ -131,18 +132,19 @@ class config():
         path = localize(self.projecthome, path)
         self.__check_and_stub_dat_dep__()
 
-        for ioattr in self.get("data_dep"):
-            if path not in self._conf["data_dep"][ioattr].keys():
+        for ioattr in self.get(BL_DATA_DEP):
+            if path not in self.get(BL_DATA_DEP)[ioattr].keys():
                 # Add it to read or write
-                print "Adding '{}' to data_dep: {} ...".format(path, ioattr)
-                self._conf["data_dep"][ioattr][path] = []
+                print "Adding '{}' to {}: {} ...".format(path,
+                        BL_DATA_DEP, ioattr)
+                self._conf[BL_DATA_DEP][ioattr][path] = []
 
     def add_data_loc_path(self, path):
-        if not self.has_setting("data_loc"):
-            self._conf["data_loc"] = []
+        if not self.has_setting(BL_DATA_LOCATION):
+            self._conf[BL_DATA_LOCATION] = []
 
-        if path not in map(os.path.relpath, self.get("data_loc")):
-            self._conf["data_loc"].append(path)
+        if path not in map(os.path.relpath, self.get(BL_DATA_LOCATION)):
+            self._conf[BL_DATA_LOCATION].append(path)
 
     def unique_fn(self, path):
         # Create a unique fn using the path but don't overwrite if exists
@@ -174,14 +176,14 @@ class config():
             yaml.dump(self._conf, f, default_flow_style=False)
 
     def __check_and_stub_dat_dep__(self):
-        if not self.has_setting("data_dep"):
-            self._conf["data_dep"] = {"read":{}, "write":{}}
+        if not self.has_setting(BL_DATA_DEP):
+            self._conf[BL_DATA_DEP] = {BL_READ:{}, BL_WRITE:{}}
             return
 
-        if not self._conf["data_dep"].has_key("read"):
-            self._conf["data_dep"]["read"] = {}
-        if not self._conf["data_dep"].has_key("write"):
-            self._conf["data_dep"]["write"] = {}
+        if not self.get(BL_DATA_DEP).has_key(BL_READ):
+            self._conf[BL_DATA_DEP][BL_READ] = {}
+        if not self._conf[BL_DATA_DEP].has_key(BL_WRITE):
+            self._conf[BL_DATA_DEP][BL_WRITE] = {}
 
     def build_data_dep_stub(self, projecthome, data_loc=[], overwrite=True):
         """
@@ -195,12 +197,13 @@ class config():
 
         elif self.fn:
             self.read_config(self.fn, silent_fail=True)
-            if not self.has_setting("data_loc"):
+            if not self.has_setting(BL_DATA_LOCATION):
                 data_loc_not_found = True
 
         if data_loc_not_found:
             raise exceptions.ParameterException("Specify param "
-                    "'data_loc' in config or pass 'data_loc' argument")
+                    "'{}' in config or pass '{}'argument".format(
+                        BL_DATA_LOCATION, BL_DATA_LOCATION))
 
         self.__check_and_stub_dat_dep__()
 
