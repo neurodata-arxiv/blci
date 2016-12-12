@@ -19,11 +19,6 @@
 # Created by Disa Mhembere on 2016-10-25.
 # Email: disa@jhu.edu
 
-# File used to do the following:
-#   - Parse a file with code and produce a code hierarchy in json format
-#       ignoring code managed by packages.
-#   - Parse the dependencies file and create a configuration file for the CI
-
 import argparse
 import os
 import json
@@ -74,8 +69,20 @@ module_keywords = {
 class DependParser(object):
     def __init__(self, fileext, projecthome):
         """
-        @param fileext: The file extensions that we will inspect for deps
+        Object used to do the following:
+            - Parse a file with code and produce a code hierarchy in json format
+               ignoring code managed by package managers.
+           - Parse the dependencies file and create a configuration file
+               for the CI.
+
+        **Positional Arguments:**
+
+        fileext:
+            - The file extensions that we will inspect for deps.
+        projecthome:
+            - The root directory of where the blci project is.
         """
+
         assert isinstance(fileext, list), "Accepted file extensions must be a "
         "list"
         self.fileext = fileext
@@ -86,7 +93,12 @@ class DependParser(object):
 
     def readcode(self, code_loc):
         """
-        @param path: The dir in which the code resides
+        Given a list of files in any supported languge, parse through each one.
+
+        **Positional Arguments:**
+
+        code_loc:
+            - The dir in which the code resides
         """
 
         assert isinstance(code_loc, list), "Code locations must be a list"
@@ -107,8 +119,13 @@ class DependParser(object):
     def __put_dep__(self, mod, importer):
         """
         Add a dependency to the dep file.
-        @param mod: is the file that is being imported/included
-        @param importer: the file that includes/imports `mod`
+
+        **Positional Arguments:**
+
+        mod:
+            - is the file that is being imported/included
+        importer:
+            - the file that includes/imports `mod`
         """
         mod = localize(self.projecthome, mod)
         importer = localize(self.projecthome, importer)
@@ -120,7 +137,16 @@ class DependParser(object):
 
     def __build_map__(self, fn, modlines):
         """
-        Determine if import is local, if it is: add it as depenedency
+        Determine if import is local, if it is: add it to the depenedency
+        struct. This method calls the appropriate method for the language based
+        on the file extension.
+
+        **Positional Arguments:**
+
+        fn:
+            - The file name to be added to the dependency struct
+        modlines:
+            - The lines containing "import" module statements
         """
         if get_ext(fn).startswith(".py"):
             self.__python_build_map__(fn, modlines)
@@ -134,7 +160,15 @@ class DependParser(object):
         1. import module[.nested-module]
         2. from module[.nested-module].script import function
         3. from module[.nested-module] import script
+
+        **Positional Arguments:**
+
+        fn:
+            - The file name to be added to the dependency struct
+        modlines:
+            - The lines containing "import" module statements
         """
+
         base_dir = dirname(fn)
         files = ls_r(base_dir, self.fileext)
 
@@ -156,6 +190,15 @@ class DependParser(object):
             self.__put_dep__(mod, fn)
 
     def __json_build_map__(self, fn):
+        """
+        Build the dependency struct from a file in json format
+
+        ** Positional Arguments **
+
+        fn:
+            - The file path on disk
+        """
+
         with open(fn, "rb") as f:
             if len(self.__map__) == 0:
                 self.__map__ = json.load(f)
@@ -185,9 +228,13 @@ class DependParser(object):
 
     def read(self, fn):
         """
-        @brief: Generic code reader to extract deps from a file. NOTE: The
+        Generic code reader to extract deps from a file. NOTE: The
             file extension is very important as it determines A LOT!
-        @param fn: The filename to be read
+
+        ** Positional Arguments **
+
+        fn:
+            - The filename to be read
         """
         ext = get_ext(fn)
         if ext not in supported_fileexts:
@@ -231,8 +278,14 @@ class DependParser(object):
 
     def write(self, outfn=""):
         """
-        @param outfn: The path/name of dep fileext
+        Write dependency struct to disk
+
+        ** Positional Arguments **
+
+        outfn:
+            - The path/name of dep fileext
         """
+
         print "Writing dependency file '{}' ..".format(outfn)
         with open(outfn, "wb") as f:
             json.dump(self.__map__, f)

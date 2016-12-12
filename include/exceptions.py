@@ -20,7 +20,8 @@
 
 # Hold blci custom exceptions
 
-from common import err
+def err(err):
+    return "\x1B[31mERROR: {}\x1B[0m".format(err)
 
 class FormatException(Exception):
     def __init__(self, msg):

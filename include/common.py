@@ -21,10 +21,7 @@
 
 import os
 import fnmatch
-import exceptions
-
-def err(err):
-    return "\x1B[31mERROR: {}\x1B[0m".format(err)
+from exceptions import FileNotFoundException
 
 def ls_r(path, fileext):
     matches = []
@@ -65,6 +62,6 @@ def read_yml(fn):
     with open(fn, "rb") as f:
         try:
             return yaml.load(f)
-        except yaml.YAMLError as err:
-            sys.stderr.write("Config load ERROR:" + err + "\n")
+        except yaml.YAMLError as _err:
+            sys.stderr.write("Config load ERROR:" + _err + "\n")
             exit(911)
