@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>include package &mdash; BrainLab-CI 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="BrainLab-CI 0.0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BrainLab-CI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <!-- Local TOC -->
+                <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">include package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-include.bl_exceptions">include.bl_exceptions module</a></li>
+<li><a class="reference internal" href="#module-include.common">include.common module</a></li>
+<li><a class="reference internal" href="#module-include.config">include.config module</a></li>
+<li><a class="reference internal" href="#module-include.dependencies">include.dependencies module</a></li>
+<li><a class="reference internal" href="#module-include.format">include.format module</a></li>
+<li><a class="reference internal" href="#module-include.ingest">include.ingest module</a></li>
+<li><a class="reference internal" href="#module-include.init">include.init module</a></li>
+<li><a class="reference internal" href="#module-include.log">include.log module</a></li>
+<li><a class="reference internal" href="#module-include.settings">include.settings module</a></li>
+<li><a class="reference internal" href="#module-include.verify_action">include.verify_action module</a></li>
+<li><a class="reference internal" href="#module-include">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">BrainLab-CI</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>include package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/include.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="include-package">
+<h1>include package<a class="headerlink" href="#include-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-include.bl_exceptions">
+<span id="include-bl-exceptions-module"></span><h2>include.bl_exceptions module<a class="headerlink" href="#module-include.bl_exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="include.bl_exceptions.FileNotFoundException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">FileNotFoundException</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#FileNotFoundException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.FileNotFoundException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.IOError</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="include.bl_exceptions.FormatException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">FormatException</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#FormatException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.FormatException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="include.bl_exceptions.ParameterException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">ParameterException</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#ParameterException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.ParameterException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="include.bl_exceptions.ParsingException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">ParsingException</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#ParsingException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.ParsingException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="include.bl_exceptions.UnknownFileException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">UnknownFileException</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#UnknownFileException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.UnknownFileException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="include.bl_exceptions.UnsupportedFileException">
+<em class="property">exception </em><code class="descclassname">include.bl_exceptions.</code><code class="descname">UnsupportedFileException</code><span class="sig-paren">(</span><em>_type</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#UnsupportedFileException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.UnsupportedFileException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#include.bl_exceptions.UnknownFileException" title="include.bl_exceptions.UnknownFileException"><code class="xref py py-class docutils literal"><span class="pre">include.bl_exceptions.UnknownFileException</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.bl_exceptions.err">
+<code class="descclassname">include.bl_exceptions.</code><code class="descname">err</code><span class="sig-paren">(</span><em>err</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.err" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-include.common">
+<span id="include-common-module"></span><h2>include.common module<a class="headerlink" href="#module-include.common" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.common.get_ext">
+<code class="descclassname">include.common.</code><code class="descname">get_ext</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#get_ext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.get_ext" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="include.common.is_git_branch">
+<code class="descclassname">include.common.</code><code class="descname">is_git_branch</code><span class="sig-paren">(</span><em>branchname</em>, <em>_dir='./'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#is_git_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.is_git_branch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="include.common.localize">
+<code class="descclassname">include.common.</code><code class="descname">localize</code><span class="sig-paren">(</span><em>base</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#localize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.localize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a localized path with respect to a base path</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.common.ls_r">
+<code class="descclassname">include.common.</code><code class="descname">ls_r</code><span class="sig-paren">(</span><em>path</em>, <em>fileext</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#ls_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.ls_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="include.common.read_yml">
+<code class="descclassname">include.common.</code><code class="descname">read_yml</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#read_yml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.read_yml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="include.common.write_yml">
+<code class="descclassname">include.common.</code><code class="descname">write_yml</code><span class="sig-paren">(</span><em>yamldict</em>, <em>fn</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#write_yml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.write_yml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-include.config">
+<span id="include-config-module"></span><h2>include.config module<a class="headerlink" href="#module-include.config" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="include.config.config">
+<em class="property">class </em><code class="descclassname">include.config.</code><code class="descname">config</code><span class="sig-paren">(</span><em>fn=''</em>, <em>projecthome=''</em>, <em>silent_fail=False</em>, <em>add_defaults=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="include.config.config.add_data_loc_path">
+<code class="descname">add_data_loc_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_data_loc_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_data_loc_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.add_defaults">
+<code class="descname">add_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.bashRE_2_pyRE">
+<code class="descname">bashRE_2_pyRE</code><span class="sig-paren">(</span><em>regex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.bashRE_2_pyRE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.bashRE_2_pyRE" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO: Very rudimentary</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.build_data_dep_stub">
+<code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>projecthome</em>, <em>data_loc=[]</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a stub of a config or add data dependencies to an existing
+config given one or more directories containing data</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>setting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.getall">
+<code class="descname">getall</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.getall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.getall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.has_setting">
+<code class="descname">has_setting</code><span class="sig-paren">(</span><em>setting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.has_setting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.has_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.isignored">
+<code class="descname">isignored</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isignored"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isignored" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.isvalid">
+<code class="descname">isvalid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.isvalid_data">
+<code class="descname">isvalid_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Does the config contain data_dep for the</dt>
+<dd>files stated in data_loc?</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.read_config">
+<code class="descname">read_config</code><span class="sig-paren">(</span><em>fn</em>, <em>silent_fail=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.read_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.track_datafile">
+<code class="descname">track_datafile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.track_datafile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.track_datafile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.unique_fn">
+<code class="descname">unique_fn</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.unique_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.unique_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.config.config.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.dependencies">
+<span id="include-dependencies-module"></span><h2>include.dependencies module<a class="headerlink" href="#module-include.dependencies" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="include.dependencies.DependParser">
+<em class="property">class </em><code class="descclassname">include.dependencies.</code><code class="descname">DependParser</code><span class="sig-paren">(</span><em>fileext</em>, <em>projecthome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/dependencies.html#DependParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.dependencies.DependParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="include.dependencies.DependParser.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/dependencies.html#DependParser.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.dependencies.DependParser.read" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Generic code reader to extract deps from a file. NOTE: The</dt>
+<dd>file extension is very important as it determines A LOT!</dd>
+</dl>
+<p>** Positional Arguments **</p>
+<dl class="docutils">
+<dt>fn:</dt>
+<dd><ul class="first last simple">
+<li>The filename to be read</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="include.dependencies.DependParser.read_deps">
+<code class="descname">read_deps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/dependencies.html#DependParser.read_deps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.dependencies.DependParser.read_deps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="include.dependencies.DependParser.readcode">
+<code class="descname">readcode</code><span class="sig-paren">(</span><em>code_loc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/dependencies.html#DependParser.readcode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.dependencies.DependParser.readcode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of files in any supported languge, parse through each one.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>code_loc:</dt>
+<dd><ul class="first last simple">
+<li>The dir in which the code resides</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="include.dependencies.DependParser.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>outfn=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/dependencies.html#DependParser.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.dependencies.DependParser.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write dependency struct to disk</p>
+<p>** Positional Arguments **</p>
+<dl class="docutils">
+<dt>outfn:</dt>
+<dd><ul class="first last simple">
+<li>The path/name of dep fileext</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.format">
+<span id="include-format-module"></span><h2>include.format module<a class="headerlink" href="#module-include.format" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.format.check_project_format">
+<code class="descclassname">include.format.</code><code class="descname">check_project_format</code><span class="sig-paren">(</span><em>_dir</em>, <em>dep_outfn</em>, <em>codedir</em>, <em>datadir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/format.html#check_project_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.format.check_project_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-include.ingest">
+<span id="include-ingest-module"></span><h2>include.ingest module<a class="headerlink" href="#module-include.ingest" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.ingest.ingest">
+<code class="descclassname">include.ingest.</code><code class="descname">ingest</code><span class="sig-paren">(</span><em>projecthome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/ingest.html#ingest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.ingest.ingest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new project as a blci repo</p>
+<p><strong>Positional Arguments:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The root directory of where the blci project is.</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.ingest.morph_base_CI">
+<code class="descclassname">include.ingest.</code><code class="descname">morph_base_CI</code><span class="sig-paren">(</span><em>blci_conf</em>, <em>base_ci_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/ingest.html#morph_base_CI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.ingest.morph_base_CI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a user defined project blci configuration file and the CI
+configuration file in the root of blci, create a new a config that encodes
+the following:
+- User defined tests
+- Triggers for code and data dependencies for any code or data change that
+will occur from an <cite>update</cite> action</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>blci_conf:</dt>
+<dd><ul class="first last simple">
+<li>User defined blci configuration file</li>
+<li>Base CI configuration file defined by blci</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.init">
+<span id="include-init-module"></span><h2>include.init module<a class="headerlink" href="#module-include.init" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.init.init">
+<code class="descclassname">include.init.</code><code class="descname">init</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=False</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/init.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.init.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#64;param projecthome: the root dir of the project
+&#64;param: bare means ignore the current config and write a new one</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.log">
+<span id="include-log-module"></span><h2>include.log module<a class="headerlink" href="#module-include.log" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-include.settings">
+<span id="include-settings-module"></span><h2>include.settings module<a class="headerlink" href="#module-include.settings" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-include.verify_action">
+<span id="include-verify-action-module"></span><h2>include.verify_action module<a class="headerlink" href="#module-include.verify_action" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.verify_action.main">
+<code class="descclassname">include.verify_action.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/verify_action.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.verify_action.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-include">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-include" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Disa Mhembere.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
