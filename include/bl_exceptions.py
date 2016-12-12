@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-# exceptions.py
+# bl_exceptions.py
 # Created by Disa Mhembere on 2016-10-25.
 # Email: disa@jhu.edu
 

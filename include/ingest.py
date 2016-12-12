@@ -21,7 +21,7 @@
 
 import sys
 from settings import *
-import exceptions
+from bl_exceptions import ParameterException
 from git import Repo
 
 DEFAULT_INGEST_MESSAGE = "Initial project {} ingest"
@@ -56,7 +56,7 @@ def ingest(projecthome):
     conf = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN),
             silent_fail=False)
     if is_git_branch(conf.get(BL_NAME)):
-        raise exceptions.ParameterException("Repo {} is already tracked "
+        raise ParameterException("Repo {} is already tracked "
                 "by blci in branch {}".format(projecthome, conf.get(BL_NAME)))
 
     repo = Repo(projecthome)

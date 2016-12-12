@@ -21,7 +21,7 @@
 
 import os
 import fnmatch
-from exceptions import FileNotFoundException
+from bl_exceptions import FileNotFoundException
 
 def ls_r(path, fileext):
     matches = []

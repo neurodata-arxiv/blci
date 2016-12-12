@@ -20,7 +20,7 @@
 # Email: disa@jhu.edu
 
 import os
-from exceptions import FormatException
+from bl_exceptions import FormatException
 
 def check_project_format(_dir, dep_outfn, codedir, datadir):
     if os.path.isfile(dep_outfn):

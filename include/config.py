@@ -22,7 +22,7 @@
 import argparse
 import sys
 import yaml
-import exceptions
+from bl_exceptions import *
 from glob import glob
 import re
 import os
@@ -62,7 +62,7 @@ class config():
 
         if not self.has_setting(BL_READ):
             if self.get(BL_LANGUAGE) not in BL_READ_DEFAULTS.keys():
-                raise exceptions.UnsupportedFileException("{}".format(
+                raise UnsupportedFileException("{}".format(
                     self.get(BL_LANGUAGE)))
 
             self._conf[BL_READ] = BL_READ_DEFAULTS[self.get(BL_LANGUAGE)]
@@ -72,7 +72,7 @@ class config():
             try:
                 self._conf = yaml.load(f)
             except yaml.YAMLError as err:
-                raise exceptions.FileNotFoundException(
+                raise FileNotFoundException(
                         "Config load ERROR:" + err)
 
         one_failed = False
@@ -80,7 +80,7 @@ class config():
             if setting not in BL_SETTINGS:
                 one_failed = True
                 if not silent_fail:
-                    raise exceptions.ParameterException(
+                    raise ParameterException(
                         "Unknown setting '{}' in file '{}'".format(setting, fn))
 
         if one_failed:
@@ -149,7 +149,7 @@ class config():
     def unique_fn(self, path):
         # Create a unique fn using the path but don't overwrite if exists
         if os.path.isdir(path):
-            raise exceptions.ParameterException("Path '{}' must be a file, not "
+            raise ParameterException("Path '{}' must be a file, not "
                     "a directory ...".format(path))
         count = 1
         while (os.path.exists(path)):
@@ -201,7 +201,7 @@ class config():
                 data_loc_not_found = True
 
         if data_loc_not_found:
-            raise exceptions.ParameterException("Specify param "
+            raise ParameterException("Specify param "
                     "'{}' in config or pass '{}'argument".format(
                         BL_DATA_LOCATION, BL_DATA_LOCATION))
 

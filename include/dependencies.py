@@ -26,7 +26,7 @@ import json
 from common import ls_r
 from common import get_ext
 from common import localize
-import exceptions
+from bl_exceptions import *
 from os.path import dirname
 from settings import *
 
@@ -109,7 +109,7 @@ class DependParser(object):
 
         for ext in self.fileext:
             if ext not in supported_fileexts:
-                raise exceptions.UnsupportedFileException(ext)
+                raise UnsupportedFileException(ext)
 
         # TODO: ||ize
         for fn in files:
@@ -179,7 +179,7 @@ class DependParser(object):
             if not (os.path.isfile(mod)) and line.startswith("from"):
                 # 3.
                 if len(split_line) != 4:
-                    raise exceptions.ParsingException("Cannot part 'from' "
+                    raise ParsingException("Cannot part 'from' "
                             "import: {} in {}. Please conform to PEP8 import "
                             "conventions".format(line, fn))
 
