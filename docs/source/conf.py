@@ -37,6 +37,11 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
+from recommonmark.parser import CommonMarkParser
+source_parsers = {
+        '.md': CommonMarkParser,
+        }
+
 source_suffix = ['.rst', '.md']
 
 # The master toctree document.
@@ -44,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'BrainLab-CI'
-copyright = u'2016, Disa Mhembere'
+copyright = u'2016, NeuroData'
 author = u'Disa Mhembere'
 
 # The version info for the project you're documenting, acts as replacement for

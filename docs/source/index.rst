@@ -3,16 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to BrainLab-CI's documentation!
-=======================================
+BrainLab-CI
+===========
+
+Welcome to BrainLab-CI (BLCI)! BLCI is an continuous integration environment
+for collaborative, community experiments with data-quality controls and
+full provenance.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    overview
+    install
+    quickstart
+    example
 
 
-
-Indices and tables
+Code Documentation
 ==================
 
 * :ref:`genindex`
