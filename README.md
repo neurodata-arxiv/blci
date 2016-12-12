@@ -3,13 +3,13 @@
 An continuous integration environment for collaborative, community experiments
 with data-quality controls and full provenance.
 
-## What is it?
-The BrainLab CI **prototype** is an experimental-management
-infrastructure that allows users to construct community-wide experiments that
-implement data and metadata controls on the inclusion and exclusion of data.
+## Website
+Our website [http://neurodata.io/blci](http://neurodata.io/blci)
+contains an detailed overview, installation instructions,
+examples and more!
 
-# How to install
-git clone .... **TODO**
+## Found a bug?
+Please report all bugs via the github issues forum found
+[here](https://github.com/neurodata/blci/issues/new).
 
-# How to use
-**TODO**
+Not a Github user? (Join in)[https://github.com/join] -- it's free and easy!
