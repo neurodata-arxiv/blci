@@ -12,4 +12,4 @@ examples and more!
 Please report all bugs via the github issues forum found
 [here](https://github.com/neurodata/blci/issues/new).
 
-Not a Github user? (Join in)[https://github.com/join] -- it's free and easy!
+Not a Github user? [Join in](https://github.com/join) -- it's free and easy!
