@@ -22,7 +22,7 @@
 import argparse
 from include.ingest import ingest
 from include.init import init
-from include.exceptions import ParameterException
+from include.bl_exceptions import ParameterException
 
 def main():
     parser = argparse.ArgumentParser(description="The BLCI CLI. Pass "
