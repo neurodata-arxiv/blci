@@ -12,10 +12,11 @@ full provenance.
 
 .. toctree::
     overview
-    install
     quickstart
-    example
-
+    install
+    interface
+    config
+    actions
 
 Code Documentation
 ==================

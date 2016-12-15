@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; BrainLab-CI 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="BrainLab-CI 0.0.1 documentation" href="index.html"/>
+        <link rel="next" title="Installation" href="install.html"/>
+        <link rel="prev" title="Overview" href="overview.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BrainLab-CI
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mac-quick-install-requires-brew">Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quick-install-for-linux">Quick install for Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#blci-use">BLCI Use</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-blci-yml-config-file">Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-pipeline-repo-a-valid-blci-repo">Make pipeline/repo a valid BLCI repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#push-blci-repo">Push BLCI repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#update-blci-repo">Update BLCI repo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">BrainLab-CI</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Quickstart</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/quickstart.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<span id="quickstart"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>We define how to get up and running for a machine with a reasonably up to date
+operating system. <strong>NOTE:</strong> You may need to run the commands listed here with
+higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
+<div class="section" id="install-dependencies">
+<span id="install-dependencies"></span><h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>We require <a class="reference external" href="https://www.python.org/downloads/release/python-2712/">Python 2.7</a>, <a class="reference external" href="https://desktop.github.com/">Git</a>, and <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a>.</p>
+<div class="section" id="mac-quick-install-requires-brew">
+<span id="mac-quick-install-requires-brew"></span><h3>Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)<a class="headerlink" href="#mac-quick-install-requires-brew" title="Permalink to this headline">¶</a></h3>
+<p>If you do not have brew, first install it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
+</pre></div>
+</div>
+<p>, next install the dependencies:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
+<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
+<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
+</pre></div>
+</div>
+<p>, finally install BLCI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">neurodata</span><span class="o">/</span><span class="n">blci</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">blci</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="quick-install-for-linux">
+<span id="quick-install-for-linux"></span><h3>Quick install for Linux<a class="headerlink" href="#quick-install-for-linux" title="Permalink to this headline">¶</a></h3>
+<p>For most modern mainstream Linux environments it is sufficient to use the system provided package manager. For <a class="reference external" href="https://www.ubuntu.com/">Ubuntu</a> this is <code class="docutils literal"><span class="pre">apt-get</span></code>, for <a class="reference external" href="https://www.redhat.com/">RedHat</a> this is <code class="docutils literal"><span class="pre">yum</span></code>. We will use Ubuntu as our example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span>
+<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
+<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
+</pre></div>
+</div>
+<p>, finally install BLCI:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">neurodata</span><span class="o">/</span><span class="n">blci</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">blci</span>
+</pre></div>
+</div>
+<p>For comprehensive instructions on how to install if quickstart fails, please see our detailed <a class="reference external" href="install.html">installation page</a>.</p>
+</div>
+</div>
+<div class="section" id="blci-use">
+<span id="blci-use"></span><h2>BLCI Use<a class="headerlink" href="#blci-use" title="Permalink to this headline">¶</a></h2>
+<p>For more comprehensive documentation on the BLCI interface and commands, please refer to the <a class="reference external" href="interface.html">interface page</a>.</p>
+<div class="section" id="create-a-blci-yml-config-file">
+<span id="create-a-blci-yml-config-file"></span><h3>Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file<a class="headerlink" href="#create-a-blci-yml-config-file" title="Permalink to this headline">¶</a></h3>
+<p>For a complete explanation of configuration parameters and the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file refer to the <a class="reference external" href="config.html">config file page</a>.</p>
+<p><strong>TODO</strong>: put an example repo
+<strong>TODO</strong>: make a minimal working config</p>
+</div>
+<div class="section" id="make-pipeline-repo-a-valid-blci-repo">
+<span id="make-pipeline-repo-a-valid-blci-repo"></span><h3>Make pipeline/repo a valid BLCI repo<a class="headerlink" href="#make-pipeline-repo-a-valid-blci-repo" title="Permalink to this headline">¶</a></h3>
+<p><strong>TODO</strong>: add instructions</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TODO</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="push-blci-repo">
+<span id="push-blci-repo"></span><h3>Push BLCI repo<a class="headerlink" href="#push-blci-repo" title="Permalink to this headline">¶</a></h3>
+<p><strong>TODO</strong>: push instructions</p>
+</div>
+<div class="section" id="update-blci-repo">
+<span id="update-blci-repo"></span><h3>Update BLCI repo<a class="headerlink" href="#update-blci-repo" title="Permalink to this headline">¶</a></h3>
+<p><strong>TODO</strong>: update instructions</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, NeuroData.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
