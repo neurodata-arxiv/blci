@@ -20,10 +20,12 @@
 # Email: disa@jhu.edu
 
 # Constants
+""" Default file names we expect to exsit """
 BL_DEFAULT_DEPS_FN = "blci.deps"
 BL_DEFAULT_CONFIG_FN = "blci.yml"
 BASE_CI_CONFIG_FN = ".travis.yml"
 
+""" File types read by default by language """
 BL_READ_DEFAULTS = {
         "python": [".py", ".ipynb"],
         "julia": [".j", ".jl"],
@@ -49,13 +51,36 @@ BL_SCRIPT = "script"
 BL_PATH = "path"
 BL_ROOT = "blci_root" # Root with respect to users project
 
-# Define some defaults
-BL_DEFAULT_NTHREAD = "nthread"
+""" Language version defaults """
+BL_DEFAULT_LANG_VERSION = {
+        "python": 2.7,
+        "julia": 0.4,
+        "cpp": "c++11",
+        "c": "c11",
+        "r": 3,
+        "java": 7,
+        "mat" : 7
+        }
+
+""" Language version defaults """
+BL_DEFAULT_READ = {
+        "python": [".py", ".pyx"],
+        "julia": [".j"],
+        "cpp": [".c", ".cpp", ".cxx", ".h", "hpp"],
+        "c": [".c", ".h"],
+        "r": [".r"],
+        "java": [".java"],
+        "mat" : [".m"]
+        }
+
+""" Configuration default values """
+BL_DEFAULT_NTHREAD = 1
 BL_DEFAULT_VERSION = ""
-BL_DEFAULT_CODE_LOCATION = "code"
-BL_DEFAULT_DATA_LOCATION = "data"
-BL_DEFAULT_IGNORE = [".*"]
+BL_DEFAULT_CODE_LOCATION = ["code"]
+BL_DEFAULT_DATA_LOCATION = ["data"]
+BL_DEFAULT_IGNORE = [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]
 BL_DEFAULT_PATH = []
+BL_DEFAULT_DATA_DEP = {"read": {}, "write": {}}
 
 # These are all the settings/parameters blci supports
 BL_SETTINGS = {
@@ -80,7 +105,8 @@ BL_DEFAULTS = {
         BL_IGNORE : BL_DEFAULT_IGNORE,
         BL_CODE_LOCATION : BL_DEFAULT_CODE_LOCATION,
         BL_DATA_LOCATION : BL_DEFAULT_DATA_LOCATION,
-        BL_PATH : BL_DEFAULT_PATH
+        BL_PATH : BL_DEFAULT_PATH,
+        BL_DATA_DEP : BL_DEFAULT_DATA_DEP
         }
 
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
