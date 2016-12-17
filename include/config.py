@@ -50,7 +50,6 @@ class config():
             self.read_config(self.fn, silent_fail)
         else:
             self._conf = BL_DEFAULTS
-            self.valid = False
 
         if add_defaults:
             self.add_defaults()
@@ -58,7 +57,13 @@ class config():
     def add_defaults(self):
         for conf in BL_DEFAULTS:
             if not self.has_setting(conf) or not self.get(conf):
-                self._conf[conf] = BL_DEFAULTS[conf]
+                if conf == BL_VERSION:
+                    self._conf[conf] = \
+                        BL_DEFAULT_LANG_VERSION[self.get(BL_LANGUAGE)]
+                elif conf == BL_READ:
+                    self._conf[conf] = BL_DEFAULT_READ[self.get(BL_LANGUAGE)]
+                else:
+                    self._conf[conf] = BL_DEFAULTS[conf]
 
         if not self.has_setting(BL_READ):
             if self.get(BL_LANGUAGE) not in BL_READ_DEFAULTS.keys():
@@ -74,42 +79,10 @@ class config():
             except yaml.YAMLError as err:
                 raise FileNotFoundException(
                         "Config load ERROR:" + err)
-
-        one_failed = False
-        for setting in self._conf:
-            if setting not in BL_SETTINGS:
-                one_failed = True
-                if not silent_fail:
-                    raise ParameterException(
-                        "Unknown setting '{}' in file '{}'".format(setting, fn))
-
-        if one_failed:
-            self.valid = False
+        if silent_fail:
+            self.__check_valid__(level="WARN")
         else:
-            self.valid = True
-
-        if self.isvalid():
-            for setting in BL_REQUIRED:
-                if setting not in self._conf:
-                    self.valid = False
-                    return
-
-            # Now make sure they exist
-            for loc in self.get(BL_CODE_LOCATION):
-                if not os.path.exists(os.path.join(self.projecthome, loc)):
-                    self.valid = False
-                    return
-            for loc in self.get(BL_DATA_LOCATION):
-                if not os.path.exists(os.path.join(self.projecthome, loc)):
-                    self.valid = False
-                    return
-
-    def isvalid_data(self):
-        """
-        Does the config contain data_dep for the
-                files stated in data_loc?
-        """
-        pass # FIXME: Stub
+            self.__check_valid__(level="ERROR")
 
     def bashRE_2_pyRE(self, regex):
         """ TODO: Very rudimentary """
@@ -185,38 +158,101 @@ class config():
         if not self._conf[BL_DATA_DEP].has_key(BL_WRITE):
             self._conf[BL_DATA_DEP][BL_WRITE] = {}
 
-    def build_data_dep_stub(self, projecthome, data_loc=[], overwrite=True):
+    def build_data_dep_stub(self, projecthome, overwrite=True):
         """
         Build a stub of a config or add data dependencies to an existing
         config given one or more directories containing data
         """
         self.projecthome = projecthome
-        data_loc_not_found = False
-        if not data_loc and not self.fn:
-            data_loc_not_found = True
 
-        elif self.fn:
-            self.read_config(self.fn, silent_fail=True)
-            if not self.has_setting(BL_DATA_LOCATION):
-                data_loc_not_found = True
+        if not self:
+            print "Incomplete configuration file '{}' ==>\n{}".format(
+                    self.fn, self)
 
-        if data_loc_not_found:
-            raise ParameterException("Specify param "
-                    "'{}' in config or pass '{}'argument".format(
-                        BL_DATA_LOCATION, BL_DATA_LOCATION))
+        for path in self.get(BL_DATA_LOCATION):
+            if not os.path.exists(os.path.join(projecthome, path)):
+                raise FileNotFoundException("'data_loc' Directory "
+                        "'{}' does not exist!".format(path))
 
         self.__check_and_stub_dat_dep__()
 
-        for path in data_loc:
+        for path in self.get(BL_DATA_LOCATION):
             self.add_data_loc_path(path)
 
-        for _dir in data_loc:
+        for _dir in self.get(BL_DATA_LOCATION):
             for _file in glob(os.path.join(_dir,"*")):
                 if not self.isignored(_file):
                     self.track_datafile(_file)
 
+    def __check_valid__(self, level):
+        """
+        Determine whether the current config object is one that:
+            1. BLCI understands i.e., keys are valid
+            2. Has all the required settings keys for BLCI
+            3. Has file paths that actually exist
+        """
+        # 1. Make sure we understand all settings
+        for setting in self._conf:
+            if setting not in BL_SETTINGS:
+                msg = "Unknown setting '{}' in file '{}'".format(
+                        setting, self.fn)
+                if level == "ERROR":
+                    raise ParameterException(msg)
+                elif level == "WARN":
+                    warn(msg)
+                else:
+                    return False
+
+        # 2. Has reqd settings
+        for setting in BL_REQUIRED:
+            if not self.has_setting(setting):
+                msg = "Required setting '{}' missing from file '{}'".format(
+                        setting, self.fn)
+                if level == "ERROR":
+                    raise ParameterException(msg)
+                elif level == "WARN":
+                    warn(msg)
+                else:
+                    return False
+
+        # 3. Finally, check paths exist
+        projecthome = os.path.dirname(self.fn)
+        path_settings = [BL_CODE_LOCATION, BL_DATA_LOCATION, BL_PATH]
+
+        for setting in path_settings:
+            if self.has_setting(setting): # If not it will get a default val
+                for path in self.get(setting):
+                    if not os.path.exists(os.path.join(projecthome, path)):
+                        msg = "File '{}' missing".format(path)
+                        if level == "ERROR":
+                            raise FileNotFoundException(msg)
+                        elif level == "WARN":
+                            warn(msg)
+                        else:
+                            return False
+
+        # 3b) Check data dependencies
+        if self.has_setting(BL_DATA_DEP): # If not it will get a default val
+            for k,v in self.get(BL_DATA_DEP).iteritems():
+                for path in self.get(BL_DATA_DEP)[k]: # read or write
+                    if not os.path.exists(os.path.join(projecthome, path)):
+                        msg = "File '{}' missing".format(path)
+                        if level == "ERROR":
+                            raise FileNotFoundException(msg)
+                        elif level == "WARN":
+                            warn(msg)
+                        else:
+                            return False
+
+        return True
+
     def isvalid(self):
-        return self.valid
+        """
+        Return a bool for validity of the configuration file based on the
+        level=IGNORE argument to __check_valid__
+        """
+
+        return self.__check_valid__(level="IGNORE")
 
     def getall(self):
         return self._conf
@@ -241,3 +277,6 @@ class config():
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def __nonzero__(self):
+        return self.isvalid()

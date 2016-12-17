@@ -22,6 +22,7 @@
 from include.config import config, BL_DEFAULT_CONFIG_FN
 from dependencies import BL_DEFAULT_DEPS_FN
 from dependencies import DependParser
+from settings import *
 import os
 
 def init(projecthome, overwrite=False, bare=False):
@@ -33,15 +34,16 @@ def init(projecthome, overwrite=False, bare=False):
     if bare:
         c = config()
     else:
-        c = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN))
+        c = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN), projecthome)
 
     # Build code dependencies
     dp = DependParser(c.get("read"), projecthome)
     abs_code_loc = \
-            map(lambda x : os.path.join(projecthome, x), c.get("code_loc"))
+            map(lambda x : os.path.join(projecthome, x),
+                    c.get(BL_CODE_LOCATION))
     dp.readcode(abs_code_loc)
     dp.write(os.path.join(projecthome, BL_DEFAULT_DEPS_FN))
 
     # Build data dependencies
-    c.build_data_dep_stub(projecthome, c.get("data_loc"), overwrite)
+    c.build_data_dep_stub(projecthome, overwrite)
     c.write()

@@ -23,6 +23,9 @@
 def err(err):
     return "\x1B[31mERROR: {}\x1B[0m".format(err)
 
+def __warn__(err):
+    return "\x1B[33mWARNING: {}\x1B[0m".format(err)
+
 class FormatException(Exception):
     def __init__(self, msg):
         super(FormatException, self).__init__(err(msg))
@@ -47,3 +50,6 @@ class ParsingException(Exception):
 class FileNotFoundException(IOError):
     def __init__(self, msg):
         super(FileNotFoundException, self).__init__(err(msg))
+
+def warn(msg):
+    print __warn__(msg)
