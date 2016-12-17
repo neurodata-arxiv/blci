@@ -159,6 +159,7 @@
 <span class="kn">from</span> <span class="nn">include.config</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span>
 <span class="kn">from</span> <span class="nn">dependencies</span> <span class="k">import</span> <span class="n">BL_DEFAULT_DEPS_FN</span>
 <span class="kn">from</span> <span class="nn">dependencies</span> <span class="k">import</span> <span class="n">DependParser</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../include.html#include.init.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bare</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -170,18 +171,19 @@
     <span class="k">if</span> <span class="n">bare</span><span class="p">:</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">))</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span> <span class="n">projecthome</span><span class="p">)</span>
 
     <span class="c1"># Build code dependencies</span>
     <span class="n">dp</span> <span class="o">=</span> <span class="n">DependParser</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;read&quot;</span><span class="p">),</span> <span class="n">projecthome</span><span class="p">)</span>
     <span class="n">abs_code_loc</span> <span class="o">=</span> \
-            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;code_loc&quot;</span><span class="p">))</span>
+            <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span>
+                    <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CODE_LOCATION</span><span class="p">))</span>
     <span class="n">dp</span><span class="o">.</span><span class="n">readcode</span><span class="p">(</span><span class="n">abs_code_loc</span><span class="p">)</span>
     <span class="n">dp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_DEPS_FN</span><span class="p">))</span>
 
     <span class="c1"># Build data dependencies</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">build_data_dep_stub</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;data_loc&quot;</span><span class="p">),</span> <span class="n">overwrite</span><span class="p">)</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">write</span><span class="p">()</span></div>
+    <span class="n">c</span><span class="o">.</span><span class="n">build_data_dep_stub</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

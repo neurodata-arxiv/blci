@@ -199,8 +199,29 @@ higher user privilege such as root i.e., prefix commands with <code class="docut
 <div class="section" id="create-a-blci-yml-config-file">
 <span id="create-a-blci-yml-config-file"></span><h3>Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file<a class="headerlink" href="#create-a-blci-yml-config-file" title="Permalink to this headline">¶</a></h3>
 <p>For a complete explanation of configuration parameters and the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file refer to the <a class="reference external" href="config.html">config file page</a>.</p>
-<p><strong>TODO</strong>: put an example repo
-<strong>TODO</strong>: make a minimal working config</p>
+<p>Consider this simple example repository with the following hierarchy:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">blci</span>\
+<span class="n">myrepo</span>\
+    <span class="n">code</span>\
+        <span class="n">a</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">data</span>\
+        <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+        <span class="n">databy2</span><span class="o">.</span><span class="n">txt</span>
+    <span class="n">otherdata</span>\
+        <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>A minimal starting <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file is necessary as the <code class="docutils literal"><span class="pre">--init</span></code>
+call will flesh it out to include defaults and stubs as necessary. <strong>NOTE</strong> that all paths are relative to <code class="docutils literal"><span class="pre">myrepo</span></code> which blci refers to as <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="n">version</span><span class="p">:</span> <span class="mf">2.7</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">foobars</span>
+<span class="n">blci_root</span><span class="p">:</span> <span class="o">../</span><span class="n">blci</span>
+<span class="n">read</span><span class="p">:</span> <span class="o">*.</span><span class="n">py</span>
+<span class="n">script</span><span class="p">:</span> <span class="n">python</span> <span class="n">code</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">c</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span> <span class="mf">2.5</span> <span class="n">otherdata</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span> <span class="n">python</span>
+</pre></div>
+</div>
+<p><strong>TODO</strong>: make a minimal working config</p>
 </div>
 <div class="section" id="make-pipeline-repo-a-valid-blci-repo">
 <span id="make-pipeline-repo-a-valid-blci-repo"></span><h3>Make pipeline/repo a valid BLCI repo<a class="headerlink" href="#make-pipeline-repo-a-valid-blci-repo" title="Permalink to this headline">¶</a></h3>

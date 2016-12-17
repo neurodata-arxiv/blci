@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>include.ingest &mdash; BrainLab-CI 0.0.1 documentation</title>
+  <title>include.add &mdash; BrainLab-CI 0.0.1 documentation</title>
   
 
   
@@ -122,7 +122,7 @@
       
           <li><a href="../index.html">Module code</a> &raquo;</li>
       
-    <li>include.ingest</li>
+    <li>include.add</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -134,7 +134,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for include.ingest</h1><div class="highlight"><pre>
+  <h1>Source code for include.add</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
 <span class="c1"># Copyright 2016 neurodata (http://neurodata.io/)</span>
@@ -156,14 +156,13 @@
 <span class="c1"># Created by Disa Mhembere on 2016-11-25.</span>
 <span class="c1"># Email: disa@jhu.edu</span>
 
-<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bl_exceptions</span> <span class="k">import</span> <span class="n">ParameterException</span>
 <span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
+<span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">config</span>
 
-<span class="n">DEFAULT_INGEST_MESSAGE</span> <span class="o">=</span> <span class="s2">&quot;Initial project </span><span class="si">{}</span><span class="s2"> ingest&quot;</span>
-
-<div class="viewcode-block" id="morph_base_CI"><a class="viewcode-back" href="../../include.html#include.ingest.morph_base_CI">[docs]</a><span class="k">def</span> <span class="nf">morph_base_CI</span><span class="p">(</span><span class="n">blci_conf</span><span class="p">,</span> <span class="n">base_ci_conf</span><span class="p">):</span>
+<div class="viewcode-block" id="create_base_CI_conf"><a class="viewcode-back" href="../../include.html#include.add.create_base_CI_conf">[docs]</a><span class="k">def</span> <span class="nf">create_base_CI_conf</span><span class="p">(</span><span class="n">blci_conf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a user defined project blci configuration file and the CI</span>
 <span class="sd">    configuration file in the root of blci, create a new a config that encodes</span>
@@ -178,39 +177,55 @@
 <span class="sd">        - User defined blci configuration file</span>
 <span class="sd">        - Base CI configuration file defined by blci</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+
+
     <span class="k">return</span> <span class="p">{}</span> <span class="c1"># FIXME</span></div>
 
-<div class="viewcode-block" id="ingest"><a class="viewcode-back" href="../../include.html#include.ingest.ingest">[docs]</a><span class="k">def</span> <span class="nf">ingest</span><span class="p">(</span><span class="n">projecthome</span><span class="p">):</span>
+<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../include.html#include.add.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Add a new project as a blci repo</span>
+<span class="sd">    Add or update a blci repo</span>
 
 <span class="sd">    **Positional Arguments:**</span>
 
 <span class="sd">        projecthome:</span>
 <span class="sd">            - The root directory of where the blci project is.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">conf</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span>
             <span class="n">silent_fail</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">is_git_branch</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)):</span>
-        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Repo </span><span class="si">{}</span><span class="s2"> is already tracked &quot;</span>
-                <span class="s2">&quot;by blci in branch </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)))</span>
 
-    <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span>
+    <span class="n">new_repo</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># is this a new blci repo or not</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_git_repo</span><span class="p">(</span><span class="n">projecthome</span><span class="p">):</span>
+        <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">bare</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span>
+
     <span class="n">Git</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="n">work_tree</span><span class="o">=</span><span class="n">projecthome</span><span class="p">)</span>
 
-    <span class="n">Git</span><span class="o">.</span><span class="n">branch</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span> <span class="c1"># Create new branch with repo name</span>
+    <span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span><span class="p">()</span>
+
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_git_branch</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)):</span> <span class="c1"># Don&#39;t have a branch already ..</span>
+        <span class="n">Git</span><span class="o">.</span><span class="n">branch</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span> <span class="c1"># Create new branch with repo name</span>
+
+    <span class="c1"># Update and ingest should be the same process</span>
     <span class="n">Git</span><span class="o">.</span><span class="n">checkout</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span> <span class="c1"># Hop into that branch</span>
 
     <span class="c1"># Now from the new branch</span>
-    <span class="n">base_conf_fn</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_ROOT</span><span class="p">),</span> <span class="n">BASE_CI_CONFIG_FN</span><span class="p">)</span>
-    <span class="n">base_conf</span> <span class="o">=</span> <span class="n">morph_base_CI</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="n">base_conf_fn</span><span class="p">)</span>
 
-    <span class="n">write_yml</span><span class="p">(</span><span class="n">base_conf</span><span class="p">,</span> <span class="n">base_conf_fn</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># TODO: No need to rewrite everytime actually ..</span>
+    <span class="n">base_CI_conf</span> <span class="o">=</span> <span class="n">create_base_CI_conf</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+    <span class="n">write_yml</span><span class="p">(</span><span class="n">base_CI_conf</span><span class="p">,</span> <span class="n">BASE_CI_CONFIG_FN</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Add the config file</span>
     <span class="n">Git</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="c1"># Add all</span>
-    <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">DEFAULT_INGEST_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">message</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;BLCI: Initial commit!&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;BLCI: Generic commit message&quot;</span>
+
+    <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
     <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)))</span></div>
 </pre></div>
 

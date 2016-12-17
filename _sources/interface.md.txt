@@ -8,14 +8,14 @@ Let us start with our example pipeline we want to be BLCI repo. Consider the fol
 
 ```
 test-blci\
-	- code
-		- __init__.py
-		- a.py
-	- data
-		- data.txt
-		- databy2.txt
-	- otherdata
-		- data.txt
+	code\
+		__init__.py
+		a.py
+	data\
+		data.txt
+		databy2.txt
+	otherdata\
+		data.txt
 ```
 
 ## Initiate a repo
