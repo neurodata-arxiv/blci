@@ -49,7 +49,6 @@ BL_DATA_LOCATION = "data_loc"
 BL_DATA_DEP = "data_dep"
 BL_SCRIPT = "script"
 BL_PATH = "path"
-BL_ROOT = "blci_root" # Root with respect to users project
 
 """ Language version defaults """
 BL_DEFAULT_LANG_VERSION = {
@@ -95,7 +94,6 @@ BL_SETTINGS = {
         BL_DATA_DEP,
         BL_SCRIPT,
         BL_PATH,
-        BL_ROOT,
         }
 
 # These are the default parameters blci uses

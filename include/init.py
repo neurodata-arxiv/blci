@@ -46,4 +46,4 @@ def init(projecthome, overwrite=False, bare=False):
 
     # Build data dependencies
     c.build_data_dep_stub(projecthome, overwrite)
-    c.write()
+    c.write(overwrite=overwrite)

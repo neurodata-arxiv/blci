@@ -31,7 +31,7 @@ from common import localize
 from settings import *
 
 class config():
-    def __init__(self, fn="", projecthome="", silent_fail=False,
+    def __init__(self, fn, projecthome="", silent_fail=False,
             add_defaults=True):
         """
         The blci configuration reader, writer and init project stub creator
@@ -46,10 +46,11 @@ class config():
         self.fn = fn
         self.projecthome = projecthome
 
-        if self.fn:
+        if os.path.exists(self.fn):
             self.read_config(self.fn, silent_fail)
         else:
-            self._conf = BL_DEFAULTS
+            raise FileNotFoundException("Cannot find configuration file "
+                    "{}".format(self.fn))
 
         if add_defaults:
             self.add_defaults()
