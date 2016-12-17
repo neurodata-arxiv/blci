@@ -159,8 +159,21 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">fnmatch</span>
 <span class="kn">from</span> <span class="nn">bl_exceptions</span> <span class="k">import</span> <span class="n">FileNotFoundException</span>
+<span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
 
 <div class="viewcode-block" id="ls_r"><a class="viewcode-back" href="../../include.html#include.common.ls_r">[docs]</a><span class="k">def</span> <span class="nf">ls_r</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">fileext</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Works like a shells `ls -r` syscall, but searches with a given file</span>
+<span class="sd">    extensions (`fileext`) in mind</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    path:</span>
+<span class="sd">        - The base path from where we traverse the directory structure</span>
+<span class="sd">    fileext:</span>
+<span class="sd">        - The file extensionS we care about when we traverse</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">fileext</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirnames</span><span class="p">,</span> <span class="n">fns</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -169,23 +182,80 @@
     <span class="k">return</span> <span class="n">matches</span></div>
 
 <div class="viewcode-block" id="get_ext"><a class="viewcode-back" href="../../include.html#include.common.get_ext">[docs]</a><span class="k">def</span> <span class="nf">get_ext</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a path return the file extension.</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    path: The file whose path we assess</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="localize"><a class="viewcode-back" href="../../include.html#include.common.localize">[docs]</a><span class="k">def</span> <span class="nf">localize</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns a localized path with respect to a base path &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a localized path with respect to a base path. For instance if we</span>
+<span class="sd">    have base=/home/floki/ and path=/home/floki/ragnar/foo.txt, localize will</span>
+<span class="sd">    return ragnar/foo.txt</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    base: The base path from which we wish to localize a file path</span>
+<span class="sd">    path: The path that we aim to localize</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">base_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">base</span><span class="p">))</span>
     <span class="n">absolute_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">absolute_path</span><span class="p">[</span><span class="n">base_len</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span></div>
 
 <div class="viewcode-block" id="is_git_branch"><a class="viewcode-back" href="../../include.html#include.common.is_git_branch">[docs]</a><span class="k">def</span> <span class="nf">is_git_branch</span><span class="p">(</span><span class="n">branchname</span><span class="p">,</span> <span class="n">_dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">):</span>
-    <span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Does the the branch specified exist in the repo</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    branchname:</span>
+<span class="sd">        - The git branch you wish to evaluate existence of</span>
+
+<span class="sd">    **Optional Arguments:**</span>
+<span class="sd">        _dir:</span>
+<span class="sd">            - The dir that is a git repo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_git_repo</span><span class="p">(</span><span class="n">_dir</span><span class="p">):</span> <span class="k">return</span> <span class="kc">False</span>
+
     <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="n">_dir</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">refs</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">branchname</span> <span class="o">==</span> <span class="n">branch</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span></div>
 
+<div class="viewcode-block" id="is_git_repo"><a class="viewcode-back" href="../../include.html#include.common.is_git_repo">[docs]</a><span class="k">def</span> <span class="nf">is_git_repo</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rudimentary tests for if I have a git repo. Simply look for .git directory</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    path:</span>
+<span class="sd">        - The path that we are assessing</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">&quot;.git&quot;</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="s2">&quot;.git&quot;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="write_yml"><a class="viewcode-back" href="../../include.html#include.common.write_yml">[docs]</a><span class="k">def</span> <span class="nf">write_yml</span><span class="p">(</span><span class="n">yamldict</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write a YAML formatted file to disk.</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    yamldict:</span>
+<span class="sd">        - The python dictionary object we will write as YAML</span>
+<span class="sd">    fn:</span>
+<span class="sd">        - The file name we wish to use</span>
+<span class="sd">    verbose:</span>
+<span class="sd">        - Prints debug information if true</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">yamldict</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -193,6 +263,15 @@
         <span class="nb">print</span> <span class="s2">&quot;Write yml </span><span class="si">{}</span><span class="s2"> ..&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_yml"><a class="viewcode-back" href="../../include.html#include.common.read_yml">[docs]</a><span class="k">def</span> <span class="nf">read_yml</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read a YAML formatted file in a python dictionary</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    fn:</span>
+<span class="sd">        - The file path on disk</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{fn}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
 

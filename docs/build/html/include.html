@@ -84,8 +84,11 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
 </ul>
 
             
@@ -135,6 +138,45 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-include.add">
+<span id="include-add-module"></span><h2>include.add module<a class="headerlink" href="#module-include.add" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.add.add">
+<code class="descclassname">include.add.</code><code class="descname">add</code><span class="sig-paren">(</span><em>projecthome</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add or update a blci repo</p>
+<p><strong>Positional Arguments:</strong></p>
+<blockquote>
+<div><dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The root directory of where the blci project is.</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.add.create_base_CI_conf">
+<code class="descclassname">include.add.</code><code class="descname">create_base_CI_conf</code><span class="sig-paren">(</span><em>blci_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_base_CI_conf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_base_CI_conf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a user defined project blci configuration file and the CI
+configuration file in the root of blci, create a new a config that encodes
+the following:
+- User defined tests
+- Triggers for code and data dependencies for any code or data change that
+will occur from an <cite>update</cite> action</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>blci_conf:</dt>
+<dd><ul class="first last simple">
+<li>User defined blci configuration file</li>
+<li>Base CI configuration file defined by blci</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-include.bl_exceptions">
 <span id="include-bl-exceptions-module"></span><h2>include.bl_exceptions module<a class="headerlink" href="#module-include.bl_exceptions" title="Permalink to this headline">¶</a></h2>
 <dl class="exception">
@@ -178,46 +220,134 @@
 <code class="descclassname">include.bl_exceptions.</code><code class="descname">err</code><span class="sig-paren">(</span><em>err</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.err" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt id="include.bl_exceptions.warn">
+<code class="descclassname">include.bl_exceptions.</code><code class="descname">warn</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#warn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.warn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-include.common">
 <span id="include-common-module"></span><h2>include.common module<a class="headerlink" href="#module-include.common" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="include.common.get_ext">
 <code class="descclassname">include.common.</code><code class="descname">get_ext</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#get_ext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.get_ext" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Given a path return the file extension.</p>
+<p><strong>Positional Arguments:</strong></p>
+<p>path: The file whose path we assess</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="include.common.is_git_branch">
 <code class="descclassname">include.common.</code><code class="descname">is_git_branch</code><span class="sig-paren">(</span><em>branchname</em>, <em>_dir='./'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#is_git_branch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.is_git_branch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Does the the branch specified exist in the repo</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>branchname:</dt>
+<dd><ul class="first last simple">
+<li>The git branch you wish to evaluate existence of</li>
+</ul>
+</dd>
+<dt><strong>Optional Arguments:</strong></dt>
+<dd><dl class="first last docutils">
+<dt>_dir:</dt>
+<dd><ul class="first last simple">
+<li>The dir that is a git repo</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.common.is_git_repo">
+<code class="descclassname">include.common.</code><code class="descname">is_git_repo</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#is_git_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.is_git_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rudimentary tests for if I have a git repo. Simply look for .git directory</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path that we are assessing</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="include.common.localize">
 <code class="descclassname">include.common.</code><code class="descname">localize</code><span class="sig-paren">(</span><em>base</em>, <em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#localize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.localize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a localized path with respect to a base path</p>
+<dd><p>Returns a localized path with respect to a base path. For instance if we
+have base=/home/floki/ and path=/home/floki/ragnar/foo.txt, localize will
+return ragnar/foo.txt</p>
+<p><strong>Positional Arguments:</strong></p>
+<p>base: The base path from which we wish to localize a file path
+path: The path that we aim to localize</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="include.common.ls_r">
 <code class="descclassname">include.common.</code><code class="descname">ls_r</code><span class="sig-paren">(</span><em>path</em>, <em>fileext</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#ls_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.ls_r" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Works like a shells <cite>ls -r</cite> syscall, but searches with a given file
+extensions (<cite>fileext</cite>) in mind</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The base path from where we traverse the directory structure</li>
+</ul>
+</dd>
+<dt>fileext:</dt>
+<dd><ul class="first last simple">
+<li>The file extensionS we care about when we traverse</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="include.common.read_yml">
 <code class="descclassname">include.common.</code><code class="descname">read_yml</code><span class="sig-paren">(</span><em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#read_yml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.read_yml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Read a YAML formatted file in a python dictionary</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>fn:</dt>
+<dd><ul class="first last simple">
+<li>The file path on disk</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="include.common.write_yml">
 <code class="descclassname">include.common.</code><code class="descname">write_yml</code><span class="sig-paren">(</span><em>yamldict</em>, <em>fn</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#write_yml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.write_yml" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write a YAML formatted file to disk.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>yamldict:</dt>
+<dd><ul class="first last simple">
+<li>The python dictionary object we will write as YAML</li>
+</ul>
+</dd>
+<dt>fn:</dt>
+<dd><ul class="first last simple">
+<li>The file name we wish to use</li>
+</ul>
+</dd>
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Prints debug information if true</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-include.config">
 <span id="include-config-module"></span><h2>include.config module<a class="headerlink" href="#module-include.config" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="include.config.config">
-<em class="property">class </em><code class="descclassname">include.config.</code><code class="descname">config</code><span class="sig-paren">(</span><em>fn=''</em>, <em>projecthome=''</em>, <em>silent_fail=False</em>, <em>add_defaults=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">include.config.</code><code class="descname">config</code><span class="sig-paren">(</span><em>fn</em>, <em>projecthome=''</em>, <em>silent_fail=False</em>, <em>add_defaults=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="include.config.config.add_data_loc_path">
 <code class="descname">add_data_loc_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_data_loc_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_data_loc_path" title="Permalink to this definition">¶</a></dt>
@@ -236,7 +366,7 @@
 
 <dl class="method">
 <dt id="include.config.config.build_data_dep_stub">
-<code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>projecthome</em>, <em>data_loc=[]</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a stub of a config or add data dependencies to an existing
 config given one or more directories containing data</p>
 </dd></dl>
@@ -264,15 +394,8 @@ config given one or more directories containing data</p>
 <dl class="method">
 <dt id="include.config.config.isvalid">
 <code class="descname">isvalid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="include.config.config.isvalid_data">
-<code class="descname">isvalid_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid_data" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Does the config contain data_dep for the</dt>
-<dd>files stated in data_loc?</dd>
-</dl>
+<dd><p>Return a bool for validity of the configuration file based on the
+level=IGNORE argument to __check_valid__</p>
 </dd></dl>
 
 <dl class="method">
@@ -365,45 +488,6 @@ config given one or more directories containing data</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-include.ingest">
-<span id="include-ingest-module"></span><h2>include.ingest module<a class="headerlink" href="#module-include.ingest" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="include.ingest.ingest">
-<code class="descclassname">include.ingest.</code><code class="descname">ingest</code><span class="sig-paren">(</span><em>projecthome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/ingest.html#ingest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.ingest.ingest" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new project as a blci repo</p>
-<p><strong>Positional Arguments:</strong></p>
-<blockquote>
-<div><dl class="docutils">
-<dt>projecthome:</dt>
-<dd><ul class="first last simple">
-<li>The root directory of where the blci project is.</li>
-</ul>
-</dd>
-</dl>
-</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="include.ingest.morph_base_CI">
-<code class="descclassname">include.ingest.</code><code class="descname">morph_base_CI</code><span class="sig-paren">(</span><em>blci_conf</em>, <em>base_ci_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/ingest.html#morph_base_CI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.ingest.morph_base_CI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a user defined project blci configuration file and the CI
-configuration file in the root of blci, create a new a config that encodes
-the following:
-- User defined tests
-- Triggers for code and data dependencies for any code or data change that
-will occur from an <cite>update</cite> action</p>
-<p><strong>Positional Arguments:</strong></p>
-<dl class="docutils">
-<dt>blci_conf:</dt>
-<dd><ul class="first last simple">
-<li>User defined blci configuration file</li>
-<li>Base CI configuration file defined by blci</li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 <div class="section" id="module-include.init">
 <span id="include-init-module"></span><h2>include.init module<a class="headerlink" href="#module-include.init" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -419,6 +503,34 @@ will occur from an <cite>update</cite> action</p>
 </div>
 <div class="section" id="module-include.settings">
 <span id="include-settings-module"></span><h2>include.settings module<a class="headerlink" href="#module-include.settings" title="Permalink to this headline">¶</a></h2>
+<p>Default file names we expect to exsit</p>
+<dl class="data">
+<dt id="include.settings.BASE_CI_CONFIG_FN">
+<code class="descclassname">include.settings.</code><code class="descname">BASE_CI_CONFIG_FN</code><em class="property"> = '.travis.yml'</em><a class="headerlink" href="#include.settings.BASE_CI_CONFIG_FN" title="Permalink to this definition">¶</a></dt>
+<dd><p>File types read by default by language</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="include.settings.BL_DEFAULT_LANG_VERSION">
+<code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_LANG_VERSION</code><em class="property"> = {'c': 'c11', 'java': 7, 'mat': 7, 'python': 2.7, 'julia': 0.4, 'r': 3, 'cpp': 'c++11'}</em><a class="headerlink" href="#include.settings.BL_DEFAULT_LANG_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language version defaults</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="include.settings.BL_DEFAULT_READ">
+<code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_READ</code><em class="property"> = {'c': ['.c', '.h'], 'java': ['.java'], 'mat': ['.m'], 'python': ['.py', '.pyx'], 'julia': ['.j'], 'r': ['.r'], 'cpp': ['.c', '.cpp', '.cxx', '.h', 'hpp']}</em><a class="headerlink" href="#include.settings.BL_DEFAULT_READ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration default values</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="include.settings.BL_PATH">
+<code class="descclassname">include.settings.</code><code class="descname">BL_PATH</code><em class="property"> = 'path'</em><a class="headerlink" href="#include.settings.BL_PATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Language version defaults</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.undo">
+<span id="include-undo-module"></span><h2>include.undo module<a class="headerlink" href="#module-include.undo" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-include.verify_action">
 <span id="include-verify-action-module"></span><h2>include.verify_action module<a class="headerlink" href="#module-include.verify_action" title="Permalink to this headline">¶</a></h2>

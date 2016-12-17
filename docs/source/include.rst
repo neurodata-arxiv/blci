@@ -4,6 +4,14 @@ include package
 Submodules
 ----------
 
+include.add module
+------------------
+
+.. automodule:: include.add
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 include.bl_exceptions module
 ----------------------------
 
@@ -44,14 +52,6 @@ include.format module
     :undoc-members:
     :show-inheritance:
 
-include.ingest module
----------------------
-
-.. automodule:: include.ingest
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 include.init module
 -------------------
 
@@ -72,6 +72,14 @@ include.settings module
 -----------------------
 
 .. automodule:: include.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+include.undo module
+-------------------
+
+.. automodule:: include.undo
     :members:
     :undoc-members:
     :show-inheritance:

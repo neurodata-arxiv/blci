@@ -160,6 +160,9 @@
 <div class="viewcode-block" id="err"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.err">[docs]</a><span class="k">def</span> <span class="nf">err</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\x1B</span><span class="s2">[31mERROR: </span><span class="si">{}</span><span class="se">\x1B</span><span class="s2">[0m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
 
+<span class="k">def</span> <span class="nf">__warn__</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\x1B</span><span class="s2">[33mWARNING: </span><span class="si">{}</span><span class="se">\x1B</span><span class="s2">[0m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
 <div class="viewcode-block" id="FormatException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.FormatException">[docs]</a><span class="k">class</span> <span class="nc">FormatException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FormatException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
@@ -184,6 +187,9 @@
 <div class="viewcode-block" id="FileNotFoundException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.FileNotFoundException">[docs]</a><span class="k">class</span> <span class="nc">FileNotFoundException</span><span class="p">(</span><span class="ne">IOError</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FileNotFoundException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="warn"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.warn">[docs]</a><span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span> <span class="n">__warn__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

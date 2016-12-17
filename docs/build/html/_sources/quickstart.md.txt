@@ -55,7 +55,32 @@ For more comprehensive documentation on the BLCI interface and commands, please 
 
 For a complete explanation of configuration parameters and the `blci.yml` configuration file refer to the [config file page](config.html).
 
-**TODO**: put an example repo
+Consider this simple example repository with the following hierarchy:
+
+```
+blci\
+myrepo\
+	code\
+		a.py
+	data\
+		data.txt
+		databy2.txt
+	otherdata\
+		data.txt
+```
+
+A minimal starting `blci.yml` configuration file is necessary as the `--init`
+call will flesh it out to include defaults and stubs as necessary. **NOTE** that all paths are relative to `myrepo` which blci refers to as `$PROJECT_HOME`:
+
+```
+language: python
+version: 2.7
+name: foobars
+blci_root: ../blci
+read: *.py
+script: python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt python
+```
+
 **TODO**: make a minimal working config
 
 ### Make pipeline/repo a valid BLCI repo
