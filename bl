@@ -20,21 +20,33 @@
 # Email: disa@jhu.edu
 
 import argparse
-from include.ingest import ingest
+from include.add import add
 from include.init import init
 from include.bl_exceptions import ParameterException
+import sys
+
+# Turn off stack trace when running live
+# import sys
+# sys.tracebacklimit = 0
+
+class Parser(argparse.ArgumentParser):
+    def error(self, message):
+        self.print_help()
+        sys.exit(2)
 
 def main():
-    parser = argparse.ArgumentParser(description="The BLCI CLI. Pass "
+    parser = Parser(description="The BLCI CLI. Pass "
             "-h for help")
     parser.add_argument("projecthome", action="store", help="The root "
             "folder of the project")
     parser.add_argument("-i", "--init", action="store_true", help="Intiate "
             "a project with dependency and BLCI configuration file.")
-    parser.add_argument("-I", "--ingest", action="store_true", help="Ingest "
-            "(non-existing) module")
-    parser.add_argument("-u", "--update", action="store_true", help="Update "
-            "existing module")
+    parser.add_argument("-a", "--add", action="store_true", help="Add or update"
+            " AND commit a blci repo. Pass -m flag for personalized message")
+    parser.add_argument("-u", "--undo", action="store_true", help="Undo "
+            "the very last --add action")
+    parser.add_argument("-m", "--message", action="store", default="",
+            help="A(n) --add message")
     parser.add_argument("-o", "--overwrite", action="store_true", help=
             "Overwrite the config when performing actions? This will not remove"
             " old settings, but instead append & merge.")
@@ -44,8 +56,8 @@ def main():
 
     if args.init:
         init(args.projecthome, args.overwrite, args.bare)
-    elif args.ingest:
-        ingest(args.projecthome)
+    elif args.add:
+        add(args.projecthome, args.message)
     else:
         raise NotImplementedError("Other methods incomplete!")
 
