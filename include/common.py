@@ -22,8 +22,21 @@
 import os
 import fnmatch
 from bl_exceptions import FileNotFoundException
+from git import Repo
 
 def ls_r(path, fileext):
+    """
+    Works like a shells `ls -r` syscall, but searches with a given file
+    extensions (`fileext`) in mind
+
+    **Positional Arguments:**
+
+    path:
+        - The base path from where we traverse the directory structure
+    fileext:
+        - The file extensionS we care about when we traverse
+    """
+
     matches = []
     for ext in fileext:
         for root, dirnames, fns in os.walk(path):
@@ -32,23 +45,80 @@ def ls_r(path, fileext):
     return matches
 
 def get_ext(path):
+    """
+    Given a path return the file extension.
+
+    **Positional Arguments:**
+
+    path: The file whose path we assess
+    """
     return os.path.splitext(path)[1]
 
 def localize(base, path):
-    """ Returns a localized path with respect to a base path """
+    """
+    Returns a localized path with respect to a base path. For instance if we
+    have base=/home/floki/ and path=/home/floki/ragnar/foo.txt, localize will
+    return ragnar/foo.txt
+
+    **Positional Arguments:**
+
+    base: The base path from which we wish to localize a file path
+    path: The path that we aim to localize
+    """
+
     base_len = len(os.path.abspath(base))
     absolute_path = os.path.abspath(path)
     return absolute_path[base_len+1:]
 
 def is_git_branch(branchname, _dir="./"):
-    from git import Repo
+    """
+    Does the the branch specified exist in the repo
+
+    **Positional Arguments:**
+
+    branchname:
+        - The git branch you wish to evaluate existence of
+
+    **Optional Arguments:**
+        _dir:
+            - The dir that is a git repo
+    """
+
+    if not is_git_repo(_dir): return False
+
     repo = Repo(_dir)
     for branch in repo.refs:
         if branchname == branch.name:
             return True
     return False
 
+def is_git_repo(path):
+    """
+    Rudimentary tests for if I have a git repo. Simply look for .git directory
+
+    **Positional Arguments:**
+
+    path:
+        - The path that we are assessing
+    """
+
+    return os.path.exists(os.path.join(path, ".git")) and \
+            os.path.isdir(os.path.join(path, ".git"))
+
 def write_yml(yamldict, fn, verbose=False):
+    """
+    Write a YAML formatted file to disk.
+
+    **Positional Arguments:**
+
+    yamldict:
+        - The python dictionary object we will write as YAML
+    fn:
+        - The file name we wish to use
+    verbose:
+        - Prints debug information if true
+    """
+
     with open(fn, "wb") as f:
         yaml.dump(yamldict, f, default_flow_style=False)
 
@@ -56,6 +126,15 @@ def write_yml(yamldict, fn, verbose=False):
         print "Write yml {} ..".format(f)
 
 def read_yml(fn):
+    """
+    Read a YAML formatted file in a python dictionary
+
+    **Positional Arguments:**
+
+    fn:
+        - The file path on disk
+    """
+
     if not os.path.exists(fn):
         raise FileNotFoundException("{fn}".format(fn))
 
