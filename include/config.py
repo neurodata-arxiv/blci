@@ -36,11 +36,20 @@ class config():
         """
         The blci configuration reader, writer and init project stub creator
 
-        @param fn: The config filename that you are reading or intend to write
-        @param projecthome: The relative/absolute path to the root of your
-            project
-        @param silent_fail: If you specify an invalid/incomplete config file via
-            the `fn` argument. Should blci throw an exception?
+        **Positional Arguments:**
+
+        fn:
+            - The config filename that you are reading or intend to write
+
+        **Optional Arguments:**
+
+        projecthome:
+            - The relative/absolute path to the root of your project
+        silent_fail:
+            - If you specify an invalid/incomplete config file via the `fn`
+                argument. Should blci throw an exception?
+        add_defaults:
+            - Populate your specified config with blci defaults
         """
         # Give defaults if building a new config
         self.fn = fn
@@ -192,6 +201,11 @@ class config():
             1. BLCI understands i.e., keys are valid
             2. Has all the required settings keys for BLCI
             3. Has file paths that actually exist
+
+        **Positional Arguments:**
+
+        level:
+            - The degree to which the alert the user ["ERROR", "WARN", "IGNORE"]
         """
         # 1. Make sure we understand all settings
         for setting in self._conf:

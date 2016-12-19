@@ -27,8 +27,22 @@ import os
 
 def init(projecthome, overwrite=False, bare=False):
     """
-    @param projecthome: the root dir of the project
-    @param: bare means ignore the current config and write a new one
+    Initialize a blci project with the depenedency file and stubbed out blci
+    configuration file
+
+    **Positional Arguments:**
+
+    projecthome:
+        - The path to the root of the project
+
+    **Optional Arguments:**
+
+    overwrite:
+        - Write over any old configuration file that may exist in `projecthome`.
+            If `False` then the new configuration file will have the filename
+            `blci_\d+.yml`.
+    bare:
+        - means ignore the current config and write a new one
     """
     c = None
     if bare:
