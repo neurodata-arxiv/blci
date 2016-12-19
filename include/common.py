@@ -21,8 +21,10 @@
 
 import os
 import fnmatch
-from bl_exceptions import FileNotFoundException
+import yaml
 from git import Repo
+
+from bl_exceptions import FileNotFoundException
 
 def ls_r(path, fileext):
     """
@@ -144,3 +146,4 @@ def read_yml(fn):
         except yaml.YAMLError as _err:
             sys.stderr.write("Config load ERROR:" + _err + "\n")
             exit(911)
+
