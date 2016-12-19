@@ -2,3 +2,4 @@ argparse
 pyyaml
 pytest
 gitpython
+PyGithub

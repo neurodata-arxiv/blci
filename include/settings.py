@@ -101,7 +101,8 @@ BL_SETTINGS = {
         BL_DATA_DEP,
         BL_SCRIPT,
         BL_PATH,
-        BL_INSTALL
+        BL_INSTALL,
+        BL_DESCRIPTION
         }
 
 # These are the default parameters blci uses
