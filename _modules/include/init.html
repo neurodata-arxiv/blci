@@ -164,8 +164,22 @@
 
 <div class="viewcode-block" id="init"><a class="viewcode-back" href="../../include.html#include.init.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bare</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    @param projecthome: the root dir of the project</span>
-<span class="sd">    @param: bare means ignore the current config and write a new one</span>
+<span class="sd">    Initialize a blci project with the depenedency file and stubbed out blci</span>
+<span class="sd">    configuration file</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    projecthome:</span>
+<span class="sd">        - The path to the root of the project</span>
+
+<span class="sd">    **Optional Arguments:**</span>
+
+<span class="sd">    overwrite:</span>
+<span class="sd">        - Write over any old configuration file that may exist in `projecthome`.</span>
+<span class="sd">            If `False` then the new configuration file will have the filename</span>
+<span class="sd">            `blci_\d+.yml`.</span>
+<span class="sd">    bare:</span>
+<span class="sd">        - means ignore the current config and write a new one</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">c</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">bare</span><span class="p">:</span>
