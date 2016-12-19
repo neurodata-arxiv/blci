@@ -29,6 +29,18 @@ import sys
 # import sys
 # sys.tracebacklimit = 0
 
+__version__ = "0.0.1"
+
+def get_version():
+    """
+    Get the version of the package
+
+    **Returns**:
+
+    The version number of the package
+    """
+    return __version__
+
 class Parser(argparse.ArgumentParser):
     def error(self, message):
         self.print_help()
