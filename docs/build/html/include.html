@@ -158,7 +158,7 @@
 
 <dl class="function">
 <dt id="include.add.create_base_CI_conf">
-<code class="descclassname">include.add.</code><code class="descname">create_base_CI_conf</code><span class="sig-paren">(</span><em>blci_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_base_CI_conf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_base_CI_conf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.add.</code><code class="descname">create_base_CI_conf</code><span class="sig-paren">(</span><em>bl_conf</em>, <em>Git</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_base_CI_conf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_base_CI_conf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a user defined project blci configuration file and the CI
 configuration file in the root of blci, create a new a config that encodes
 the following:
@@ -167,10 +167,46 @@ the following:
 will occur from an <cite>update</cite> action</p>
 <p><strong>Positional Arguments:</strong></p>
 <dl class="docutils">
-<dt>blci_conf:</dt>
+<dt>bl_conf:</dt>
 <dd><ul class="first last simple">
 <li>User defined blci configuration file</li>
 <li>Base CI configuration file defined by blci</li>
+</ul>
+</dd>
+<dt>Git:</dt>
+<dd><ul class="first last simple">
+<li>Git repo object from Gitpython package</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.add.create_git_repo">
+<code class="descclassname">include.add.</code><code class="descname">create_git_repo</code><span class="sig-paren">(</span><em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_git_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_git_repo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses user-defined configuration file to create a <strong>public</strong> github repo that
+is initialized using configurations supplied to the BLCI configuration file.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>bl_conf:</dt>
+<dd><ul class="first last simple">
+<li>A BLCI configuration (<cite>config.config</cite>) object</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Returns:</strong></p>
+<p>A [PyGithub](<a class="reference external" href="http://pygithub.readthedocs.io/">http://pygithub.readthedocs.io/</a>) <cite>Repo</cite> object</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.add.travis_track">
+<code class="descclassname">include.add.</code><code class="descname">travis_track</code><span class="sig-paren">(</span><em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#travis_track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.travis_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Track a github repo using travis CI programmatically</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>bl_conf:</dt>
+<dd><ul class="first last simple">
+<li>A BLCI configuration (<cite>config.config</cite>) object</li>
 </ul>
 </dd>
 </dl>
@@ -493,8 +529,34 @@ level=IGNORE argument to __check_valid__</p>
 <dl class="function">
 <dt id="include.init.init">
 <code class="descclassname">include.init.</code><code class="descname">init</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=False</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/init.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.init.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#64;param projecthome: the root dir of the project
-&#64;param: bare means ignore the current config and write a new one</p>
+<dd><p>Initialize a blci project with the depenedency file and stubbed out blci
+configuration file</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>overwrite:</dt>
+<dd><ul class="first last simple">
+<li><dl class="first docutils">
+<dt>Write over any old configuration file that may exist in <cite>projecthome</cite>.</dt>
+<dd>If <cite>False</cite> then the new configuration file will have the filename
+<cite>blci_d+.yml</cite>.</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>bare:</dt>
+<dd><ul class="first last simple">
+<li>means ignore the current config and write a new one</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -523,8 +585,8 @@ level=IGNORE argument to __check_valid__</p>
 </dd></dl>
 
 <dl class="data">
-<dt id="include.settings.BL_PATH">
-<code class="descclassname">include.settings.</code><code class="descname">BL_PATH</code><em class="property"> = 'path'</em><a class="headerlink" href="#include.settings.BL_PATH" title="Permalink to this definition">¶</a></dt>
+<dt id="include.settings.BL_DESCRIPTION">
+<code class="descclassname">include.settings.</code><code class="descname">BL_DESCRIPTION</code><em class="property"> = 'description'</em><a class="headerlink" href="#include.settings.BL_DESCRIPTION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Language version defaults</p>
 </dd></dl>
 
