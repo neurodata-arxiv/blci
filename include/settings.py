@@ -23,6 +23,7 @@
 """ Default file names we expect to exsit """
 BL_DEFAULT_DEPS_FN = "blci.deps"
 BL_DEFAULT_CONFIG_FN = "blci.yml"
+BL_DEFAULT_GIT_CREDS_FN = ".credentials.yml" # Do not add to repo
 BASE_CI_CONFIG_FN = ".travis.yml"
 
 """ File types read by default by language """
@@ -33,7 +34,7 @@ BL_READ_DEFAULTS = {
         "c": [".c", ".h"],
         "r": [".r"],
         "java": [".java"],
-        "mat": [".m"],
+        "mat": [".m"]
         }
 
 # Define settings constants
@@ -49,6 +50,10 @@ BL_DATA_LOCATION = "data_loc"
 BL_DATA_DEP = "data_dep"
 BL_SCRIPT = "script"
 BL_PATH = "path"
+BL_INSTALL = "install"
+BL_UNAME = "uname"
+BL_CREDS = "credentials" # Same for github and travis
+BL_DESCRIPTION = "description"
 
 """ Language version defaults """
 BL_DEFAULT_LANG_VERSION = {
@@ -80,6 +85,8 @@ BL_DEFAULT_DATA_LOCATION = ["data"]
 BL_DEFAULT_IGNORE = [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]
 BL_DEFAULT_PATH = []
 BL_DEFAULT_DATA_DEP = {"read": {}, "write": {}}
+BL_DEFAULT_INSTALL = ""
+BL_DEFAULT_DESCRIPTION = "A BrainLab Continuous Integration repo"
 
 # These are all the settings/parameters blci supports
 BL_SETTINGS = {
@@ -94,6 +101,7 @@ BL_SETTINGS = {
         BL_DATA_DEP,
         BL_SCRIPT,
         BL_PATH,
+        BL_INSTALL
         }
 
 # These are the default parameters blci uses
@@ -104,8 +112,23 @@ BL_DEFAULTS = {
         BL_CODE_LOCATION : BL_DEFAULT_CODE_LOCATION,
         BL_DATA_LOCATION : BL_DEFAULT_DATA_LOCATION,
         BL_PATH : BL_DEFAULT_PATH,
-        BL_DATA_DEP : BL_DEFAULT_DATA_DEP
+        BL_DATA_DEP : BL_DEFAULT_DATA_DEP,
+        BL_INSTALL : BL_DEFAULT_INSTALL,
+        BL_DESCRIPTION : BL_DEFAULT_DESCRIPTION
         }
 
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
     set((BL_DEFAULTS.keys())))
+
+# We need to separate Base CI (Travis) configurations from BLCI specific ones
+BL_SPECIFIC_CONFS = {
+        BL_NAME,
+        BL_IGNORE,
+        BL_NTHREAD,
+        BL_READ,
+        BL_CODE_LOCATION,
+        BL_DATA_LOCATION,
+        BL_DATA_DEP,
+        BL_SCRIPT,
+        BL_PATH
+        }

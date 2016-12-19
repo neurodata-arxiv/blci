@@ -45,6 +45,7 @@ class config():
         # Give defaults if building a new config
         self.fn = fn
         self.projecthome = projecthome
+        self._conf = {}
 
         if os.path.exists(self.fn):
             self.read_config(self.fn, silent_fail)
