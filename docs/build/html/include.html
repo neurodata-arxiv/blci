@@ -190,12 +190,12 @@ is initialized using configurations supplied to the BLCI configuration file.</p>
 <dl class="docutils">
 <dt>bl_conf:</dt>
 <dd><ul class="first last simple">
-<li>A BLCI configuration (<cite>config.config</cite>) object</li>
+<li>A BLCI configuration (<a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a>) object</li>
 </ul>
 </dd>
 </dl>
 <p><strong>Returns:</strong></p>
-<p>A [PyGithub](<a class="reference external" href="http://pygithub.readthedocs.io/">http://pygithub.readthedocs.io/</a>) <cite>Repo</cite> object</p>
+<p>A <a class="reference external" href="http://pygithub.readthedocs.io/">PyGithub Repository</a> object.</p>
 </dd></dl>
 
 <dl class="function">
@@ -431,7 +431,7 @@ config given one or more directories containing data</p>
 <dt id="include.config.config.isvalid">
 <code class="descname">isvalid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a bool for validity of the configuration file based on the
-level=IGNORE argument to __check_valid__</p>
+level=IGNORE argument to <code class="xref py py-func docutils literal"><span class="pre">__check_valid__()</span></code></p>
 </dd></dl>
 
 <dl class="method">
@@ -546,7 +546,7 @@ configuration file</p>
 <li><dl class="first docutils">
 <dt>Write over any old configuration file that may exist in <cite>projecthome</cite>.</dt>
 <dd>If <cite>False</cite> then the new configuration file will have the filename
-<cite>blci_d+.yml</cite>.</dd>
+<code class="docutils literal"><span class="pre">blci_\d+.yml</span></code>.</dd>
 </dl>
 </li>
 </ul>

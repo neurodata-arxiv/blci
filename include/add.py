@@ -37,11 +37,11 @@ def create_git_repo(bl_conf):
     **Positional Arguments:**
 
     bl_conf:
-        - A BLCI configuration (`config.config`) object
+        - A BLCI configuration (:class:`~include.config.config`) object
 
     **Returns:**
 
-    A [PyGithub](http://pygithub.readthedocs.io/) `Repo` object
+    A `PyGithub Repository <http://pygithub.readthedocs.io/>`_ object.
     """
 
     if not settings_fn:

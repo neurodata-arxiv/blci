@@ -265,7 +265,7 @@ class config():
     def isvalid(self):
         """
         Return a bool for validity of the configuration file based on the
-        level=IGNORE argument to __check_valid__
+        level=IGNORE argument to :func:`~include.add.__check_valid__`
         """
 
         return self.__check_valid__(level="IGNORE")

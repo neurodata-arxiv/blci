@@ -40,7 +40,7 @@ def init(projecthome, overwrite=False, bare=False):
     overwrite:
         - Write over any old configuration file that may exist in `projecthome`.
             If `False` then the new configuration file will have the filename
-            `blci_\d+.yml`.
+            ``blci_\d+.yml``.
     bare:
         - means ignore the current config and write a new one
     """
