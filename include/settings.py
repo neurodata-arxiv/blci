@@ -25,6 +25,7 @@ BL_DEFAULT_DEPS_FN = "blci.deps"
 BL_DEFAULT_CONFIG_FN = "blci.yml"
 BL_DEFAULT_GIT_CREDS_FN = ".credentials.yml" # Do not add to repo
 BASE_CI_CONFIG_FN = ".travis.yml"
+GIT_IGNORE_FN = ".gitignore"
 
 """ File types read by default by language """
 BL_READ_DEFAULTS = {
@@ -87,6 +88,7 @@ BL_DEFAULT_PATH = []
 BL_DEFAULT_DATA_DEP = {"read": {}, "write": {}}
 BL_DEFAULT_INSTALL = ""
 BL_DEFAULT_DESCRIPTION = "A BrainLab Continuous Integration repo"
+BL_DEFAULT_CREDS = ".credentials"
 
 # These are all the settings/parameters blci supports
 BL_SETTINGS = {
@@ -102,7 +104,8 @@ BL_SETTINGS = {
         BL_SCRIPT,
         BL_PATH,
         BL_INSTALL,
-        BL_DESCRIPTION
+        BL_DESCRIPTION,
+        BL_CREDS
         }
 
 # These are the default parameters blci uses
@@ -115,7 +118,8 @@ BL_DEFAULTS = {
         BL_PATH : BL_DEFAULT_PATH,
         BL_DATA_DEP : BL_DEFAULT_DATA_DEP,
         BL_INSTALL : BL_DEFAULT_INSTALL,
-        BL_DESCRIPTION : BL_DEFAULT_DESCRIPTION
+        BL_DESCRIPTION : BL_DEFAULT_DESCRIPTION,
+        BL_CREDS : BL_DEFAULT_CREDS
         }
 
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
@@ -130,6 +134,6 @@ BL_SPECIFIC_CONFS = {
         BL_CODE_LOCATION,
         BL_DATA_LOCATION,
         BL_DATA_DEP,
-        BL_SCRIPT,
-        BL_PATH
+        BL_PATH,
+        BL_CREDS
         }

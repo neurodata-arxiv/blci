@@ -26,10 +26,78 @@ from github import Github
 from settings import *
 from bl_exceptions import ParameterException
 from config import config
-from common import is_git_repo
-from common import is_git_branch
+from common import is_git_repo, is_git_branch
+from common import write_yml
+from os.path import join
 
-def create_git_repo(bl_conf):
+def read_token(credentials_fn):
+    """
+    Read a github token from a file that has it stored as plain text
+
+    **Positional Arguments:**
+
+    credentials_fn:
+        - An existing path to a file containing credentials
+    """
+
+    if not credentials_fn:
+        raise FileNotFoundException(credentials_fn)
+
+    try:
+        with open(credentials_fn, "rb") as f:
+            token = f.readline().strip()
+    except Exception, msg:
+        raise ParameterException("Problem with credentials file " + msg)
+
+    return token
+
+def handle_gitignore(projecthome, bl_conf):
+    """
+    Build/update the .gitignore file and ensure that blci ignored files are
+    not added to repo. Some files like the credentials file should never be
+    tracked or added to the remote repo.
+
+    **Positional Arguments:**
+
+    bl_conf:
+        - A BLCI configuration :class:`~include.config.config` object
+
+    credentials_fn:
+        - An existing path to a file containing credentials
+    """
+
+    credentials_fn = bl_conf.get(BL_CREDS)
+    git_ignore_fn = join(projecthome, GIT_IGNORE_FN)
+
+    if not os.path.exists(credentials_fn):
+        raise FileNotFoundException("Cannot find file credentials file {}".
+                format(join(projecthome, credentials_fn)))
+
+    has_creds = False
+    ignored = set()
+    if os.path.exists(git_ignore_fn):
+        with open(git_ignore_fn, "rb") as f:
+            while (True):
+                line = f.readline()
+                if not line: break
+
+                line = line.strip()
+                ignored.add(line)
+                # TODO: Account for bash regexs matching credentials_fn
+                if (line == ".*" and credentials_fn.startswith(".")) \
+                        or line.startswith(credentials_fn):
+                    has_creds = True
+                    break # No work to do
+
+    with open(git_ignore_fn, "ab") as f:
+        f.write(credentials_fn + "\n")
+        for exp in bl_conf.get(BL_IGNORE):
+            # TODO: Account for more advanced regexs
+            bash_exp = "*"+exp if (exp.startswith(".") and exp != ".*") else exp
+            if bash_exp not in ignored:
+                f.write(bash_exp + "\n")
+
+def create_remote_repo(bl_conf):
     """
     Uses user-defined configuration file to create a **public** github repo that
     is initialized using configurations supplied to the BLCI configuration file.
@@ -37,18 +105,17 @@ def create_git_repo(bl_conf):
     **Positional Arguments:**
 
     bl_conf:
-        - A BLCI configuration (:class:`~include.config.config`) object
+        - A BLCI configuration :class:`~include.config.config` object with a
+            credentials entry that is a path for a file containing a string
+            representing a `Github OAuth2 token
+            <https://help.github.com/articles/creating-an-access-token-for-command-line-use/>`_.
 
     **Returns:**
 
     A `PyGithub Repository <http://pygithub.readthedocs.io/>`_ object.
     """
 
-    if not settings_fn:
-        raise FileNotFoundException(settings_fn)
-
-    creds = read_yml(credentials_fn)
-    g = Github(creds["email"], creds["passwd"])
+    g = Github(read_token(bl_conf.get(BL_CREDS)))
     user = g.get_user()
 
     return user.create_repo(bl_conf.get(BL_NAME), bl_conf.get(BL_DESCRIPTION),
@@ -61,7 +128,7 @@ def travis_track(bl_conf):
     **Positional Arguments:**
 
     bl_conf:
-        - A BLCI configuration (`config.config`) object
+        - A BLCI configuration :class:`~include.config.config` object
     """
     endpoint = "https://api.travis-ci.org"
 
@@ -80,11 +147,12 @@ def create_base_CI_conf(bl_conf, Git):
     **Positional Arguments:**
 
     bl_conf:
-        - User defined blci configuration file
+        - A BLCI configuration :class:`~include.config.config` object
         - Base CI configuration file defined by blci
     Git:
         - Git repo object from Gitpython package
     """
+
     base_CI_conf = {}
     for setting, val in bl_conf.getall().iteritems():
         if setting not in BL_SPECIFIC_CONFS:
@@ -100,17 +168,18 @@ def create_base_CI_conf(bl_conf, Git):
 
     return base_CI_conf
 
-def add(projecthome, message):
+def add(projecthome, message="BLCI: Generic commit message"):
     """
     Add or update a blci repo
 
     **Positional Arguments:**
 
-        projecthome:
-            - The root directory of where the blci project is.
+    projecthome:
+        - The root directory of where the blci project is.
     """
+
     projecthome = os.path.abspath(projecthome)
-    conf = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN),
+    conf = config(join(projecthome, BL_DEFAULT_CONFIG_FN),
             silent_fail=False)
 
     new_repo = False # is this a new blci repo or not
@@ -124,8 +193,11 @@ def add(projecthome, message):
     if not Git.branch(): # We may have a repo with no commits ...
         new_repo = True
 
+    handle_gitignore(projecthome, conf)
+
     if new_repo:
         Git.add(projecthome)
+        Git.add("-f", join(projecthome, GIT_IGNORE_FN))
         Git.commit("-m", "BLCI: Repo creating")
 
     # Don't have a branch already ..
@@ -138,19 +210,13 @@ def add(projecthome, message):
     # Now from the new branch
     # TODO: No need to rewrite everytime actually ..
     base_CI_conf = create_base_CI_conf(conf, Git)
-    write_yml(base_CI_conf, BASE_CI_CONFIG_FN, verbose=True)
-
-    # Add the config file
-    Git.add(projecthome) # Add all
-    if not message:
-        if new_repo:
-            message = "BLCI: Initial commit"
-        else:
-            message = "BLCI: Generic commit message"
-
-    Git.commit("-am", message)
-    Git.push("origin", "{}".format(conf.get(BL_NAME)))
-
+    write_yml(base_CI_conf, join(projecthome, BASE_CI_CONFIG_FN), verbose=True)
     if new_repo:
-        Git.remote("add", "origin", origin_url)
-        # TODO: Add code push to
+        Git.add("-f", join(projecthome, BASE_CI_CONFIG_FN))
+
+    if new_repo: # Make and add the remote
+        remote_repo = create_remote_repo(conf)
+        Git.remote("add", "origin", remote_repo.ssh_url) # Must have SSH
+
+    Git.commit("-am", message) # Add all
+    Git.push("origin", conf.get(BL_NAME))
