@@ -14,6 +14,7 @@ full provenance.
     overview
     quickstart
     install
+    authentication
     interface
     config
     actions

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The configuration file &mdash; BrainLab-CI 0.0.1 documentation</title>
+  <title>Authentication &mdash; BrainLab-CI 0.0.1 documentation</title>
   
 
   
@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="BrainLab-CI 0.0.1 documentation" href="index.html"/>
-        <link rel="next" title="Actions" href="actions.html"/>
-        <link rel="prev" title="BLCI User Interface" href="interface.html"/> 
+        <link rel="next" title="BLCI User Interface" href="interface.html"/>
+        <link rel="prev" title="Installation" href="install.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,9 +88,14 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-token">Authentication token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permission-level-required-for-token">Permission level required for token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#no-usable-auth-token">No usable auth token?</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The configuration file</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
 </ul>
 
@@ -122,11 +127,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>The configuration file</li>
+    <li>Authentication</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/config.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/authentication.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -136,10 +141,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="the-configuration-file">
-<span id="the-configuration-file"></span><h1>The configuration file<a class="headerlink" href="#the-configuration-file" title="Permalink to this headline">¶</a></h1>
-<p>We document the configuration that is essential to correct functionality of
-BLCI.</p>
+  <div class="section" id="authentication">
+<span id="authentication"></span><h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h1>
+<p>BLCI requires you to already have authentication credentials to:</p>
+<ol class="simple">
+<li><a class="reference external" href="https://github.com">Github</a></li>
+<li><a class="reference external" href="https://travis-ci.org/">Travis CI</a></li>
+</ol>
+<p>In order to allow BLCI to create an autonomously managed Github and Travis CI
+repos you will need an <strong>authentication token</strong>.</p>
+<div class="section" id="authentication-token">
+<span id="authentication-token"></span><h2>Authentication token<a class="headerlink" href="#authentication-token" title="Permalink to this headline">¶</a></h2>
+<p>Have your Github email and password handy for this. Follow the steps outlined
+<a class="reference external" href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a>.
+Copy and paste the token into a file in the root of your project. The default name that BLCI
+expects is <code class="docutils literal"><span class="pre">.credentials</span></code>, but you can set the <code class="docutils literal"><span class="pre">credentials</span></code> setting in the <code class="docutils literal"><span class="pre">blci.yml</span></code>
+configuration to adapt the default behavior.</p>
+</div>
+<div class="section" id="permission-level-required-for-token">
+<span id="permission-level-required-for-token"></span><h2>Permission level required for token<a class="headerlink" href="#permission-level-required-for-token" title="Permalink to this headline">¶</a></h2>
+<p>Your token must select the following scopes:</p>
+<ul class="simple">
+<li>repo</li>
+<li>read:org</li>
+<li>admin:repo_hook</li>
+<li>user:email</li>
+<li>delete_repo</li>
+</ul>
+</div>
+<div class="section" id="no-usable-auth-token">
+<span id="no-usable-auth-token"></span><h2>No usable auth token?<a class="headerlink" href="#no-usable-auth-token" title="Permalink to this headline">¶</a></h2>
+<p>If you do not have one you will need to create an authentication token with
+sufficient permission. Create a new token at
+<a class="reference external" href="https://github.com/settings/tokens/new">github</a>.</p>
+</div>
 </div>
 
 
@@ -149,10 +184,10 @@ BLCI.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="actions.html" class="btn btn-neutral float-right" title="Actions" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="interface.html" class="btn btn-neutral float-right" title="BLCI User Interface" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="interface.html" class="btn btn-neutral" title="BLCI User Interface" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="install.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

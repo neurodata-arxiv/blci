@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../config.html">The configuration file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../actions.html">Actions</a></li>
@@ -163,10 +164,78 @@
 <span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bl_exceptions</span> <span class="k">import</span> <span class="n">ParameterException</span>
 <span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_repo</span>
-<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_branch</span>
+<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_repo</span><span class="p">,</span> <span class="n">is_git_branch</span>
+<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">write_yml</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
 
-<div class="viewcode-block" id="create_git_repo"><a class="viewcode-back" href="../../include.html#include.add.create_git_repo">[docs]</a><span class="k">def</span> <span class="nf">create_git_repo</span><span class="p">(</span><span class="n">bl_conf</span><span class="p">):</span>
+<div class="viewcode-block" id="read_token"><a class="viewcode-back" href="../../include.html#include.add.read_token">[docs]</a><span class="k">def</span> <span class="nf">read_token</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read a github token from a file that has it stored as plain text</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    credentials_fn:</span>
+<span class="sd">        - An existing path to a file containing credentials</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_fn</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Problem with credentials file &quot;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">token</span></div>
+
+<div class="viewcode-block" id="handle_gitignore"><a class="viewcode-back" href="../../include.html#include.add.handle_gitignore">[docs]</a><span class="k">def</span> <span class="nf">handle_gitignore</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">bl_conf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build/update the .gitignore file and ensure that blci ignored files are</span>
+<span class="sd">    not added to repo. Some files like the credentials file should never be</span>
+<span class="sd">    tracked or added to the remote repo.</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    bl_conf:</span>
+<span class="sd">        - A BLCI configuration :class:`~include.config.config` object</span>
+
+<span class="sd">    credentials_fn:</span>
+<span class="sd">        - An existing path to a file containing credentials</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">credentials_fn</span> <span class="o">=</span> <span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)</span>
+    <span class="n">git_ignore_fn</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">GIT_IGNORE_FN</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="s2">&quot;Cannot find file credentials file </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span>
+                <span class="nb">format</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">credentials_fn</span><span class="p">)))</span>
+
+    <span class="n">has_creds</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">ignored</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">git_ignore_fn</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">git_ignore_fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">while</span> <span class="p">(</span><span class="kc">True</span><span class="p">):</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span> <span class="k">break</span>
+
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">ignored</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="c1"># TODO: Account for bash regexs matching credentials_fn</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="o">==</span> <span class="s2">&quot;.*&quot;</span> <span class="ow">and</span> <span class="n">credentials_fn</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">))</span> \
+                        <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">):</span>
+                    <span class="n">has_creds</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">break</span> <span class="c1"># No work to do</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">git_ignore_fn</span><span class="p">,</span> <span class="s2">&quot;ab&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">credentials_fn</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_IGNORE</span><span class="p">):</span>
+            <span class="c1"># TODO: Account for more advanced regexs</span>
+            <span class="n">bash_exp</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span><span class="o">+</span><span class="n">exp</span> <span class="k">if</span> <span class="p">(</span><span class="n">exp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">exp</span> <span class="o">!=</span> <span class="s2">&quot;.*&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">exp</span>
+            <span class="k">if</span> <span class="n">bash_exp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignored</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">bash_exp</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="create_remote_repo"><a class="viewcode-back" href="../../include.html#include.add.create_remote_repo">[docs]</a><span class="k">def</span> <span class="nf">create_remote_repo</span><span class="p">(</span><span class="n">bl_conf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses user-defined configuration file to create a **public** github repo that</span>
 <span class="sd">    is initialized using configurations supplied to the BLCI configuration file.</span>
@@ -174,18 +243,17 @@
 <span class="sd">    **Positional Arguments:**</span>
 
 <span class="sd">    bl_conf:</span>
-<span class="sd">        - A BLCI configuration (:class:`~include.config.config`) object</span>
+<span class="sd">        - A BLCI configuration :class:`~include.config.config` object with a</span>
+<span class="sd">            credentials entry that is a path for a file containing a string</span>
+<span class="sd">            representing a `Github OAuth2 token</span>
+<span class="sd">            &lt;https://help.github.com/articles/creating-an-access-token-for-command-line-use/&gt;`_.</span>
 
 <span class="sd">    **Returns:**</span>
 
 <span class="sd">    A `PyGithub Repository &lt;http://pygithub.readthedocs.io/&gt;`_ object.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">settings_fn</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">settings_fn</span><span class="p">)</span>
-
-    <span class="n">creds</span> <span class="o">=</span> <span class="n">read_yml</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">)</span>
-    <span class="n">g</span> <span class="o">=</span> <span class="n">Github</span><span class="p">(</span><span class="n">creds</span><span class="p">[</span><span class="s2">&quot;email&quot;</span><span class="p">],</span> <span class="n">creds</span><span class="p">[</span><span class="s2">&quot;passwd&quot;</span><span class="p">])</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Github</span><span class="p">(</span><span class="n">read_token</span><span class="p">(</span><span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)))</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">user</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">),</span> <span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_DESCRIPTION</span><span class="p">),</span>
@@ -198,7 +266,7 @@
 <span class="sd">    **Positional Arguments:**</span>
 
 <span class="sd">    bl_conf:</span>
-<span class="sd">        - A BLCI configuration (`config.config`) object</span>
+<span class="sd">        - A BLCI configuration :class:`~include.config.config` object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.travis-ci.org&quot;</span></div>
 
@@ -217,11 +285,12 @@
 <span class="sd">    **Positional Arguments:**</span>
 
 <span class="sd">    bl_conf:</span>
-<span class="sd">        - User defined blci configuration file</span>
+<span class="sd">        - A BLCI configuration :class:`~include.config.config` object</span>
 <span class="sd">        - Base CI configuration file defined by blci</span>
 <span class="sd">    Git:</span>
 <span class="sd">        - Git repo object from Gitpython package</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">base_CI_conf</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">setting</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">bl_conf</span><span class="o">.</span><span class="n">getall</span><span class="p">()</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">setting</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BL_SPECIFIC_CONFS</span><span class="p">:</span>
@@ -237,17 +306,18 @@
 
     <span class="k">return</span> <span class="n">base_CI_conf</span></div>
 
-<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../include.html#include.add.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../include.html#include.add.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;BLCI: Generic commit message&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add or update a blci repo</span>
 
 <span class="sd">    **Positional Arguments:**</span>
 
-<span class="sd">        projecthome:</span>
-<span class="sd">            - The root directory of where the blci project is.</span>
+<span class="sd">    projecthome:</span>
+<span class="sd">        - The root directory of where the blci project is.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">projecthome</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span>
-    <span class="n">conf</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span>
             <span class="n">silent_fail</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">new_repo</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># is this a new blci repo or not</span>
@@ -261,8 +331,11 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Git</span><span class="o">.</span><span class="n">branch</span><span class="p">():</span> <span class="c1"># We may have a repo with no commits ...</span>
         <span class="n">new_repo</span> <span class="o">=</span> <span class="kc">True</span>
 
+    <span class="n">handle_gitignore</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">conf</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
         <span class="n">Git</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span>
+        <span class="n">Git</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">GIT_IGNORE_FN</span><span class="p">))</span>
         <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;-m&quot;</span><span class="p">,</span> <span class="s2">&quot;BLCI: Repo creating&quot;</span><span class="p">)</span>
 
     <span class="c1"># Don&#39;t have a branch already ..</span>
@@ -275,22 +348,16 @@
     <span class="c1"># Now from the new branch</span>
     <span class="c1"># TODO: No need to rewrite everytime actually ..</span>
     <span class="n">base_CI_conf</span> <span class="o">=</span> <span class="n">create_base_CI_conf</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="n">Git</span><span class="p">)</span>
-    <span class="n">write_yml</span><span class="p">(</span><span class="n">base_CI_conf</span><span class="p">,</span> <span class="n">BASE_CI_CONFIG_FN</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="c1"># Add the config file</span>
-    <span class="n">Git</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span> <span class="c1"># Add all</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">message</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;BLCI: Initial commit&quot;</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;BLCI: Generic commit message&quot;</span>
-
-    <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;-am&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)))</span>
-
+    <span class="n">write_yml</span><span class="p">(</span><span class="n">base_CI_conf</span><span class="p">,</span> <span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BASE_CI_CONFIG_FN</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
-        <span class="n">Git</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">origin_url</span><span class="p">)</span></div>
-        <span class="c1"># TODO: Add code push to</span>
+        <span class="n">Git</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BASE_CI_CONFIG_FN</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span> <span class="c1"># Make and add the remote</span>
+        <span class="n">remote_repo</span> <span class="o">=</span> <span class="n">create_remote_repo</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+        <span class="n">Git</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">remote_repo</span><span class="o">.</span><span class="n">ssh_url</span><span class="p">)</span> <span class="c1"># Must have SSH</span>
+
+    <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;-am&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="c1"># Add all</span>
+    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

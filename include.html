@@ -86,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
@@ -142,18 +143,16 @@
 <span id="include-add-module"></span><h2>include.add module<a class="headerlink" href="#module-include.add" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="include.add.add">
-<code class="descclassname">include.add.</code><code class="descname">add</code><span class="sig-paren">(</span><em>projecthome</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.add" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.add.</code><code class="descname">add</code><span class="sig-paren">(</span><em>projecthome</em>, <em>message='BLCI: Generic commit message'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add or update a blci repo</p>
 <p><strong>Positional Arguments:</strong></p>
-<blockquote>
-<div><dl class="docutils">
+<dl class="docutils">
 <dt>projecthome:</dt>
 <dd><ul class="first last simple">
 <li>The root directory of where the blci project is.</li>
 </ul>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -169,7 +168,7 @@ will occur from an <cite>update</cite> action</p>
 <dl class="docutils">
 <dt>bl_conf:</dt>
 <dd><ul class="first last simple">
-<li>User defined blci configuration file</li>
+<li>A BLCI configuration <a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a> object</li>
 <li>Base CI configuration file defined by blci</li>
 </ul>
 </dd>
@@ -182,20 +181,60 @@ will occur from an <cite>update</cite> action</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="include.add.create_git_repo">
-<code class="descclassname">include.add.</code><code class="descname">create_git_repo</code><span class="sig-paren">(</span><em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_git_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_git_repo" title="Permalink to this definition">¶</a></dt>
+<dt id="include.add.create_remote_repo">
+<code class="descclassname">include.add.</code><code class="descname">create_remote_repo</code><span class="sig-paren">(</span><em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#create_remote_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.create_remote_repo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses user-defined configuration file to create a <strong>public</strong> github repo that
 is initialized using configurations supplied to the BLCI configuration file.</p>
 <p><strong>Positional Arguments:</strong></p>
 <dl class="docutils">
 <dt>bl_conf:</dt>
 <dd><ul class="first last simple">
-<li>A BLCI configuration (<a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a>) object</li>
+<li><dl class="first docutils">
+<dt>A BLCI configuration <a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a> object with a</dt>
+<dd>credentials entry that is a path for a file containing a string
+representing a <a class="reference external" href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">Github OAuth2 token</a>.</dd>
+</dl>
+</li>
 </ul>
 </dd>
 </dl>
 <p><strong>Returns:</strong></p>
 <p>A <a class="reference external" href="http://pygithub.readthedocs.io/">PyGithub Repository</a> object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.add.handle_gitignore">
+<code class="descclassname">include.add.</code><code class="descname">handle_gitignore</code><span class="sig-paren">(</span><em>projecthome</em>, <em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#handle_gitignore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.handle_gitignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build/update the .gitignore file and ensure that blci ignored files are
+not added to repo. Some files like the credentials file should never be
+tracked or added to the remote repo.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>bl_conf:</dt>
+<dd><ul class="first last simple">
+<li>A BLCI configuration <a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a> object</li>
+</ul>
+</dd>
+<dt>credentials_fn:</dt>
+<dd><ul class="first last simple">
+<li>An existing path to a file containing credentials</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.add.read_token">
+<code class="descclassname">include.add.</code><code class="descname">read_token</code><span class="sig-paren">(</span><em>credentials_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#read_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.read_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a github token from a file that has it stored as plain text</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>credentials_fn:</dt>
+<dd><ul class="first last simple">
+<li>An existing path to a file containing credentials</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -206,7 +245,7 @@ is initialized using configurations supplied to the BLCI configuration file.</p>
 <dl class="docutils">
 <dt>bl_conf:</dt>
 <dd><ul class="first last simple">
-<li>A BLCI configuration (<cite>config.config</cite>) object</li>
+<li>A BLCI configuration <a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a> object</li>
 </ul>
 </dd>
 </dl>
@@ -567,12 +606,6 @@ configuration file</p>
 <span id="include-settings-module"></span><h2>include.settings module<a class="headerlink" href="#module-include.settings" title="Permalink to this headline">¶</a></h2>
 <p>Default file names we expect to exsit</p>
 <dl class="data">
-<dt id="include.settings.BASE_CI_CONFIG_FN">
-<code class="descclassname">include.settings.</code><code class="descname">BASE_CI_CONFIG_FN</code><em class="property"> = '.travis.yml'</em><a class="headerlink" href="#include.settings.BASE_CI_CONFIG_FN" title="Permalink to this definition">¶</a></dt>
-<dd><p>File types read by default by language</p>
-</dd></dl>
-
-<dl class="data">
 <dt id="include.settings.BL_DEFAULT_LANG_VERSION">
 <code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_LANG_VERSION</code><em class="property"> = {'c': 'c11', 'java': 7, 'mat': 7, 'python': 2.7, 'julia': 0.4, 'r': 3, 'cpp': 'c++11'}</em><a class="headerlink" href="#include.settings.BL_DEFAULT_LANG_VERSION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Language version defaults</p>
@@ -588,6 +621,12 @@ configuration file</p>
 <dt id="include.settings.BL_DESCRIPTION">
 <code class="descclassname">include.settings.</code><code class="descname">BL_DESCRIPTION</code><em class="property"> = 'description'</em><a class="headerlink" href="#include.settings.BL_DESCRIPTION" title="Permalink to this definition">¶</a></dt>
 <dd><p>Language version defaults</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="include.settings.GIT_IGNORE_FN">
+<code class="descclassname">include.settings.</code><code class="descname">GIT_IGNORE_FN</code><em class="property"> = '.gitignore'</em><a class="headerlink" href="#include.settings.GIT_IGNORE_FN" title="Permalink to this definition">¶</a></dt>
+<dd><p>File types read by default by language</p>
 </dd></dl>
 
 </div>
