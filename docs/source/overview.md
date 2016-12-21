@@ -30,4 +30,4 @@ users take advantage of virtualization environments such as
 
 ## How to **not** use BLCI
 
-BLCI is meant to be used a version control system. In fact it relies on [Git](https://git-scm.com/) for version control so using it as a version control system would be redundant. If a user performs *git commits* without using the BLCI's `./bl` undefined behavior may occur.
+BLCI is meant to be used a version control system. In fact it relies on [Git](https://git-scm.com/) for version control so using it as such redundant and gives you less control over your *commits*. If a user performs *git commits* without using the BLCI's `./bl` undefined behavior may occur.
