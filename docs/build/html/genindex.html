@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
@@ -171,8 +172,6 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="include.html#include.settings.BASE_CI_CONFIG_FN">BASE_CI_CONFIG_FN (in module include.settings)</a>
-</li>
       <li><a href="include.html#include.config.config.bashRE_2_pyRE">bashRE_2_pyRE() (include.config.config method)</a>
 </li>
       <li><a href="include.html#include.settings.BL_DEFAULT_LANG_VERSION">BL_DEFAULT_LANG_VERSION (in module include.settings)</a>
@@ -199,7 +198,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="include.html#include.add.create_base_CI_conf">create_base_CI_conf() (in module include.add)</a>
 </li>
-      <li><a href="include.html#include.add.create_git_repo">create_git_repo() (in module include.add)</a>
+      <li><a href="include.html#include.add.create_remote_repo">create_remote_repo() (in module include.add)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -237,17 +236,23 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="include.html#include.config.config.get">get() (include.config.config method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="include.html#include.common.get_ext">get_ext() (in module include.common)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="include.html#include.config.config.getall">getall() (include.config.config method)</a>
+</li>
+      <li><a href="include.html#include.settings.GIT_IGNORE_FN">GIT_IGNORE_FN (in module include.settings)</a>
 </li>
   </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="include.html#include.add.handle_gitignore">handle_gitignore() (in module include.add)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="include.html#include.config.config.has_setting">has_setting() (include.config.config method)</a>
 </li>
@@ -335,9 +340,11 @@
 </li>
       <li><a href="include.html#include.config.config.read_config">read_config() (include.config.config method)</a>
 </li>
+      <li><a href="include.html#include.dependencies.DependParser.read_deps">read_deps() (include.dependencies.DependParser method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="include.html#include.dependencies.DependParser.read_deps">read_deps() (include.dependencies.DependParser method)</a>
+      <li><a href="include.html#include.add.read_token">read_token() (in module include.add)</a>
 </li>
       <li><a href="include.html#include.common.read_yml">read_yml() (in module include.common)</a>
 </li>
