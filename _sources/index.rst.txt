@@ -13,6 +13,7 @@ full provenance.
 .. toctree::
     overview
     quickstart
+    defaults
     install
     authentication
     interface
