@@ -22,34 +22,14 @@
 import sys, os
 from git import Repo
 from github import Github
+#from travispy import TravisPy as tp
 
 from settings import *
 from bl_exceptions import ParameterException
 from config import config
-from common import is_git_repo, is_git_branch
+from common import is_git_repo, is_git_branch, read_token
 from common import write_yml
 from os.path import join
-
-def read_token(credentials_fn):
-    """
-    Read a github token from a file that has it stored as plain text
-
-    **Positional Arguments:**
-
-    credentials_fn:
-        - An existing path to a file containing credentials
-    """
-
-    if not credentials_fn:
-        raise FileNotFoundException(credentials_fn)
-
-    try:
-        with open(credentials_fn, "rb") as f:
-            token = f.readline().strip()
-    except Exception, msg:
-        raise ParameterException("Problem with credentials file " + msg)
-
-    return token
 
 def handle_gitignore(projecthome, bl_conf):
     """
@@ -130,10 +110,16 @@ def travis_track(bl_conf):
     bl_conf:
         - A BLCI configuration :class:`~include.config.config` object
     """
-    endpoint = "https://api.travis-ci.org"
 
-    # TODO: For now we assume the user is using a repo in their own account and
-    #   an exterior organization
+    print "\n\nSuccess! Now please go to " + \
+        "https://travis-ci.org/profile/{}".\
+            format(Github(read_token(bl_conf.get(BL_CREDS))).get_user().login)+\
+        " authenticate using your Github credentials and activate your repo. " +\
+        "Detailed instructions are available at " +\
+        "http://neurodata.github.io/blci/travis ."
+
+    return # FIXME is this possible programmatically
+    #tp = TravisPy.github_auth(read_token(bl_conf.get(BL_CREDS)))
 
 def create_base_CI_conf(bl_conf, Git):
     """
@@ -168,7 +154,7 @@ def create_base_CI_conf(bl_conf, Git):
 
     return base_CI_conf
 
-def add(projecthome, message="BLCI: Generic commit message"):
+def add(projecthome, message):
     """
     Add or update a blci repo
 
@@ -220,3 +206,6 @@ def add(projecthome, message="BLCI: Generic commit message"):
 
     Git.commit("-am", message) # Add all
     Git.push("origin", conf.get(BL_NAME))
+
+    if new_repo:
+        travis_track(conf)

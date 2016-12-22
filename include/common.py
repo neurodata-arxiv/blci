@@ -64,8 +64,10 @@ def localize(base, path):
 
     **Positional Arguments:**
 
-    base: The base path from which we wish to localize a file path
-    path: The path that we aim to localize
+    base:
+        - The base path from which we wish to localize a file path
+    path:
+        - The path that we aim to localize
     """
 
     base_len = len(os.path.abspath(base))
@@ -82,6 +84,7 @@ def is_git_branch(branchname, _dir="./"):
         - The git branch you wish to evaluate existence of
 
     **Optional Arguments:**
+
         _dir:
             - The dir that is a git repo
     """
@@ -117,6 +120,9 @@ def write_yml(yamldict, fn, verbose=False):
         - The python dictionary object we will write as YAML
     fn:
         - The file name we wish to use
+
+    **Optional Arguments:**
+
     verbose:
         - Prints debug information if true
     """
@@ -147,3 +153,23 @@ def read_yml(fn):
             sys.stderr.write("Config load ERROR:" + _err + "\n")
             exit(911)
 
+def read_token(credentials_fn):
+    """
+    Read a github token from a file that has it stored as plain text
+
+    **Positional Arguments:**
+
+    credentials_fn:
+        - An existing path to a file containing credentials
+    """
+
+    if not credentials_fn:
+        raise FileNotFoundException(credentials_fn)
+
+    try:
+        with open(credentials_fn, "rb") as f:
+            token = f.readline().strip()
+    except Exception, msg:
+        raise ParameterException("Problem with credentials file " + msg)
+
+    return token
