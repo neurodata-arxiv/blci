@@ -23,7 +23,6 @@
 """ Default file names we expect to exsit """
 BL_DEFAULT_DEPS_FN = "blci.deps"
 BL_DEFAULT_CONFIG_FN = "blci.yml"
-BL_DEFAULT_GIT_CREDS_FN = ".credentials.yml" # Do not add to repo
 BASE_CI_CONFIG_FN = ".travis.yml"
 GIT_IGNORE_FN = ".gitignore"
 
