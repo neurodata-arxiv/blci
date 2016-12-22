@@ -42,5 +42,5 @@ data_dep:
 
 script:
     - python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt
-    - python code/a.py
     - python code/analysis/c.py data/data.txt 2.5 otherdata/data.txt
+    - cd code && python a.py
