@@ -143,7 +143,7 @@
 <span id="include-add-module"></span><h2>include.add module<a class="headerlink" href="#module-include.add" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="include.add.add">
-<code class="descclassname">include.add.</code><code class="descname">add</code><span class="sig-paren">(</span><em>projecthome</em>, <em>message='BLCI: Generic commit message'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.add" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.add.</code><code class="descname">add</code><span class="sig-paren">(</span><em>projecthome</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add or update a blci repo</p>
 <p><strong>Positional Arguments:</strong></p>
 <dl class="docutils">
@@ -224,20 +224,6 @@ tracked or added to the remote repo.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="include.add.read_token">
-<code class="descclassname">include.add.</code><code class="descname">read_token</code><span class="sig-paren">(</span><em>credentials_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#read_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.read_token" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a github token from a file that has it stored as plain text</p>
-<p><strong>Positional Arguments:</strong></p>
-<dl class="docutils">
-<dt>credentials_fn:</dt>
-<dd><ul class="first last simple">
-<li>An existing path to a file containing credentials</li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
 <dt id="include.add.travis_track">
 <code class="descclassname">include.add.</code><code class="descname">travis_track</code><span class="sig-paren">(</span><em>bl_conf</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/add.html#travis_track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.add.travis_track" title="Permalink to this definition">¶</a></dt>
 <dd><p>Track a github repo using travis CI programmatically</p>
@@ -293,12 +279,58 @@ tracked or added to the remote repo.</p>
 <dl class="function">
 <dt id="include.bl_exceptions.err">
 <code class="descclassname">include.bl_exceptions.</code><code class="descname">err</code><span class="sig-paren">(</span><em>err</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#err"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.err" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Color an error message red</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>err:</dt>
+<dd><ul class="first last simple">
+<li>The message to be displayed</li>
+</ul>
+</dd>
+<dt><strong>Returns:</strong></dt>
+<dd><ul class="first last simple">
+<li>A red colored message</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="include.bl_exceptions.warn">
 <code class="descclassname">include.bl_exceptions.</code><code class="descname">warn</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/bl_exceptions.html#warn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.bl_exceptions.warn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Print a warning message</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>msg:</dt>
+<dd><ul class="first last simple">
+<li>The message to be displayed</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-include.build">
+<span id="include-build-module"></span><h2>include.build module<a class="headerlink" href="#module-include.build" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.build.trigger_build">
+<code class="descclassname">include.build.</code><code class="descname">trigger_build</code><span class="sig-paren">(</span><em>conf</em>, <em>projecthome</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/build.html#trigger_build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.build.trigger_build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hack to trigger a build.
+TODO: Remove the push to repo</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>conf:</dt>
+<dd><ul class="first last simple">
+<li>A BLCI configuration <a class="reference internal" href="#include.config.config" title="include.config.config"><code class="xref py py-class docutils literal"><span class="pre">config</span></code></a> object</li>
+</ul>
+</dd>
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>root directory of the project</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="module-include.common">
@@ -322,16 +354,17 @@ tracked or added to the remote repo.</p>
 <li>The git branch you wish to evaluate existence of</li>
 </ul>
 </dd>
-<dt><strong>Optional Arguments:</strong></dt>
-<dd><dl class="first last docutils">
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<blockquote>
+<div><dl class="docutils">
 <dt>_dir:</dt>
 <dd><ul class="first last simple">
 <li>The dir that is a git repo</li>
 </ul>
 </dd>
 </dl>
-</dd>
-</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="function">
@@ -355,8 +388,18 @@ tracked or added to the remote repo.</p>
 have base=/home/floki/ and path=/home/floki/ragnar/foo.txt, localize will
 return ragnar/foo.txt</p>
 <p><strong>Positional Arguments:</strong></p>
-<p>base: The base path from which we wish to localize a file path
-path: The path that we aim to localize</p>
+<dl class="docutils">
+<dt>base:</dt>
+<dd><ul class="first last simple">
+<li>The base path from which we wish to localize a file path</li>
+</ul>
+</dd>
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path that we aim to localize</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -374,6 +417,20 @@ extensions (<cite>fileext</cite>) in mind</p>
 <dt>fileext:</dt>
 <dd><ul class="first last simple">
 <li>The file extensionS we care about when we traverse</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.common.read_token">
+<code class="descclassname">include.common.</code><code class="descname">read_token</code><span class="sig-paren">(</span><em>credentials_fn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#read_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.read_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a github token from a file that has it stored as plain text</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>credentials_fn:</dt>
+<dd><ul class="first last simple">
+<li>An existing path to a file containing credentials</li>
 </ul>
 </dd>
 </dl>
@@ -409,6 +466,9 @@ extensions (<cite>fileext</cite>) in mind</p>
 <li>The file name we wish to use</li>
 </ul>
 </dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
 <dt>verbose:</dt>
 <dd><ul class="first last simple">
 <li>Prints debug information if true</li>
@@ -426,30 +486,75 @@ extensions (<cite>fileext</cite>) in mind</p>
 <dd><dl class="method">
 <dt id="include.config.config.add_data_loc_path">
 <code class="descname">add_data_loc_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_data_loc_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_data_loc_path" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add a path to the <cite>data_loc</cite> section of the blci config file.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path to a data file that will be written by blci.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.add_defaults">
 <code class="descname">add_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_defaults" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add default values for any settings that we provide defaults for.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.bashRE_2_pyRE">
 <code class="descname">bashRE_2_pyRE</code><span class="sig-paren">(</span><em>regex</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.bashRE_2_pyRE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.bashRE_2_pyRE" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO: Very rudimentary</p>
+<dd><p>TODO: Very rudimentary way to change bash shell regexs to python.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>regex:</dt>
+<dd><ul class="first last simple">
+<li>The bash regular expression</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.build_data_dep_stub">
 <code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a stub of a config or add data dependencies to an existing
-config given one or more directories containing data</p>
+config given one or more directories containing data.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the project root directory.</li>
+</ul>
+</dd>
+<dt>overwrite:</dt>
+<dd><ul class="first last simple">
+<li>Overwrite the existing data dependency file, if it does exist.</li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>setting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get a setting.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>setting:</dt>
+<dd><ul class="first last simple">
+<li>The name of setting you seek</li>
+</ul>
+</dd>
+<dt><strong>Returns:</strong></dt>
+<dd><ul class="first last simple">
+<li>The value of the setting.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.getall">
@@ -459,39 +564,111 @@ config given one or more directories containing data</p>
 <dl class="method">
 <dt id="include.config.config.has_setting">
 <code class="descname">has_setting</code><span class="sig-paren">(</span><em>setting</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.has_setting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.has_setting" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Does the configuration file have the setting?</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>setting:</dt>
+<dd><ul class="first last simple">
+<li>The name of setting you seek.</li>
+</ul>
+</dd>
+<dt><strong>Returns:</strong></dt>
+<dd><ul class="first last simple">
+<li>A <cite>bool</cite> indicating if the setting is set or not.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.isignored">
 <code class="descname">isignored</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isignored"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isignored" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Determine if a provided path is meant to be ignored by blci.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path or regex describing the path.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.isvalid">
 <code class="descname">isvalid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.isvalid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.isvalid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a bool for validity of the configuration file based on the
+<dd><p>Is the configuration file a valid one?</p>
+<p><strong>Returns:</strong></p>
+<p>A bool for validity of the configuration file based on the
 level=IGNORE argument to <code class="xref py py-func docutils literal"><span class="pre">__check_valid__()</span></code></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.read_config">
 <code class="descname">read_config</code><span class="sig-paren">(</span><em>fn</em>, <em>silent_fail=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.read_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Given a configuration file that is in <a class="reference external" href="http://yaml.org/">YAML format</a></p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>fn:</dt>
+<dd><ul class="first last simple">
+<li>The config filename that you are reading or intend to write</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>silent_fail:</dt>
+<dd><ul class="first last simple">
+<li>If <cite>True</cite> errors in the config settings will be ignored</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.track_datafile">
 <code class="descname">track_datafile</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.track_datafile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.track_datafile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add a path stub to the <cite>data_dep</cite> <cite>read</cite> and <cite>write</cite> sections.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path to a data file that will be written by blci.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.unique_fn">
 <code class="descname">unique_fn</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.unique_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.unique_fn" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generate a unique path given a proposed path. It simply adds a count to
+the proposed path until it is a non-existent path.</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The proposed path to be written.</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Retuns:</strong></p>
+<p>A <cite>str</cite> for the path of unique file.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.write">
 <code class="descname">write</code><span class="sig-paren">(</span><em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Write the config file to disk.</p>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>overwrite:</dt>
+<dd><ul class="first last simple">
+<li>Overwrite the existing config file if it does exist.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -555,14 +732,6 @@ level=IGNORE argument to <code class="xref py py-func docutils literal"><span cl
 </dd></dl>
 
 </div>
-<div class="section" id="module-include.format">
-<span id="include-format-module"></span><h2>include.format module<a class="headerlink" href="#module-include.format" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="include.format.check_project_format">
-<code class="descclassname">include.format.</code><code class="descname">check_project_format</code><span class="sig-paren">(</span><em>_dir</em>, <em>dep_outfn</em>, <em>codedir</em>, <em>datadir</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/format.html#check_project_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.format.check_project_format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-include.init">
 <span id="include-init-module"></span><h2>include.init module<a class="headerlink" href="#module-include.init" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -599,12 +768,15 @@ configuration file</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-include.log">
-<span id="include-log-module"></span><h2>include.log module<a class="headerlink" href="#module-include.log" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-include.settings">
 <span id="include-settings-module"></span><h2>include.settings module<a class="headerlink" href="#module-include.settings" title="Permalink to this headline">¶</a></h2>
 <p>Default file names we expect to exsit</p>
+<dl class="data">
+<dt id="include.settings.BL_DEFAULT_CREDS">
+<code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_CREDS</code><em class="property"> = '.credentials'</em><a class="headerlink" href="#include.settings.BL_DEFAULT_CREDS" title="Permalink to this definition">¶</a></dt>
+<dd><p>These are all the settings/parameters blci supports</p>
+</dd></dl>
+
 <dl class="data">
 <dt id="include.settings.BL_DEFAULT_LANG_VERSION">
 <code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_LANG_VERSION</code><em class="property"> = {'c': 'c11', 'java': 7, 'mat': 7, 'python': 2.7, 'julia': 0.4, 'r': 3, 'cpp': 'c++11'}</em><a class="headerlink" href="#include.settings.BL_DEFAULT_LANG_VERSION" title="Permalink to this definition">¶</a></dt>
@@ -624,14 +796,23 @@ configuration file</p>
 </dd></dl>
 
 <dl class="data">
+<dt id="include.settings.BL_REQUIRED">
+<code class="descclassname">include.settings.</code><code class="descname">BL_REQUIRED</code><em class="property"> = set(['name', 'language', 'script', 'read'])</em><a class="headerlink" href="#include.settings.BL_REQUIRED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Separates Base CI (Travis) configurations from BLCI specific ones</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="include.settings.BL_SETTINGS">
+<code class="descclassname">include.settings.</code><code class="descname">BL_SETTINGS</code><em class="property"> = set(['code_loc', 'description', 'language', 'script', 'read', 'data_dep', 'data_loc', 'nthread', 'ignore', 'version', 'install', 'path', 'credentials', 'name'])</em><a class="headerlink" href="#include.settings.BL_SETTINGS" title="Permalink to this definition">¶</a></dt>
+<dd><p>These are the default parameters blci uses</p>
+</dd></dl>
+
+<dl class="data">
 <dt id="include.settings.GIT_IGNORE_FN">
 <code class="descclassname">include.settings.</code><code class="descname">GIT_IGNORE_FN</code><em class="property"> = '.gitignore'</em><a class="headerlink" href="#include.settings.GIT_IGNORE_FN" title="Permalink to this definition">¶</a></dt>
 <dd><p>File types read by default by language</p>
 </dd></dl>
 
-</div>
-<div class="section" id="module-include.undo">
-<span id="include-undo-module"></span><h2>include.undo module<a class="headerlink" href="#module-include.undo" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-include.verify_action">
 <span id="include-verify-action-module"></span><h2>include.verify_action module<a class="headerlink" href="#module-include.verify_action" title="Permalink to this headline">¶</a></h2>

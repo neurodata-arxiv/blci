@@ -159,37 +159,114 @@
 <span class="c1"># Hold blci custom exceptions</span>
 
 <div class="viewcode-block" id="err"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.err">[docs]</a><span class="k">def</span> <span class="nf">err</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Color an error message red</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    err:</span>
+<span class="sd">        - The message to be displayed</span>
+
+<span class="sd">    **Returns:**</span>
+<span class="sd">        - A red colored message</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\x1B</span><span class="s2">[31mERROR: </span><span class="si">{}</span><span class="se">\x1B</span><span class="s2">[0m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">)</span></div>
 
 <span class="k">def</span> <span class="nf">__warn__</span><span class="p">(</span><span class="n">err</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Color an warning error message</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    err:</span>
+<span class="sd">        - The message to be displayed</span>
+
+<span class="sd">    **Returns:**</span>
+<span class="sd">        - A yellowish colored message</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\x1B</span><span class="s2">[33mWARNING: </span><span class="si">{}</span><span class="se">\x1B</span><span class="s2">[0m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FormatException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.FormatException">[docs]</a><span class="k">class</span> <span class="nc">FormatException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown when the file type is unknown.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">FormatException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="UnknownFileException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.UnknownFileException">[docs]</a><span class="k">class</span> <span class="nc">UnknownFileException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown when the file type is unknown.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        msg:</span>
+<span class="sd">            - The message to be printed when the exception is raised</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="nb">super</span><span class="p">(</span><span class="n">UnknownFileException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="UnsupportedFileException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.UnsupportedFileException">[docs]</a><span class="k">class</span> <span class="nc">UnsupportedFileException</span><span class="p">(</span><span class="n">UnknownFileException</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown with the file type is unsuppported by blci.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        _type:</span>
+<span class="sd">           - The file extension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">UnsupportedFileException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span>\
             <span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="s2">&quot;Unsupported type &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_type</span><span class="p">)))</span></div>
 
 <div class="viewcode-block" id="ParameterException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.ParameterException">[docs]</a><span class="k">class</span> <span class="nc">ParameterException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown when a parameter is incorrect or unknown in the</span>
+<span class="sd">        settings file.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        msg:</span>
+<span class="sd">            - The message that will be displayed when the exception is thrown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ParameterException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="ParsingException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.ParsingException">[docs]</a><span class="k">class</span> <span class="nc">ParsingException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown when we fail to parse the source code for dependencies.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        msg:</span>
+<span class="sd">            - The message that will be displayed when the exception is thrown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ParsingException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="FileNotFoundException"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.FileNotFoundException">[docs]</a><span class="k">class</span> <span class="nc">FileNotFoundException</span><span class="p">(</span><span class="ne">IOError</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exception thrown when the file is not found.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+<span class="sd">        msg:</span>
+<span class="sd">            - The message that will be displayed when the exception is thrown.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="nb">super</span><span class="p">(</span><span class="n">FileNotFoundException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">err</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="warn"><a class="viewcode-back" href="../../include.html#include.bl_exceptions.warn">[docs]</a><span class="k">def</span> <span class="nf">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print a warning message</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    msg:</span>
+<span class="sd">        - The message to be displayed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="nb">print</span> <span class="n">__warn__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 </pre></div>
 
