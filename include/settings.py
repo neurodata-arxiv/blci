@@ -90,7 +90,7 @@ BL_DEFAULT_INSTALL = ""
 BL_DEFAULT_DESCRIPTION = "A BrainLab Continuous Integration repo"
 BL_DEFAULT_CREDS = ".credentials"
 
-# These are all the settings/parameters blci supports
+""" These are all the settings/parameters blci supports """
 BL_SETTINGS = {
         BL_NAME,
         BL_LANGUAGE,
@@ -108,7 +108,7 @@ BL_SETTINGS = {
         BL_CREDS
         }
 
-# These are the default parameters blci uses
+""" These are the default parameters blci uses """
 BL_DEFAULTS = {
         BL_NTHREAD: BL_DEFAULT_NTHREAD,
         BL_VERSION : BL_DEFAULT_VERSION,
@@ -125,7 +125,7 @@ BL_DEFAULTS = {
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
     set((BL_DEFAULTS.keys())))
 
-# We need to separate Base CI (Travis) configurations from BLCI specific ones
+""" Separates Base CI (Travis) configurations from BLCI specific ones """
 BL_SPECIFIC_CONFS = {
         BL_NAME,
         BL_IGNORE,

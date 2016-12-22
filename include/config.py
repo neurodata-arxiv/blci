@@ -66,6 +66,9 @@ class config():
             self.add_defaults()
 
     def add_defaults(self):
+        """
+        Add default values for any settings that we provide defaults for.
+        """
         for conf in BL_DEFAULTS:
             if not self.has_setting(conf) or not self.get(conf):
                 if conf == BL_VERSION:
@@ -84,6 +87,20 @@ class config():
             self._conf[BL_READ] = BL_READ_DEFAULTS[self.get(BL_LANGUAGE)]
 
     def read_config(self, fn, silent_fail=False):
+        """
+        Given a configuration file that is in `YAML format <http://yaml.org/>`_
+
+        **Positional Arguments:**
+
+        fn:
+            - The config filename that you are reading or intend to write
+
+        **Optional Arguments:**
+
+        silent_fail:
+            - If `True` errors in the config settings will be ignored
+        """
+
         with open(fn, "rb") as f:
             try:
                 self._conf = yaml.load(f)
@@ -96,10 +113,26 @@ class config():
             self.__check_valid__(level="ERROR")
 
     def bashRE_2_pyRE(self, regex):
-        """ TODO: Very rudimentary """
+        """
+        TODO: Very rudimentary way to change bash shell regexs to python.
+
+        **Positional Arguments:**
+
+        regex:
+            - The bash regular expression
+        """
         return regex.replace(".", "\.").replace("*", "+")
 
     def isignored(self, path):
+        """
+        Determine if a provided path is meant to be ignored by blci.
+
+        **Positional Arguments:**
+
+        path:
+            - The path or regex describing the path.
+        """
+
         if not self.has_setting(BL_IGNORE):
             return False # No way to know so assume not to ignore
 
@@ -113,6 +146,15 @@ class config():
         return False
 
     def track_datafile(self, path):
+        """
+        Add a path stub to the `data_dep` `read` and `write` sections.
+
+        **Positional Arguments:**
+
+        path:
+            - The path to a data file that will be written by blci.
+        """
+
         path = localize(self.projecthome, path)
         self.__check_and_stub_dat_dep__()
 
@@ -124,6 +166,15 @@ class config():
                 self._conf[BL_DATA_DEP][ioattr][path] = []
 
     def add_data_loc_path(self, path):
+        """
+        Add a path to the `data_loc` section of the blci config file.
+
+        **Positional Arguments:**
+
+        path:
+            - The path to a data file that will be written by blci.
+        """
+
         if not self.has_setting(BL_DATA_LOCATION):
             self._conf[BL_DATA_LOCATION] = []
 
@@ -131,6 +182,20 @@ class config():
             self._conf[BL_DATA_LOCATION].append(path)
 
     def unique_fn(self, path):
+        """
+        Generate a unique path given a proposed path. It simply adds a count to
+        the proposed path until it is a non-existent path.
+
+        **Positional Arguments:**
+
+        path:
+            - The proposed path to be written.
+
+        **Retuns:**
+
+        A `str` for the path of unique file.
+        """
+
         # Create a unique fn using the path but don't overwrite if exists
         if os.path.isdir(path):
             raise ParameterException("Path '{}' must be a file, not "
@@ -147,6 +212,15 @@ class config():
         return path
 
     def write(self, overwrite=True):
+        """
+        Write the config file to disk.
+
+        **Optional Arguments:**
+
+        overwrite:
+            - Overwrite the existing config file if it does exist.
+        """
+
         if not self.fn:
             self.fn = BL_DEFAULT_CONFIG_FN
 
@@ -172,8 +246,17 @@ class config():
     def build_data_dep_stub(self, projecthome, overwrite=True):
         """
         Build a stub of a config or add data dependencies to an existing
-        config given one or more directories containing data
+        config given one or more directories containing data.
+
+        **Positional Arguments:**
+
+        projecthome:
+            - The path to the project root directory.
+
+        overwrite:
+            - Overwrite the existing data dependency file, if it does exist.
         """
+
         self.projecthome = projecthome
 
         if not self:
@@ -264,7 +347,11 @@ class config():
 
     def isvalid(self):
         """
-        Return a bool for validity of the configuration file based on the
+        Is the configuration file a valid one?
+
+        **Returns:**
+
+        A bool for validity of the configuration file based on the
         level=IGNORE argument to :func:`~include.add.__check_valid__`
         """
 
@@ -274,9 +361,31 @@ class config():
         return self._conf
 
     def get(self, setting):
+        """
+        Get a setting.
+
+        **Positional Arguments:**
+
+        setting:
+            - The name of setting you seek
+
+        **Returns:**
+            - The value of the setting.
+        """
         return self._conf[setting]
 
     def has_setting(self, setting):
+        """
+        Does the configuration file have the setting?
+
+        **Positional Arguments:**
+
+        setting:
+            - The name of setting you seek.
+
+        **Returns:**
+            - A `bool` indicating if the setting is set or not.
+        """
         return self._conf.has_key(setting)
 
     def __getitem__(self, setting):
