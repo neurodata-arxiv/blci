@@ -20,10 +20,15 @@
 # Email: disa@jhu.edu
 
 import argparse
+import sys
+from os.path import join
+
+from include.bl_exceptions import ParameterException
 from include.add import add
 from include.init import init
-from include.bl_exceptions import ParameterException
-import sys
+from include.config import config
+from include.build import trigger_build
+from include.settings import BL_DEFAULT_CONFIG_FN
 
 # Turn off stack trace when running live
 # import sys
@@ -57,12 +62,14 @@ def main():
             " AND commit a blci repo. Pass -m flag for personalized message")
     parser.add_argument("-u", "--undo", action="store_true", help="Undo "
             "the very last --add action")
-    parser.add_argument("-m", "--message", action="store", default="",
-            help="A(n) --add message")
+    parser.add_argument("-m", "--message", action="store",
+            default="BLCI: Generic commit message", help="A(n) --add message")
+    parser.add_argument("-b", "--build", action="store_true",
+            help="Trigger a build of BLCI")
     parser.add_argument("-o", "--overwrite", action="store_true", help=
             "Overwrite the config when performing actions? This will not remove"
             " old settings, but instead append & merge.")
-    parser.add_argument("-b", "--bare", action="store_true", help="Scrap all "
+    parser.add_argument("-B", "--bare", action="store_true", help="Scrap all "
             "configs and start afresh?")
     args = parser.parse_args()
 
@@ -70,6 +77,9 @@ def main():
         init(args.projecthome, args.overwrite, args.bare)
     elif args.add:
         add(args.projecthome, args.message)
+    elif args.build:
+        trigger_build(config(join(args.projecthome,
+            BL_DEFAULT_CONFIG_FN), args.projecthome), args.projecthome)
     else:
         raise NotImplementedError("Other methods incomplete!")
 
