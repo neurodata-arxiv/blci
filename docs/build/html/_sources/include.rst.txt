@@ -20,6 +20,14 @@ include.bl_exceptions module
     :undoc-members:
     :show-inheritance:
 
+include.build module
+--------------------
+
+.. automodule:: include.build
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 include.common module
 ---------------------
 
@@ -44,14 +52,6 @@ include.dependencies module
     :undoc-members:
     :show-inheritance:
 
-include.format module
----------------------
-
-.. automodule:: include.format
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 include.init module
 -------------------
 
@@ -60,26 +60,10 @@ include.init module
     :undoc-members:
     :show-inheritance:
 
-include.log module
-------------------
-
-.. automodule:: include.log
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 include.settings module
 -----------------------
 
 .. automodule:: include.settings
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-include.undo module
--------------------
-
-.. automodule:: include.undo
     :members:
     :undoc-members:
     :show-inheritance:

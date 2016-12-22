@@ -202,8 +202,10 @@
 
 <span class="sd">    **Positional Arguments:**</span>
 
-<span class="sd">    base: The base path from which we wish to localize a file path</span>
-<span class="sd">    path: The path that we aim to localize</span>
+<span class="sd">    base:</span>
+<span class="sd">        - The base path from which we wish to localize a file path</span>
+<span class="sd">    path:</span>
+<span class="sd">        - The path that we aim to localize</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">base_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">base</span><span class="p">))</span>
@@ -220,6 +222,7 @@
 <span class="sd">        - The git branch you wish to evaluate existence of</span>
 
 <span class="sd">    **Optional Arguments:**</span>
+
 <span class="sd">        _dir:</span>
 <span class="sd">            - The dir that is a git repo</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -255,6 +258,9 @@
 <span class="sd">        - The python dictionary object we will write as YAML</span>
 <span class="sd">    fn:</span>
 <span class="sd">        - The file name we wish to use</span>
+
+<span class="sd">    **Optional Arguments:**</span>
+
 <span class="sd">    verbose:</span>
 <span class="sd">        - Prints debug information if true</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -285,6 +291,26 @@
             <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Config load ERROR:&quot;</span> <span class="o">+</span> <span class="n">_err</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="n">exit</span><span class="p">(</span><span class="mi">911</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="read_token"><a class="viewcode-back" href="../../include.html#include.common.read_token">[docs]</a><span class="k">def</span> <span class="nf">read_token</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read a github token from a file that has it stored as plain text</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    credentials_fn:</span>
+<span class="sd">        - An existing path to a file containing credentials</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_fn</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Problem with credentials file &quot;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">token</span></div>
 </pre></div>
 
            </div>

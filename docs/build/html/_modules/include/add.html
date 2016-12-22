@@ -160,34 +160,14 @@
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
 <span class="kn">from</span> <span class="nn">github</span> <span class="k">import</span> <span class="n">Github</span>
+<span class="c1">#from travispy import TravisPy as tp</span>
 
 <span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bl_exceptions</span> <span class="k">import</span> <span class="n">ParameterException</span>
 <span class="kn">from</span> <span class="nn">config</span> <span class="k">import</span> <span class="n">config</span>
-<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_repo</span><span class="p">,</span> <span class="n">is_git_branch</span>
+<span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_repo</span><span class="p">,</span> <span class="n">is_git_branch</span><span class="p">,</span> <span class="n">read_token</span>
 <span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">write_yml</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
-
-<div class="viewcode-block" id="read_token"><a class="viewcode-back" href="../../include.html#include.add.read_token">[docs]</a><span class="k">def</span> <span class="nf">read_token</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read a github token from a file that has it stored as plain text</span>
-
-<span class="sd">    **Positional Arguments:**</span>
-
-<span class="sd">    credentials_fn:</span>
-<span class="sd">        - An existing path to a file containing credentials</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">credentials_fn</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">FileNotFoundException</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">)</span>
-
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">credentials_fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">token</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Problem with credentials file &quot;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">token</span></div>
 
 <div class="viewcode-block" id="handle_gitignore"><a class="viewcode-back" href="../../include.html#include.add.handle_gitignore">[docs]</a><span class="k">def</span> <span class="nf">handle_gitignore</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">bl_conf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -268,10 +248,16 @@
 <span class="sd">    bl_conf:</span>
 <span class="sd">        - A BLCI configuration :class:`~include.config.config` object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;https://api.travis-ci.org&quot;</span></div>
 
-    <span class="c1"># TODO: For now we assume the user is using a repo in their own account and</span>
-    <span class="c1">#   an exterior organization</span>
+    <span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Success! Now please go to &quot;</span> <span class="o">+</span> \
+        <span class="s2">&quot;https://travis-ci.org/profile/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span>\
+            <span class="nb">format</span><span class="p">(</span><span class="n">Github</span><span class="p">(</span><span class="n">read_token</span><span class="p">(</span><span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)))</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span><span class="o">.</span><span class="n">login</span><span class="p">)</span><span class="o">+</span>\
+        <span class="s2">&quot; authenticate using your Github credentials and activate your repo. &quot;</span> <span class="o">+</span>\
+        <span class="s2">&quot;Detailed instructions are available at &quot;</span> <span class="o">+</span>\
+        <span class="s2">&quot;http://neurodata.github.io/blci/travis .&quot;</span>
+
+    <span class="k">return</span> <span class="c1"># FIXME is this possible programmatically</span></div>
+    <span class="c1">#tp = TravisPy.github_auth(read_token(bl_conf.get(BL_CREDS)))</span>
 
 <div class="viewcode-block" id="create_base_CI_conf"><a class="viewcode-back" href="../../include.html#include.add.create_base_CI_conf">[docs]</a><span class="k">def</span> <span class="nf">create_base_CI_conf</span><span class="p">(</span><span class="n">bl_conf</span><span class="p">,</span> <span class="n">Git</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -306,7 +292,7 @@
 
     <span class="k">return</span> <span class="n">base_CI_conf</span></div>
 
-<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../include.html#include.add.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;BLCI: Generic commit message&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="add"><a class="viewcode-back" href="../../include.html#include.add.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add or update a blci repo</span>
 
@@ -357,7 +343,10 @@
         <span class="n">Git</span><span class="o">.</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">remote_repo</span><span class="o">.</span><span class="n">ssh_url</span><span class="p">)</span> <span class="c1"># Must have SSH</span>
 
     <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;-am&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="c1"># Add all</span>
-    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span></div>
+    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
+        <span class="n">travis_track</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

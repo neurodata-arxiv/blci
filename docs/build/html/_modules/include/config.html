@@ -204,6 +204,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">add_defaults</span><span class="p">()</span>
 
 <div class="viewcode-block" id="config.add_defaults"><a class="viewcode-back" href="../../include.html#include.config.config.add_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">add_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add default values for any settings that we provide defaults for.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">conf</span> <span class="ow">in</span> <span class="n">BL_DEFAULTS</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_setting</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">conf</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">conf</span> <span class="o">==</span> <span class="n">BL_VERSION</span><span class="p">:</span>
@@ -222,6 +225,20 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="p">[</span><span class="n">BL_READ</span><span class="p">]</span> <span class="o">=</span> <span class="n">BL_READ_DEFAULTS</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_LANGUAGE</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="config.read_config"><a class="viewcode-back" href="../../include.html#include.config.config.read_config">[docs]</a>    <span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">silent_fail</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Given a configuration file that is in `YAML format &lt;http://yaml.org/&gt;`_</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        fn:</span>
+<span class="sd">            - The config filename that you are reading or intend to write</span>
+
+<span class="sd">        **Optional Arguments:**</span>
+
+<span class="sd">        silent_fail:</span>
+<span class="sd">            - If `True` errors in the config settings will be ignored</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -234,10 +251,26 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__check_valid__</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="config.bashRE_2_pyRE"><a class="viewcode-back" href="../../include.html#include.config.config.bashRE_2_pyRE">[docs]</a>    <span class="k">def</span> <span class="nf">bashRE_2_pyRE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; TODO: Very rudimentary &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        TODO: Very rudimentary way to change bash shell regexs to python.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        regex:</span>
+<span class="sd">            - The bash regular expression</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">regex</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;\.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="config.isignored"><a class="viewcode-back" href="../../include.html#include.config.config.isignored">[docs]</a>    <span class="k">def</span> <span class="nf">isignored</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determine if a provided path is meant to be ignored by blci.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        path:</span>
+<span class="sd">            - The path or regex describing the path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_setting</span><span class="p">(</span><span class="n">BL_IGNORE</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span> <span class="c1"># No way to know so assume not to ignore</span>
 
@@ -251,6 +284,15 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 <div class="viewcode-block" id="config.track_datafile"><a class="viewcode-back" href="../../include.html#include.config.config.track_datafile">[docs]</a>    <span class="k">def</span> <span class="nf">track_datafile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a path stub to the `data_dep` `read` and `write` sections.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        path:</span>
+<span class="sd">            - The path to a data file that will be written by blci.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">path</span> <span class="o">=</span> <span class="n">localize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__check_and_stub_dat_dep__</span><span class="p">()</span>
 
@@ -262,6 +304,15 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="p">[</span><span class="n">BL_DATA_DEP</span><span class="p">][</span><span class="n">ioattr</span><span class="p">][</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="config.add_data_loc_path"><a class="viewcode-back" href="../../include.html#include.config.config.add_data_loc_path">[docs]</a>    <span class="k">def</span> <span class="nf">add_data_loc_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a path to the `data_loc` section of the blci config file.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        path:</span>
+<span class="sd">            - The path to a data file that will be written by blci.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_setting</span><span class="p">(</span><span class="n">BL_DATA_LOCATION</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="p">[</span><span class="n">BL_DATA_LOCATION</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -269,6 +320,20 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="p">[</span><span class="n">BL_DATA_LOCATION</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="config.unique_fn"><a class="viewcode-back" href="../../include.html#include.config.config.unique_fn">[docs]</a>    <span class="k">def</span> <span class="nf">unique_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate a unique path given a proposed path. It simply adds a count to</span>
+<span class="sd">        the proposed path until it is a non-existent path.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        path:</span>
+<span class="sd">            - The proposed path to be written.</span>
+
+<span class="sd">        **Retuns:**</span>
+
+<span class="sd">        A `str` for the path of unique file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="c1"># Create a unique fn using the path but don&#39;t overwrite if exists</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Path &#39;</span><span class="si">{}</span><span class="s2">&#39; must be a file, not &quot;</span>
@@ -285,6 +350,15 @@
         <span class="k">return</span> <span class="n">path</span></div>
 
 <div class="viewcode-block" id="config.write"><a class="viewcode-back" href="../../include.html#include.config.config.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write the config file to disk.</span>
+
+<span class="sd">        **Optional Arguments:**</span>
+
+<span class="sd">        overwrite:</span>
+<span class="sd">            - Overwrite the existing config file if it does exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">BL_DEFAULT_CONFIG_FN</span>
 
@@ -310,8 +384,17 @@
 <div class="viewcode-block" id="config.build_data_dep_stub"><a class="viewcode-back" href="../../include.html#include.config.config.build_data_dep_stub">[docs]</a>    <span class="k">def</span> <span class="nf">build_data_dep_stub</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build a stub of a config or add data dependencies to an existing</span>
-<span class="sd">        config given one or more directories containing data</span>
+<span class="sd">        config given one or more directories containing data.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        projecthome:</span>
+<span class="sd">            - The path to the project root directory.</span>
+
+<span class="sd">        overwrite:</span>
+<span class="sd">            - Overwrite the existing data dependency file, if it does exist.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">projecthome</span> <span class="o">=</span> <span class="n">projecthome</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="p">:</span>
@@ -402,7 +485,11 @@
 
 <div class="viewcode-block" id="config.isvalid"><a class="viewcode-back" href="../../include.html#include.config.config.isvalid">[docs]</a>    <span class="k">def</span> <span class="nf">isvalid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return a bool for validity of the configuration file based on the</span>
+<span class="sd">        Is the configuration file a valid one?</span>
+
+<span class="sd">        **Returns:**</span>
+
+<span class="sd">        A bool for validity of the configuration file based on the</span>
 <span class="sd">        level=IGNORE argument to :func:`~include.add.__check_valid__`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -412,9 +499,31 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span></div>
 
 <div class="viewcode-block" id="config.get"><a class="viewcode-back" href="../../include.html#include.config.config.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a setting.</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        setting:</span>
+<span class="sd">            - The name of setting you seek</span>
+
+<span class="sd">        **Returns:**</span>
+<span class="sd">            - The value of the setting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="p">[</span><span class="n">setting</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="config.has_setting"><a class="viewcode-back" href="../../include.html#include.config.config.has_setting">[docs]</a>    <span class="k">def</span> <span class="nf">has_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Does the configuration file have the setting?</span>
+
+<span class="sd">        **Positional Arguments:**</span>
+
+<span class="sd">        setting:</span>
+<span class="sd">            - The name of setting you seek.</span>
+
+<span class="sd">        **Returns:**</span>
+<span class="sd">            - A `bool` indicating if the setting is set or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conf</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">setting</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setting</span><span class="p">):</span>
