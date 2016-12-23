@@ -95,8 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Actions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#script">Script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#triggers">Triggers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#verifiers">Verifiers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#triggers">Triggers</a></li>
 </ul>
 </li>
 </ul>
@@ -146,18 +146,29 @@
   <div class="section" id="actions">
 <span id="actions"></span><h1>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h1>
 <p>BLCI has three fundamental actions which can trigger computation and a change of
-state <code class="docutils literal"><span class="pre">script</span></code>, <code class="docutils literal"><span class="pre">trigger</span></code> and <code class="docutils literal"><span class="pre">verify</span></code> actions.</p>
+state: <code class="docutils literal"><span class="pre">script</span></code>, <code class="docutils literal"><span class="pre">trigger</span></code> and <code class="docutils literal"><span class="pre">verify</span></code> actions.</p>
 <div class="section" id="script">
 <span id="script"></span><h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
-<p><strong>TODO</strong>: Doc</p>
-</div>
-<div class="section" id="triggers">
-<span id="triggers"></span><h2>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
-<p><strong>TODO</strong>: Doc</p>
+<p>This is enabled by the use of the <code class="docutils literal"><span class="pre">script</span></code> setting in the configuration file. This operation is passed directly to Travis CI&#8217;s <code class="docutils literal"><span class="pre">script</span></code> <a class="reference external" href="https://docs.travis-ci.com/user/customizing-the-build/">setting</a> setting. BLCI uses this to  allow users to force changes in data dependencies. If data dependencies change this may cause <code class="docutils literal"><span class="pre">trigger</span></code>s to be created.</p>
+<p>Note that BLCI creates and fully manages a <code class="docutils literal"><span class="pre">.travis.yml</span></code> file that is added to the repo when the first <code class="docutils literal"><span class="pre">add</span></code> is done. BLCI alters and adds to the <code class="docutils literal"><span class="pre">script</span></code> setting then passes it to <code class="docutils literal"><span class="pre">.travis.yml</span></code>.</p>
+<p><strong>NOTE: Do not directly alter the <code class="docutils literal"><span class="pre">.travis.yml</span></code> file that BLCI creates</strong> &#8211;
+this action results in undefined behavior. <em>TODO: Reject such actions</em></p>
 </div>
 <div class="section" id="verifiers">
 <span id="verifiers"></span><h2>Verifiers<a class="headerlink" href="#verifiers" title="Permalink to this headline">¶</a></h2>
-<p><strong>TODO</strong>: Doc</p>
+<p><em>TODO: This functionality is not yet supported</em>
+This is enabled by the <code class="docutils literal"><span class="pre">verify</span></code> setting in the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration. The <code class="docutils literal"><span class="pre">verify</span></code> setting allows you to check that data being passed for use with a
+pipeline is valid and true to the intended use. This allows users to define
+one or more tests for new users to the pipeline.</p>
+</div>
+<div class="section" id="triggers">
+<span id="triggers"></span><h2>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
+<p>Triggers are not created or defined by users, but are reactions to changes in code and data. Triggers may cause a few different actions to be taken by BLCI:</p>
+<ul class="simple">
+<li>A push to the users Github repo (which may in turn trigger another action)</li>
+<li>A Travis CI build</li>
+<li><em>TODO: Other actions may be performed</em></li>
+</ul>
 </div>
 </div>
 
