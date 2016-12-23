@@ -156,3 +156,5 @@ texinfo_documents = [
      author, 'BrainLab-CI', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+html_favicon = "../img/favicons/favicon.ico"
