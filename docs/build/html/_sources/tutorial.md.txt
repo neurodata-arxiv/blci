@@ -1,11 +1,11 @@
-# Quickstart
+# Tutorial
 
 We define how to get up and running for a machine with a reasonably up to date
 operating system. **NOTE:** You may need to run the commands listed here with
 higher user privilege such as root i.e., prefix commands with `sudo`.
 
 ### Install Dependencies
-We require [Python 2.7](https://www.python.org/downloads/release/python-2712/), [Git](https://desktop.github.com/), and [Pip](https://pip.pypa.io/en/stable/). 
+We require [Python 2.7](https://www.python.org/downloads/release/python-2712/), [Git](https://desktop.github.com/), and [Pip](https://pip.pypa.io/en/stable/).
 
 #### Mac quick install (requires `Brew`)
 If you do not have brew, first install it:
@@ -45,7 +45,7 @@ git clone https://github.com/neurodata/blci.git
 cd blci
 ```
 
-For comprehensive instructions on how to install if quickstart fails, please see our detailed [installation page](install.html).
+For comprehensive instructions on how to install please refer to the [installation page](install.html).
 
 ## BLCI Use
 

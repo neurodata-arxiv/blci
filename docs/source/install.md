@@ -1,11 +1,11 @@
 # Installation
 
-BLCI installation is quick and simple. There are only a few dependencies:
+BLCI installation is simple. There are only a few dependencies:
 
 Your system must have working version of:
 - [Python 2.7](https://www.python.org/downloads/)
 - [Git](https://desktop.github.com/)
-- [Pip](#TODO)
+- [Pip](https://pip.pypa.io/)
 
 **NOTE:** You may need to run the commands listed here with
 higher user privilege such as root i.e., prefix commands with `sudo`.

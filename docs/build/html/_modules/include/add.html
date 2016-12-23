@@ -87,7 +87,7 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../overview.html">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../defaults.html">Default settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../authentication.html">Authentication</a></li>
@@ -163,7 +163,7 @@
 <span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
 <span class="kn">from</span> <span class="nn">github</span> <span class="k">import</span> <span class="n">Github</span>
-<span class="c1">#from travispy import TravisPy as tp</span>
+<span class="kn">from</span> <span class="nn">travispy</span> <span class="k">import</span> <span class="n">TravisPy</span>
 
 <span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bl_exceptions</span> <span class="k">import</span> <span class="n">ParameterException</span>
@@ -171,6 +171,7 @@
 <span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">is_git_repo</span><span class="p">,</span> <span class="n">is_git_branch</span><span class="p">,</span> <span class="n">read_token</span>
 <span class="kn">from</span> <span class="nn">common</span> <span class="k">import</span> <span class="n">write_yml</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">build</span> <span class="k">import</span> <span class="n">trigger_build</span>
 
 <div class="viewcode-block" id="handle_gitignore"><a class="viewcode-back" href="../../include.html#include.add.handle_gitignore">[docs]</a><span class="k">def</span> <span class="nf">handle_gitignore</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">bl_conf</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -252,15 +253,14 @@
 <span class="sd">        - A BLCI configuration :class:`~include.config.config` object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Success! Now please go to &quot;</span> <span class="o">+</span> \
-        <span class="s2">&quot;https://travis-ci.org/profile/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span>\
-            <span class="nb">format</span><span class="p">(</span><span class="n">Github</span><span class="p">(</span><span class="n">read_token</span><span class="p">(</span><span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)))</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span><span class="o">.</span><span class="n">login</span><span class="p">)</span><span class="o">+</span>\
-        <span class="s2">&quot; authenticate using your Github credentials and activate your repo. &quot;</span> <span class="o">+</span>\
-        <span class="s2">&quot;Detailed instructions are available at &quot;</span> <span class="o">+</span>\
-        <span class="s2">&quot;http://neurodata.github.io/blci/travis .&quot;</span>
+    <span class="nb">print</span> <span class="s2">&quot;Tracking repo with Travis ...&quot;</span>
+    <span class="n">travis</span> <span class="o">=</span> <span class="n">TravisPy</span><span class="o">.</span><span class="n">github_auth</span><span class="p">(</span><span class="n">read_token</span><span class="p">(</span><span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)))</span>
+    <span class="n">repo</span> <span class="o">=</span> <span class="n">travis</span><span class="o">.</span><span class="n">repo</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">travis</span><span class="o">.</span><span class="n">user</span><span class="p">()</span><span class="o">.</span><span class="n">login</span><span class="p">,</span> <span class="n">bl_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">)))</span>
+    <span class="n">repo</span><span class="o">.</span><span class="n">enable</span><span class="p">()</span> <span class="c1"># Switch is now on</span>
 
-    <span class="k">return</span> <span class="c1"># FIXME is this possible programmatically</span></div>
-    <span class="c1">#tp = TravisPy.github_auth(read_token(bl_conf.get(BL_CREDS)))</span>
+    <span class="nb">print</span> <span class="s2">&quot;Synchronizing Github and Travis ...&quot;</span>
+    <span class="n">travis</span><span class="o">.</span><span class="n">user</span><span class="p">()</span><span class="o">.</span><span class="n">sync</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="create_base_CI_conf"><a class="viewcode-back" href="../../include.html#include.add.create_base_CI_conf">[docs]</a><span class="k">def</span> <span class="nf">create_base_CI_conf</span><span class="p">(</span><span class="n">bl_conf</span><span class="p">,</span> <span class="n">Git</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -349,7 +349,10 @@
     <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">new_repo</span><span class="p">:</span>
-        <span class="n">travis_track</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span></div>
+        <span class="n">travis_track</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+        <span class="n">trigger_build</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="n">projecthome</span><span class="p">)</span>
+
+    <span class="nb">print</span> <span class="s2">&quot;Add action successful ...&quot;</span></div>
 </pre></div>
 
            </div>
