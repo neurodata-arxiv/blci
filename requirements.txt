@@ -3,3 +3,4 @@ pyyaml
 pytest
 gitpython
 PyGithub
+travispy

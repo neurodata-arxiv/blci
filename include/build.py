@@ -55,6 +55,7 @@ def trigger_build(conf, projecthome):
             f.write("\n")
 
     # Trigger a build
+    print "Triggering a build"
     repo = Repo(projecthome)
     Git = repo.git(work_tree=projecthome)
     Git.checkout(conf.get(BL_NAME)) # Ensure correct branch
