@@ -16,7 +16,7 @@ full provenance.
 
 .. toctree::
     overview
-    quickstart
+    tutorial
     defaults
     install
     authentication
