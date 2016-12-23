@@ -5,47 +5,9 @@ operating system. **NOTE:** You may need to run the commands listed here with
 higher user privilege such as root i.e., prefix commands with `sudo`.
 
 ### Install Dependencies
-We require [Python 2.7](https://www.python.org/downloads/release/python-2712/), [Git](https://desktop.github.com/), and [Pip](https://pip.pypa.io/en/stable/).
+At the OS-level we require [Python 2.7](https://www.python.org/downloads/release/python-2712/), [Git](https://desktop.github.com/), and [Pip](https://pip.pypa.io/en/stable/) to function.
 
-#### Mac quick install (requires `Brew`)
-If you do not have brew, first install it:
-```
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-```
-
-, next install the dependencies:
-
-```
-brew install git
-curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-python get-pip.py
-pip install -U argparse pyyaml pytest gitpython
-```
-, finally install BLCI:
-
-```
-git clone https://github.com/neurodata/blci.git
-cd blci
-```
-
-#### Quick install for Linux
-
-For most modern mainstream Linux environments it is sufficient to use the system provided package manager. For [Ubuntu](https://www.ubuntu.com/) this is `apt-get`, for [RedHat](https://www.redhat.com/) this is `yum`. We will use Ubuntu as our example:
-
-```
-apt-get install git
-curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
-python get-pip.py
-pip install -U argparse pyyaml pytest gitpython
-```
-, finally install BLCI:
-
-```
-git clone https://github.com/neurodata/blci.git
-cd blci
-```
-
-For comprehensive instructions on how to install please refer to the [installation page](install.html).
+If your system does not have any of these see the [installation page](install.html).
 
 ## BLCI Use
 
