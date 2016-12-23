@@ -92,8 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="defaults.html">Default settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Authentication</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#authentication-token">Authentication token</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#permission-level-required-for-token">Permission level required for token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssh-keys">SSH Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oauth-authentication-token">OAuth authentication token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permission-level-required-for-oauth-token">Permission level required for OAuth token</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#no-usable-auth-token">No usable auth token?</a></li>
 </ul>
 </li>
@@ -150,19 +151,30 @@
 <ol class="simple">
 <li><a class="reference external" href="https://github.com">Github</a></li>
 <li><a class="reference external" href="https://travis-ci.org/">Travis CI</a></li>
+<li>SSH keys setup for Github (<em>TODO: Won&#8217;t be necessary in the future</em>)</li>
+<li>A Github OAuth token</li>
 </ol>
-<p>In order to allow BLCI to create an autonomously managed Github and Travis CI
+<div class="section" id="ssh-keys">
+<span id="ssh-keys"></span><h2>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">¶</a></h2>
+<p>You must have setup SSH keys to allow password-less authentication to your Github
+repos already. If you do not, follow the steps outlined
+<a class="reference external" href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">here</a>
+and copy and add your <code class="docutils literal"><span class="pre">id_rsa.pub</span></code> public key to your Github account at
+<a class="reference external" href="https://github.com/settings/keys">https://github.com/settings/keys</a>.</p>
+<p>Lastly, In order to allow BLCI to create an autonomously managed Github and Travis CI
 repos you will need an <strong>authentication token</strong>.</p>
-<div class="section" id="authentication-token">
-<span id="authentication-token"></span><h2>Authentication token<a class="headerlink" href="#authentication-token" title="Permalink to this headline">¶</a></h2>
-<p>Have your Github email and password handy for this. Follow the steps outlined
+</div>
+<div class="section" id="oauth-authentication-token">
+<span id="oauth-authentication-token"></span><h2>OAuth authentication token<a class="headerlink" href="#oauth-authentication-token" title="Permalink to this headline">¶</a></h2>
+<p>Follow the steps outlined
 <a class="reference external" href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a>.
 Copy and paste the token into a file in the root of your project. The default name that BLCI
 expects is <code class="docutils literal"><span class="pre">.credentials</span></code>, but you can set the <code class="docutils literal"><span class="pre">credentials</span></code> setting in the <code class="docutils literal"><span class="pre">blci.yml</span></code>
-configuration to adapt the default behavior.</p>
+configuration to adapt the default behavior. Your token file will never be tracked by
+Git or BLCI. <strong>It must remain local and untracked!</strong></p>
 </div>
-<div class="section" id="permission-level-required-for-token">
-<span id="permission-level-required-for-token"></span><h2>Permission level required for token<a class="headerlink" href="#permission-level-required-for-token" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="permission-level-required-for-oauth-token">
+<span id="permission-level-required-for-oauth-token"></span><h2>Permission level required for OAuth token<a class="headerlink" href="#permission-level-required-for-oauth-token" title="Permalink to this headline">¶</a></h2>
 <p>Your token must select the following scopes:</p>
 <ul class="simple">
 <li>repo</li>
@@ -175,8 +187,7 @@ configuration to adapt the default behavior.</p>
 <div class="section" id="no-usable-auth-token">
 <span id="no-usable-auth-token"></span><h2>No usable auth token?<a class="headerlink" href="#no-usable-auth-token" title="Permalink to this headline">¶</a></h2>
 <p>If you do not have one you will need to create an authentication token with
-sufficient permission. Create a new token at
-<a class="reference external" href="https://github.com/settings/tokens/new">github</a>.</p>
+sufficient permission. Create a new token at <a class="reference external" href="https://github.com/settings/tokens/new">Github</a>.</p>
 </div>
 </div>
 
