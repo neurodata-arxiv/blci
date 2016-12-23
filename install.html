@@ -90,7 +90,14 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="defaults.html">Default settings</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#missing-os-level-dependencies">Missing OS-level dependencies ??</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mac-quick-install-requires-brew">Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-quick-install">Ubuntu quick install</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
@@ -150,18 +157,44 @@
 </ul>
 <p><strong>NOTE:</strong> You may need to run the commands listed here with
 higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
-<p>BrainLab-CI can be installed by cloning the github repo as follows:</p>
+<p>BrainLab-CI can be installed by cloning the Github repo as follows:</p>
 <ul class="simple">
 <li>Through SSH: <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:neurodata/blci.git</span></code></li>
 <li>Through HTTPS: <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/neurodata/blci.git</span></code></li>
 </ul>
-<p>Once the repo is cloned simply <code class="docutils literal"><span class="pre">cd</span></code> into the BLCI directory and use the
-<code class="docutils literal"><span class="pre">bl</span></code> script to perform desired actions.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">blci</span>
-<span class="o">./</span><span class="n">bl</span> <span class="o">-</span><span class="n">h</span>
+<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nb">cd</span> blci/
+./install
 </pre></div>
 </div>
-<p><strong>TODO:</strong> Under construction</p>
+<p>Once installation is complete use the BLCI driver <code class="docutils literal"><span class="pre">./bl</span></code></p>
+<div class="section" id="missing-os-level-dependencies">
+<span id="missing-os-level-dependencies"></span><h2>Missing OS-level dependencies ??<a class="headerlink" href="#missing-os-level-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>If you are missing some of these, install them first for ultimate happiness.</p>
+<div class="section" id="mac-quick-install-requires-brew">
+<span id="mac-quick-install-requires-brew"></span><h3>Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)<a class="headerlink" href="#mac-quick-install-requires-brew" title="Permalink to this headline">¶</a></h3>
+<p>If you do not have Brew, first install it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
+</pre></div>
+</div>
+<p>, next install the dependencies:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
+<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
+<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubuntu-quick-install">
+<span id="ubuntu-quick-install"></span><h3>Ubuntu quick install<a class="headerlink" href="#ubuntu-quick-install" title="Permalink to this headline">¶</a></h3>
+<p>For most modern mainstream Linux environments it is sufficient to use the system provided package manager. For <a class="reference external" href="https://www.ubuntu.com/">Ubuntu</a> this is <code class="docutils literal"><span class="pre">apt-get</span></code>, for <a class="reference external" href="https://www.redhat.com/">RedHat</a> this is <code class="docutils literal"><span class="pre">yum</span></code>. We will use Ubuntu as our example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span>
+<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
+<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

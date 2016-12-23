@@ -89,11 +89,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mac-quick-install-requires-brew">Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#quick-install-for-linux">Quick install for Linux</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blci-use">BLCI Use</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-blci-yml-config-file">Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#make-pipeline-repo-a-valid-blci-repo">Make pipeline/repo a valid BLCI repo</a></li>
@@ -160,42 +156,8 @@ operating system. <strong>NOTE:</strong> You may need to run the commands listed
 higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
 <div class="section" id="install-dependencies">
 <span id="install-dependencies"></span><h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>We require <a class="reference external" href="https://www.python.org/downloads/release/python-2712/">Python 2.7</a>, <a class="reference external" href="https://desktop.github.com/">Git</a>, and <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a>.</p>
-<div class="section" id="mac-quick-install-requires-brew">
-<span id="mac-quick-install-requires-brew"></span><h3>Mac quick install (requires <code class="docutils literal"><span class="pre">Brew</span></code>)<a class="headerlink" href="#mac-quick-install-requires-brew" title="Permalink to this headline">¶</a></h3>
-<p>If you do not have brew, first install it:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
-</pre></div>
-</div>
-<p>, next install the dependencies:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
-<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
-<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
-</pre></div>
-</div>
-<p>, finally install BLCI:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">neurodata</span><span class="o">/</span><span class="n">blci</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">blci</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="quick-install-for-linux">
-<span id="quick-install-for-linux"></span><h3>Quick install for Linux<a class="headerlink" href="#quick-install-for-linux" title="Permalink to this headline">¶</a></h3>
-<p>For most modern mainstream Linux environments it is sufficient to use the system provided package manager. For <a class="reference external" href="https://www.ubuntu.com/">Ubuntu</a> this is <code class="docutils literal"><span class="pre">apt-get</span></code>, for <a class="reference external" href="https://www.redhat.com/">RedHat</a> this is <code class="docutils literal"><span class="pre">yum</span></code>. We will use Ubuntu as our example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">git</span>
-<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
-<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
-</pre></div>
-</div>
-<p>, finally install BLCI:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">neurodata</span><span class="o">/</span><span class="n">blci</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">blci</span>
-</pre></div>
-</div>
-<p>For comprehensive instructions on how to install please refer to the <a class="reference external" href="install.html">installation page</a>.</p>
-</div>
+<p>At the OS-level we require <a class="reference external" href="https://www.python.org/downloads/release/python-2712/">Python 2.7</a>, <a class="reference external" href="https://desktop.github.com/">Git</a>, and <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a> to function.</p>
+<p>If your system does not have any of these see the <a class="reference external" href="install.html">installation page</a>.</p>
 </div>
 <div class="section" id="blci-use">
 <span id="blci-use"></span><h2>BLCI Use<a class="headerlink" href="#blci-use" title="Permalink to this headline">¶</a></h2>
