@@ -1,33 +1,46 @@
 # Overview
 
 BrainLab-CI (BLCI) is a code and data management continuous integration
-tool that; providing the ability to perform collaborative, community
+tool that provides the ability to perform collaborative, community
 experiments with data-quality controls and full provenance. BLCI
-autonomously determines code dependencies and provides infrastructure
-to link code to data items.
-
+autonomously determines code base dependencies and provides infrastructure
+to build and manage dependencies between code and data.
 
 ## Functionality
 BLCI provides the ability to:
 
-- Create a dependency-aware pipeline (or section of a pipeline) that tracks
-code and data dependencies and performs autonomous updates when upstream
-changes occur.
-- Define custom **trigger** actions to read/write and update data when code changes. This is done via the `script` argument in the `blci.yml` configuration file. See [the actions page](actions.html) for information on triggers.
-- Trigger actions are performed when your repo is *added* or *updated*.
-- Define **verification** actions via the `verify` argument in the `blci.yml` configuration file. The actions can be used to ensure either:
+- Create dependency-aware pipelines that track code and data dependencies;
+performing autonomous updates when upstream changes occur.
+- Define custom **script** actions to read/write and update data when `add` or
+`build` actions are performed [the actions page](actions.html) for more
+information.
+- *TODO:* Define **verification** actions used to ensure either:
 	1. Code pushed to repo is valid for use with data.
 	2. Data pushed to repo is valid for use with code.
-- Visualize the effects of pushed code and data to the repo via dashboards (FIXME).
+- *TODO:* Visualize the effects of pushed code and data to the repo via dashboards.
+- *TODO:* Autonomously perform **trigger** actions that read/write and update data in response to code changes.
 
 ## Compatibility and Support
 
 We support modern Linux and Mac operating systems and provide documentation
 with these in mind. BLCI has can also run in Windows environments,
-but we do not provide Windows specific documentation. We suggest Windows
+but, we do not provide Windows specific documentation. We suggest Windows
 users take advantage of virtualization environments such as
-[VirtualBox](https://www.virtualbox.org/), [VMWare](http://www.vmware.com/) to obtain Linux environments.
+[VirtualBox](https://www.virtualbox.org/), [VMWare](http://www.vmware.com/) to
+obtain Linux environments.
+
+## BLCI software stack
+
+![infrastructure](../img/architecture.png)
+
+BLCI is built on the shoulders of the following systems and software:
+[Git](https://git-scm.com/) for local version control.
+[Github](https://github.com/) for remote version control.
+[Travis](https://travis-ci.org/) for a continuous integration environment.
 
 ## How to **not** use BLCI
 
-BLCI is meant to be used a version control system. In fact it relies on [Git](https://git-scm.com/) for version control so using it as such redundant and gives you less control over your *commits*. If a user performs *git commits* without using the BLCI's `./bl` undefined behavior may occur.
+*Disclaimer:* Currently BLCI is **not** meant to be used as the primary development repo for a project. It should be used in conjunction with a
+primary repo where users can apply changes to the git history freely.
+Currently *git commits* performed independently of BLCI result in
+undefined behavior.
