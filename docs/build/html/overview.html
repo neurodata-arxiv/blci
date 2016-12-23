@@ -88,6 +88,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#functionality">Functionality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compatibility-and-support">Compatibility and Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#blci-software-stack">BLCI software stack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-not-use-blci">How to <strong>not</strong> use BLCI</a></li>
 </ul>
 </li>
@@ -145,38 +146,51 @@
   <div class="section" id="overview">
 <span id="overview"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <p>BrainLab-CI (BLCI) is a code and data management continuous integration
-tool that; providing the ability to perform collaborative, community
+tool that provides the ability to perform collaborative, community
 experiments with data-quality controls and full provenance. BLCI
-autonomously determines code dependencies and provides infrastructure
-to link code to data items.</p>
+autonomously determines code base dependencies and provides infrastructure
+to build and manage dependencies between code and data.</p>
 <div class="section" id="functionality">
 <span id="functionality"></span><h2>Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
 <p>BLCI provides the ability to:</p>
 <ul class="simple">
-<li>Create a dependency-aware pipeline (or section of a pipeline) that tracks
-code and data dependencies and performs autonomous updates when upstream
-changes occur.</li>
-<li>Define custom <strong>trigger</strong> actions to read/write and update data when code changes. This is done via the <code class="docutils literal"><span class="pre">script</span></code> argument in the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file. See <a class="reference external" href="actions.html">the actions page</a> for information on triggers.</li>
-<li>Trigger actions are performed when your repo is <em>added</em> or <em>updated</em>.</li>
-<li>Define <strong>verification</strong> actions via the <code class="docutils literal"><span class="pre">verify</span></code> argument in the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file. The actions can be used to ensure either:<ol>
+<li>Create dependency-aware pipelines that track code and data dependencies;
+performing autonomous updates when upstream changes occur.</li>
+<li>Define custom <strong>script</strong> actions to read/write and update data when <code class="docutils literal"><span class="pre">add</span></code> or
+<code class="docutils literal"><span class="pre">build</span></code> actions are performed <a class="reference external" href="actions.html">the actions page</a> for more
+information.</li>
+<li><em>TODO:</em> Define <strong>verification</strong> actions used to ensure either:<ol>
 <li>Code pushed to repo is valid for use with data.</li>
 <li>Data pushed to repo is valid for use with code.</li>
 </ol>
 </li>
-<li>Visualize the effects of pushed code and data to the repo via dashboards (FIXME).</li>
+<li><em>TODO:</em> Visualize the effects of pushed code and data to the repo via dashboards.</li>
+<li><em>TODO:</em> Autonomously perform <strong>trigger</strong> actions that read/write and update data in response to code changes.</li>
 </ul>
 </div>
 <div class="section" id="compatibility-and-support">
 <span id="compatibility-and-support"></span><h2>Compatibility and Support<a class="headerlink" href="#compatibility-and-support" title="Permalink to this headline">¶</a></h2>
 <p>We support modern Linux and Mac operating systems and provide documentation
 with these in mind. BLCI has can also run in Windows environments,
-but we do not provide Windows specific documentation. We suggest Windows
+but, we do not provide Windows specific documentation. We suggest Windows
 users take advantage of virtualization environments such as
-<a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a>, <a class="reference external" href="http://www.vmware.com/">VMWare</a> to obtain Linux environments.</p>
+<a class="reference external" href="https://www.virtualbox.org/">VirtualBox</a>, <a class="reference external" href="http://www.vmware.com/">VMWare</a> to
+obtain Linux environments.</p>
+</div>
+<div class="section" id="blci-software-stack">
+<span id="blci-software-stack"></span><h2>BLCI software stack<a class="headerlink" href="#blci-software-stack" title="Permalink to this headline">¶</a></h2>
+<p><img alt="infrastructure" src="_images/architecture.png" /></p>
+<p>BLCI is built on the shoulders of the following systems and software:
+<a class="reference external" href="https://git-scm.com/">Git</a> for local version control.
+<a class="reference external" href="https://github.com/">Github</a> for remote version control.
+<a class="reference external" href="https://travis-ci.org/">Travis</a> for a continuous integration environment.</p>
 </div>
 <div class="section" id="how-to-not-use-blci">
 <span id="how-to-not-use-blci"></span><h2>How to <strong>not</strong> use BLCI<a class="headerlink" href="#how-to-not-use-blci" title="Permalink to this headline">¶</a></h2>
-<p>BLCI is meant to be used a version control system. In fact it relies on <a class="reference external" href="https://git-scm.com/">Git</a> for version control so using it as such redundant and gives you less control over your <em>commits</em>. If a user performs <em>git commits</em> without using the BLCI&#8217;s <code class="docutils literal"><span class="pre">./bl</span></code> undefined behavior may occur.</p>
+<p><em>Disclaimer:</em> Currently BLCI is <strong>not</strong> meant to be used as the primary development repo for a project. It should be used in conjunction with a
+primary repo where users can apply changes to the git history freely.
+Currently <em>git commits</em> performed independently of BLCI result in
+undefined behavior.</p>
 </div>
 </div>
 
