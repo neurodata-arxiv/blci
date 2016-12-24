@@ -93,13 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BLCI User Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#the-example-repo">The example repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#initiate-a-repo">Initiate a repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#complete-the-config">Complete the config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ingest-the-repo">Ingest the repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#push-the-repo">Push the repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#update-the-repo">Update the repo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#push-the-repo">Push the repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initialize-the-repo">Initialize the repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-the-repo">Add the repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todo-undo">TODO: Undo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build">Build</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
@@ -150,52 +148,71 @@
             
   <div class="section" id="blci-user-interface">
 <span id="blci-user-interface"></span><h1>BLCI User Interface<a class="headerlink" href="#blci-user-interface" title="Permalink to this headline">¶</a></h1>
-<p>The way to interact with BLCI is through the <code class="docutils literal"><span class="pre">./bl</span></code> driver script within the BLCI root directory. Pass the <code class="docutils literal"><span class="pre">-h</span></code> to see all the arguments and options i.e., <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-h</span></code>.</p>
-<div class="section" id="the-example-repo">
-<span id="the-example-repo"></span><h2>The example repo<a class="headerlink" href="#the-example-repo" title="Permalink to this headline">¶</a></h2>
-<p>Let us start with our example pipeline we want to be BLCI repo. Consider the following directory hierarchy when we start:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">test</span><span class="o">-</span><span class="n">blci</span>\
-    <span class="n">code</span>\
-        <span class="n">__init__</span><span class="o">.</span><span class="n">py</span>
-        <span class="n">a</span><span class="o">.</span><span class="n">py</span>
-    <span class="n">data</span>\
-        <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
-        <span class="n">databy2</span><span class="o">.</span><span class="n">txt</span>
-    <span class="n">otherdata</span>\
-        <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+<p>The way to interact with BLCI is through the <code class="docutils literal"><span class="pre">./bl</span></code> driver script within the
+BLCI root directory. Pass the <code class="docutils literal"><span class="pre">-h</span></code> to see all the arguments and options
+i.e., <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-h</span></code>.</p>
+<div class="section" id="configuration-file">
+<span id="configuration-file"></span><h2>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
+<p>BLCI requires a configuration file named <code class="docutils literal"><span class="pre">blci.yml</span></code> to operate.
+When a repo is initiated via the <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-i</span></code> flag, <code class="docutils literal"><span class="pre">blci.yml</span></code> is
+updated to contain <a class="reference external" href="defaults.html">defaults</a> and <strong>stub</strong>
+<a class="reference external" href="include.html#include.settings.BL_REQUIRED">settings</a>
+that are minimally required in order for BLCI to be a <em>valid</em> BLCI repo.</p>
+<p>Let&#8217;s start by creating an incomplete config file in <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>
+(the root directory for your project):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">repo</span>
+<span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="n">read</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">.</span><span class="n">py</span>
+<span class="n">script</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;print &#39;Hello BLCI&#39;&quot;</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="initiate-a-repo">
-<span id="initiate-a-repo"></span><h2>Initiate a repo<a class="headerlink" href="#initiate-a-repo" title="Permalink to this headline">¶</a></h2>
-<p>BLCI requires a configuration file named <code class="docutils literal"><span class="pre">blci.yml</span></code> to operate. When a repo is initiated via the <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-i</span></code> flag, <code class="docutils literal"><span class="pre">blci.yml</span></code> is updated to contain the all the <a class="reference external" href="#TODO">required configuration</a> <strong>stubs</strong> it needs in order to be a <em>valid</em> BLCI repo.</p>
-<p>Let&#8217;s start by creating an incomplete config file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TODO</span><span class="p">:</span> <span class="n">file</span> <span class="n">here</span>
+<div class="section" id="initialize-the-repo">
+<span id="initialize-the-repo"></span><h2>Initialize the repo<a class="headerlink" href="#initialize-the-repo" title="Permalink to this headline">¶</a></h2>
+<p>To initialize a repo execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./bl -i $PROJECT_HOME
 </pre></div>
 </div>
-<p>Now by passing the following would stub our <code class="docutils literal"><span class="pre">blci.yml</span></code> file with all required configs.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TODO</span><span class="p">:</span> <span class="n">init</span> <span class="n">repo</span>
+<p>BLCI initialization performs two actions:</p>
+<ol class="simple">
+<li>Builds and saves the code dependency graph file <code class="docutils literal"><span class="pre">blci.deps</span></code></li>
+<li>Fleshes out a minimal <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file to a point to where
+a repo is a valid BLCI repo leaving only the <code class="docutils literal"><span class="pre">data_deps</span></code> setting to be completed by the user.</li>
+</ol>
+<p><strong>NOTE:</strong> The default action is to append and overwrite the minimal configuration file a user creates. The filename of the original
+configuration file will change to <code class="docutils literal"><span class="pre">blci.yml.old</span></code>. To change <em>append</em>
+behavior use the <code class="docutils literal"><span class="pre">-B</span> <span class="pre">[--bare]</span></code> flag, to change the <em>overrwrite</em>
+behavior use the <code class="docutils literal"><span class="pre">-N</span> <span class="pre">[--nooverwrite]</span></code> flag.</p>
+</div>
+<div class="section" id="add-the-repo">
+<span id="add-the-repo"></span><h2>Add the repo<a class="headerlink" href="#add-the-repo" title="Permalink to this headline">¶</a></h2>
+<p>To add a repo execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./bl -a $PROJECT_HOME
 </pre></div>
 </div>
+<p>A BLCI action:</p>
+<ol class="simple">
+<li>Create a remote Github repo and track it using Travis CI <strong>if none exists.</strong></li>
+<li>Build the Travis metadata.</li>
+<li>Add, commit, push and Travis build your repo.</li>
+</ol>
 </div>
-<div class="section" id="complete-the-config">
-<span id="complete-the-config"></span><h2>Complete the config<a class="headerlink" href="#complete-the-config" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<div class="section" id="todo-undo">
+<span id="todo-undo"></span><h2>TODO: Undo<a class="headerlink" href="#todo-undo" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./bl -u $PROJECT_HOME
+</pre></div>
 </div>
-<div class="section" id="ingest-the-repo">
-<span id="ingest-the-repo"></span><h2>Ingest the repo<a class="headerlink" href="#ingest-the-repo" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p>Undo the previous <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-a</span></code> (add) action and restore the repo to it&#8217;s previous state.</p>
 </div>
-<div class="section" id="push-the-repo">
-<span id="push-the-repo"></span><h2>Push the repo<a class="headerlink" href="#push-the-repo" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<div class="section" id="build">
+<span id="build"></span><h2>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
+<p>Force a build of your BLCI repo without making changes to your code or using <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-a</span></code>. Execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./bl -b $PROJECT_HOME
+</pre></div>
 </div>
-<div class="section" id="update-the-repo">
-<span id="update-the-repo"></span><h2>Update the repo<a class="headerlink" href="#update-the-repo" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
-</div>
-<div class="section" id="push-the-repo">
-<span id="id1"></span><h2>Push the repo<a class="headerlink" href="#push-the-repo" title="Permalink to this headline">¶</a></h2>
+<p>Force a build action without changing any code within the repo.</p>
 </div>
 </div>
 
