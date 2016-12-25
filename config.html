@@ -94,7 +94,22 @@
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">The configuration file</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#name"><code class="docutils literal"><span class="pre">name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#language"><code class="docutils literal"><span class="pre">language</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version"><code class="docutils literal"><span class="pre">version</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nthread"><code class="docutils literal"><span class="pre">nthread</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ignore"><code class="docutils literal"><span class="pre">ignore</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read"><code class="docutils literal"><span class="pre">read</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-dep"><code class="docutils literal"><span class="pre">data_dep</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-loc"><code class="docutils literal"><span class="pre">code_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#data-loc"><code class="docutils literal"><span class="pre">data_loc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#path"><code class="docutils literal"><span class="pre">path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install"><code class="docutils literal"><span class="pre">install</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credentials"><code class="docutils literal"><span class="pre">credentials</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#description"><code class="docutils literal"><span class="pre">description</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
@@ -146,9 +161,69 @@
 <span id="the-configuration-file"></span><h1>The configuration file<a class="headerlink" href="#the-configuration-file" title="Permalink to this headline">¶</a></h1>
 <p>We document the configuration that is essential to correct functionality of
 BLCI. Note that there are several default values that are specified and
-documented <a class="reference external" href="defaults.html">here</a></p>
-<div class="section" id="todo">
-<span id="todo"></span><h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+documented <a class="reference external" href="defaults.html">here</a>. All paths are relative to the root directory of the project i.e., <code class="docutils literal"><span class="pre">$POJECT_HOME</span></code>.</p>
+<p><strong>NOTE:</strong> Any configuration passed that is not BLCI specific is passed directly
+to the Travis CI configuration file <code class="docutils literal"><span class="pre">.travis.yml</span></code>.</p>
+<div class="section" id="settings">
+<span id="settings"></span><h2>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>We document all BLCI specific settings.</p>
+<div class="section" id="name">
+<span id="name"></span><h3><code class="docutils literal"><span class="pre">name</span></code><a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h3>
+<p>The user defined repository name e.g., <code class="docutils literal"><span class="pre">my-repo</span></code>.</p>
+</div>
+<div class="section" id="language">
+<span id="language"></span><h3><code class="docutils literal"><span class="pre">language</span></code><a class="headerlink" href="#language" title="Permalink to this headline">¶</a></h3>
+<p>The programming language your project utilizes e.g., <code class="docutils literal"><span class="pre">cpp</span></code>, <code class="docutils literal"><span class="pre">julia</span></code>.</p>
+</div>
+<div class="section" id="version">
+<span id="version"></span><h3><code class="docutils literal"><span class="pre">version</span></code><a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h3>
+<p>The version of the programming language you are using e.g., <code class="docutils literal"><span class="pre">2.7</span></code>.</p>
+</div>
+<div class="section" id="nthread">
+<span id="nthread"></span><h3><code class="docutils literal"><span class="pre">nthread</span></code><a class="headerlink" href="#nthread" title="Permalink to this headline">¶</a></h3>
+<p>The number of threads of execution to use locally for any actions that are parallelizable.</p>
+</div>
+<div class="section" id="ignore">
+<span id="ignore"></span><h3><code class="docutils literal"><span class="pre">ignore</span></code><a class="headerlink" href="#ignore" title="Permalink to this headline">¶</a></h3>
+<p>The file extensions, file names, or <em>TODO: regular expressions</em> that should <strong>not</strong> be considered for code dependencies e.g., <code class="docutils literal"><span class="pre">.pyc</span></code>, <code class="docutils literal"><span class="pre">.d</span></code>.</p>
+</div>
+<div class="section" id="read">
+<span id="read"></span><h3><code class="docutils literal"><span class="pre">read</span></code><a class="headerlink" href="#read" title="Permalink to this headline">¶</a></h3>
+<p>The file extensions, file names, or <em>TODO: regular expressions</em> that BLCI <strong>will</strong> use for code dependencies.</p>
+</div>
+<div class="section" id="data-dep">
+<span id="data-dep"></span><h3><code class="docutils literal"><span class="pre">data_dep</span></code><a class="headerlink" href="#data-dep" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">data_dep:read</span></code>
+This allows users to define what <em>read</em> data-to-code dependencies exist within the repo. The key, a path to a data file is what is going to be <strong>read</strong> by the value(s), paths to code files. This setting is a key-value pair with key being a filename and value being the code that can possibly write the file e.g., <code class="docutils literal"><span class="pre">data/data.npy:</span> <span class="pre">[file1.py,</span> <span class="pre">file2.py]</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">data_dep:write</span></code>
+This allows users to define what <em>write</em> data-to-code dependencies exist within the repo. The key, a path to a data file is what is going to be <strong>written</strong> by the value(s), paths to code files. This setting is a key-value pair with key being a filename and value being the code that writes it. e.g., <code class="docutils literal"><span class="pre">data/data.npy:</span> <span class="pre">[file1.py,</span> <span class="pre">file2.py]</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="code-loc">
+<span id="code-loc"></span><h3><code class="docutils literal"><span class="pre">code_loc</span></code><a class="headerlink" href="#code-loc" title="Permalink to this headline">¶</a></h3>
+<p>The directory/directories containing <strong>code</strong> BLCI must track and utilize. e.g <code class="docutils literal"><span class="pre">[code/serial,</span> <span class="pre">code/parallel]</span></code>.</p>
+</div>
+<div class="section" id="data-loc">
+<span id="data-loc"></span><h3><code class="docutils literal"><span class="pre">data_loc</span></code><a class="headerlink" href="#data-loc" title="Permalink to this headline">¶</a></h3>
+<p>The directory/directories containing <strong>data</strong> BLCI must track and utilize. e.g <code class="docutils literal"><span class="pre">[code,</span> <span class="pre">code/serial,</span> <span class="pre">code/parallel]</span></code>.</p>
+</div>
+<div class="section" id="path">
+<span id="path"></span><h3><code class="docutils literal"><span class="pre">path</span></code><a class="headerlink" href="#path" title="Permalink to this headline">¶</a></h3>
+<p>A location where BLCI should look for packages/libraries installed that are non-conventional e.g. <code class="docutils literal"><span class="pre">[include/path]</span></code>.</p>
+</div>
+<div class="section" id="install">
+<span id="install"></span><h3><code class="docutils literal"><span class="pre">install</span></code><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<p>Passed directly to <a class="reference external" href="https://docs.travis-ci.com/user/customizing-the-build/#Skipping-the-Installation-Step">Travis</a>. Used to install packages/software and identical to the use within Travis-CI.</p>
+</div>
+<div class="section" id="credentials">
+<span id="credentials"></span><h3><code class="docutils literal"><span class="pre">credentials</span></code><a class="headerlink" href="#credentials" title="Permalink to this headline">¶</a></h3>
+<p>The file that contains your Github OAuth token. The default is <code class="docutils literal"><span class="pre">.credentials</span></code>.</p>
+</div>
+<div class="section" id="description">
+<span id="description"></span><h3><code class="docutils literal"><span class="pre">description</span></code><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h3>
+<p>A user defined description of your repo. This can be as verbose as you deem necessary. e.g. <code class="docutils literal"><span class="pre">&quot;A</span> <span class="pre">repo</span> <span class="pre">that</span> <span class="pre">enables</span> <span class="pre">Floki</span> <span class="pre">to</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">cunning&quot;</span></code>.</p>
+</div>
 </div>
 </div>
 
