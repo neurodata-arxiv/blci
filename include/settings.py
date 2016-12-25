@@ -51,7 +51,6 @@ BL_DATA_DEP = "data_dep"
 BL_SCRIPT = "script"
 BL_PATH = "path"
 BL_INSTALL = "install"
-BL_UNAME = "uname"
 BL_CREDS = "credentials" # Same for github and travis
 BL_DESCRIPTION = "description"
 
