@@ -1,7 +1,7 @@
 # This is a comment, BUT only use alone not inline with config args
 
 # We infer to track .py and .pyx files only, you can change by specifying `read`
-language: python
+language: pythonz
 version: 2.7
 
 # How many thread you wish to launch as readers of your code

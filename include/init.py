@@ -59,5 +59,5 @@ def init(projecthome, overwrite=False, bare=False):
     dp.write(os.path.join(projecthome, BL_DEFAULT_DEPS_FN))
 
     # Build data dependencies
-    c.build_data_dep_stub(projecthome, overwrite)
+    c.build_data_dep_stub(overwrite)
     c.write(overwrite=overwrite)

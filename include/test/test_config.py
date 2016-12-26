@@ -31,9 +31,6 @@ def test_valid():
     c = config(fn, projecthome="test-blci")
     assert c.isvalid(), "Invalid configuration file '{}'".format(fn)
 
-    for setting in c.getall():
-        assert setting in BL_SETTINGS
-
 def test_invalid():
     fn = "config/error.yml"
     c = config(fn, projecthome="test-blci")
@@ -41,11 +38,11 @@ def test_invalid():
 
 def test_unique():
     fn = "config/error.yml"
-    c = config(fn)
+    c = config(fn, projecthome="config")
     sp = os.path.splitext(fn)
     assert sp[0] + "_1" + sp[1] == c.unique_fn(fn)
 
 def test_data_dep_stub():
     fn = "test-blci/incomplete_blci.yml"
     c = config(fn, projecthome="test-blci")
-    assert(not(c == config("config/test_incomplete.yml")))
+    assert(not(c == config("config/test_incomplete.yml", projecthome="config")))

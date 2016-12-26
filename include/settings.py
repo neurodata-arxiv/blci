@@ -97,11 +97,10 @@ BL_SETTINGS = {
         BL_CODE_LOCATION,
         BL_DATA_LOCATION,
         BL_DATA_DEP,
-        BL_SCRIPT,
         BL_PATH,
-        BL_INSTALL,
         BL_DESCRIPTION,
-        BL_CREDS
+        BL_CREDS,
+        BL_SCRIPT
         }
 
 """ These are the default parameters blci uses """
@@ -113,15 +112,18 @@ BL_DEFAULTS = {
         BL_DATA_LOCATION : BL_DEFAULT_DATA_LOCATION,
         BL_PATH : [],
         BL_DATA_DEP : BL_DEFAULT_DATA_DEP,
-        BL_INSTALL : "",
         BL_DESCRIPTION : BL_DEFAULT_DESCRIPTION,
         BL_CREDS : BL_DEFAULT_CREDS,
-        BL_SCRIPT : "",
         BL_NAME : ""
         }
 
+""" Optional arguments that can be left undefined """
+BL_OPTIONALS = {
+        BL_SCRIPT, BL_INSTALL
+        }
+
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
-    set((BL_DEFAULTS.keys())))
+    set((BL_DEFAULTS.keys()))) - BL_OPTIONALS
 
 """ Separates Base CI (Travis) configurations from BLCI specific ones """
 BL_SPECIFIC_CONFS = {

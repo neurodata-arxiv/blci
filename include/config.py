@@ -31,7 +31,7 @@ from common import localize
 from settings import *
 
 class config():
-    def __init__(self, fn, projecthome="", on_anomaly="IGNORE",
+    def __init__(self, fn, projecthome, on_anomaly="IGNORE",
             add_defaults=True):
         """
         The blci configuration reader, writer and init project stub creator
@@ -41,10 +41,11 @@ class config():
         fn:
             - The config filename that you are reading or intend to write
 
-        **Optional Arguments:**
-
         projecthome:
             - The relative/absolute path to the root of your project
+
+        **Optional Arguments:**
+
         on_anomaly:
             - Default action on anomaly: ["IGNORE", "WARN", "ERROR"]
         add_defaults:
@@ -52,7 +53,7 @@ class config():
         """
         # Give defaults if building a new config
         self.fn = fn
-        self.projecthome = projecthome
+        self.projecthome = os.path.abspath(projecthome)
         self._conf = {}
 
         if os.path.exists(self.fn):
@@ -62,17 +63,13 @@ class config():
                     "{}".format(self.fn))
 
         if add_defaults:
-            self.add_defaults(projecthome)
+            self.add_defaults()
 
-    def add_defaults(self, projecthome):
+    def add_defaults(self):
         """
         Add default values for any settings that we provide defaults for.
-
-        **Positional Arguments:**
-
-        projecthome:
-            - The relative/absolute path to the root of your project
         """
+
         for conf in BL_DEFAULTS:
             if not self.has_setting(conf) or not self.get(conf):
                 if conf == BL_VERSION: # Version default
@@ -91,7 +88,7 @@ class config():
             self._conf[BL_READ] = BL_READ_DEFAULTS[self.get(BL_LANGUAGE)]
 
         if not self.get(BL_NAME): # Default is an empty string
-            self._conf[BL_NAME] = projecthome
+            self._conf[BL_NAME] = os.path.basename(self.projecthome)
 
     def read_config(self, fn, on_anomaly="ERROR"):
         """
@@ -246,28 +243,23 @@ class config():
         if not self._conf[BL_DATA_DEP].has_key(BL_WRITE):
             self._conf[BL_DATA_DEP][BL_WRITE] = {}
 
-    def build_data_dep_stub(self, projecthome, overwrite=True):
+    def build_data_dep_stub(self, overwrite=True):
         """
         Build a stub of a config or add data dependencies to an existing
         config given one or more directories containing data.
 
         **Positional Arguments:**
 
-        projecthome:
-            - The path to the project root directory.
-
         overwrite:
             - Overwrite the existing data dependency file, if it does exist.
         """
-
-        self.projecthome = projecthome
 
         if not self:
             print "Incomplete configuration file '{}' ==>\n{}".format(
                     self.fn, self)
 
         for path in self.get(BL_DATA_LOCATION):
-            if not os.path.exists(os.path.join(projecthome, path)):
+            if not os.path.exists(os.path.join(self.projecthome, path)):
                 raise FileNotFoundException("'data_loc' Directory "
                         "'{}' does not exist!".format(path))
 
@@ -284,28 +276,37 @@ class config():
     def __check_valid__(self, on_anomaly):
         """
         Determine whether the current config object is one that:
-            1. BLCI understands i.e., keys are valid
-            2. Has all the required settings keys for BLCI
-            3. Has file paths that actually exist
+            0. Uses a supported language and version
+            1. Has all the required settings keys for BLCI
+            2. Has file paths that actually exist
 
         **Positional Arguments:**
 
         on_anomaly:
             - The degree to which the alert the user ["ERROR", "WARN", "IGNORE"]
         """
-        # 1. Make sure we understand all settings
-        for setting in self._conf:
-            if setting not in BL_SETTINGS:
-                msg = "Unknown setting '{}' in file '{}'".format(
-                        setting, self.fn)
-                if on_anomaly == "ERROR":
-                    raise ParameterException(msg)
-                elif on_anomaly == "WARN":
-                    warn(msg)
-                else:
-                    return False
 
-        # 2. Has reqd settings
+        # 0. Is a supported laguage and version
+        if self.get(BL_LANGUAGE) not in BL_DEFAULT_READ.keys():
+            if on_anomaly == "ERROR":
+                msg = "Unsupported language: '{}'".format(self.get(BL_LANGUAGE))
+                raise ParameterException(msg)
+            elif on_anomaly == "WARN":
+                warn(msg)
+            else:
+                return False
+
+        if self.get(BL_LANGUAGE) not in BL_DEFAULT_READ.keys():
+            if on_anomaly == "ERROR":
+                msg = "Unsupported language version: "
+                "'{}'".format(self.get(BL_VERSION))
+                raise ParameterException(msg)
+            elif on_anomaly == "WARN":
+                warn(msg)
+            else:
+                return False
+
+        # 1. Has reqd settings
         for setting in BL_REQUIRED:
             if not self.has_setting(setting):
                 msg = "Required setting '{}' missing from file '{}'".format(
@@ -317,14 +318,13 @@ class config():
                 else:
                     return False
 
-        # 3. Finally, check paths exist
-        projecthome = os.path.dirname(self.fn)
+        # 2. Finally, check paths exist
         path_settings = [BL_CODE_LOCATION, BL_DATA_LOCATION, BL_PATH]
 
         for setting in path_settings:
             if self.has_setting(setting): # If not it will get a default val
                 for path in self.get(setting):
-                    if not os.path.exists(os.path.join(projecthome, path)):
+                    if not os.path.exists(os.path.join(self.projecthome, path)):
                         msg = "File '{}' missing".format(path)
                         if on_anomaly == "ERROR":
                             raise FileNotFoundException(msg)
@@ -337,7 +337,7 @@ class config():
         if self.has_setting(BL_DATA_DEP): # If not it will get a default val
             for k,v in self.get(BL_DATA_DEP).iteritems():
                 for path in self.get(BL_DATA_DEP)[k]: # read or write
-                    if not os.path.exists(os.path.join(projecthome, path)):
+                    if not os.path.exists(os.path.join(self.projecthome, path)):
                         msg = "File '{}' missing".format(path)
                         if on_anomaly == "ERROR":
                             raise FileNotFoundException(msg)
