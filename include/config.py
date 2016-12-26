@@ -31,7 +31,7 @@ from common import localize
 from settings import *
 
 class config():
-    def __init__(self, fn, projecthome="", silent_fail=False,
+    def __init__(self, fn, projecthome="", on_anomaly="IGNORE",
             add_defaults=True):
         """
         The blci configuration reader, writer and init project stub creator
@@ -45,9 +45,8 @@ class config():
 
         projecthome:
             - The relative/absolute path to the root of your project
-        silent_fail:
-            - If you specify an invalid/incomplete config file via the `fn`
-                argument. Should blci throw an exception?
+        on_anomaly:
+            - Default action on anomaly: ["IGNORE", "WARN", "ERROR"]
         add_defaults:
             - Populate your specified config with blci defaults
         """
@@ -57,27 +56,32 @@ class config():
         self._conf = {}
 
         if os.path.exists(self.fn):
-            self.read_config(self.fn, silent_fail)
+            self.read_config(self.fn, on_anomaly)
         else:
             raise FileNotFoundException("Cannot find configuration file "
                     "{}".format(self.fn))
 
         if add_defaults:
-            self.add_defaults()
+            self.add_defaults(projecthome)
 
-    def add_defaults(self):
+    def add_defaults(self, projecthome):
         """
         Add default values for any settings that we provide defaults for.
+
+        **Positional Arguments:**
+
+        projecthome:
+            - The relative/absolute path to the root of your project
         """
         for conf in BL_DEFAULTS:
             if not self.has_setting(conf) or not self.get(conf):
-                if conf == BL_VERSION:
+                if conf == BL_VERSION: # Version default
                     self._conf[conf] = \
                         BL_DEFAULT_LANG_VERSION[self.get(BL_LANGUAGE)]
-                elif conf == BL_READ:
+                elif conf == BL_READ: # Read default
                     self._conf[conf] = BL_DEFAULT_READ[self.get(BL_LANGUAGE)]
                 else:
-                    self._conf[conf] = BL_DEFAULTS[conf]
+                    self._conf[conf] = BL_DEFAULTS[conf] # All other defaults
 
         if not self.has_setting(BL_READ):
             if self.get(BL_LANGUAGE) not in BL_READ_DEFAULTS.keys():
@@ -86,7 +90,10 @@ class config():
 
             self._conf[BL_READ] = BL_READ_DEFAULTS[self.get(BL_LANGUAGE)]
 
-    def read_config(self, fn, silent_fail=False):
+        if not self.get(BL_NAME): # Default is an empty string
+            self._conf[BL_NAME] = projecthome
+
+    def read_config(self, fn, on_anomaly="ERROR"):
         """
         Given a configuration file that is in `YAML format <http://yaml.org/>`_
 
@@ -97,20 +104,16 @@ class config():
 
         **Optional Arguments:**
 
-        silent_fail:
-            - If `True` errors in the config settings will be ignored
+        on_anomaly:
+            - Action to perform when we encounter an anomaly
         """
 
         with open(fn, "rb") as f:
             try:
                 self._conf = yaml.load(f)
             except yaml.YAMLError as err:
-                raise FileNotFoundException(
-                        "Config load ERROR:" + err)
-        if silent_fail:
-            self.__check_valid__(level="WARN")
-        else:
-            self.__check_valid__(level="ERROR")
+                raise FileNotFoundException("Config load ERROR:" + str(err))
+        self.__check_valid__(on_anomaly)
 
     def bashRE_2_pyRE(self, regex):
         """
@@ -278,7 +281,7 @@ class config():
                 if not self.isignored(_file):
                     self.track_datafile(_file)
 
-    def __check_valid__(self, level):
+    def __check_valid__(self, on_anomaly):
         """
         Determine whether the current config object is one that:
             1. BLCI understands i.e., keys are valid
@@ -287,7 +290,7 @@ class config():
 
         **Positional Arguments:**
 
-        level:
+        on_anomaly:
             - The degree to which the alert the user ["ERROR", "WARN", "IGNORE"]
         """
         # 1. Make sure we understand all settings
@@ -295,9 +298,9 @@ class config():
             if setting not in BL_SETTINGS:
                 msg = "Unknown setting '{}' in file '{}'".format(
                         setting, self.fn)
-                if level == "ERROR":
+                if on_anomaly == "ERROR":
                     raise ParameterException(msg)
-                elif level == "WARN":
+                elif on_anomaly == "WARN":
                     warn(msg)
                 else:
                     return False
@@ -307,9 +310,9 @@ class config():
             if not self.has_setting(setting):
                 msg = "Required setting '{}' missing from file '{}'".format(
                         setting, self.fn)
-                if level == "ERROR":
+                if on_anomaly == "ERROR":
                     raise ParameterException(msg)
-                elif level == "WARN":
+                elif on_anomaly == "WARN":
                     warn(msg)
                 else:
                     return False
@@ -323,9 +326,9 @@ class config():
                 for path in self.get(setting):
                     if not os.path.exists(os.path.join(projecthome, path)):
                         msg = "File '{}' missing".format(path)
-                        if level == "ERROR":
+                        if on_anomaly == "ERROR":
                             raise FileNotFoundException(msg)
-                        elif level == "WARN":
+                        elif on_anomaly == "WARN":
                             warn(msg)
                         else:
                             return False
@@ -336,9 +339,9 @@ class config():
                 for path in self.get(BL_DATA_DEP)[k]: # read or write
                     if not os.path.exists(os.path.join(projecthome, path)):
                         msg = "File '{}' missing".format(path)
-                        if level == "ERROR":
+                        if on_anomaly == "ERROR":
                             raise FileNotFoundException(msg)
-                        elif level == "WARN":
+                        elif on_anomaly == "WARN":
                             warn(msg)
                         else:
                             return False
@@ -352,10 +355,10 @@ class config():
         **Returns:**
 
         A bool for validity of the configuration file based on the
-        level=IGNORE argument to :func:`~include.add.__check_valid__`
+        on_anomaly=IGNORE argument to :func:`~include.add.__check_valid__`
         """
 
-        return self.__check_valid__(level="IGNORE")
+        return self.__check_valid__(on_anomaly="IGNORE")
 
     def getall(self):
         return self._conf

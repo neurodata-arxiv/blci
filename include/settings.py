@@ -82,9 +82,7 @@ BL_DEFAULT_VERSION = ""
 BL_DEFAULT_CODE_LOCATION = ["code"]
 BL_DEFAULT_DATA_LOCATION = ["data"]
 BL_DEFAULT_IGNORE = [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]
-BL_DEFAULT_PATH = []
 BL_DEFAULT_DATA_DEP = {"read": {}, "write": {}}
-BL_DEFAULT_INSTALL = ""
 BL_DEFAULT_DESCRIPTION = "A BrainLab Continuous Integration repo"
 BL_DEFAULT_CREDS = ".credentials"
 
@@ -113,11 +111,13 @@ BL_DEFAULTS = {
         BL_IGNORE : BL_DEFAULT_IGNORE,
         BL_CODE_LOCATION : BL_DEFAULT_CODE_LOCATION,
         BL_DATA_LOCATION : BL_DEFAULT_DATA_LOCATION,
-        BL_PATH : BL_DEFAULT_PATH,
+        BL_PATH : [],
         BL_DATA_DEP : BL_DEFAULT_DATA_DEP,
-        BL_INSTALL : BL_DEFAULT_INSTALL,
+        BL_INSTALL : "",
         BL_DESCRIPTION : BL_DEFAULT_DESCRIPTION,
-        BL_CREDS : BL_DEFAULT_CREDS
+        BL_CREDS : BL_DEFAULT_CREDS,
+        BL_SCRIPT : "",
+        BL_NAME : ""
         }
 
 BL_REQUIRED = set.symmetric_difference(BL_SETTINGS,
