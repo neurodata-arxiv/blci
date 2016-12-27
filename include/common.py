@@ -21,6 +21,7 @@
 
 import os
 import fnmatch
+from shutil import rmtree
 import yaml
 from git import Repo
 
@@ -173,3 +174,30 @@ def read_token(credentials_fn):
         raise ParameterException("Problem with credentials file " + msg)
 
     return token
+
+def delete(path, verbose=False):
+    """
+    Delete a file, or directory
+
+    **Positional Arguments:**
+
+    path:
+        - The path to the file system object to be deleted
+
+    **Optional Arguments:**
+
+    verbose:
+        - Print debug messages when actions are taken
+    """
+
+    if (os.path.exists(path)):
+        if os.path.isdir(path):
+            rmtree(path)
+        else:
+            os.remove(path)
+
+        if verbose:
+            print "Deleted '{}' ...".format(path)
+    else:
+        if verbose:
+            print "No such path '{}' ...".format(path)

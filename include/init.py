@@ -25,7 +25,7 @@ from dependencies import DependParser
 from settings import *
 import os
 
-def init(projecthome, overwrite=False, bare=False):
+def init(projecthome, overwrite=True):
     """
     Initialize a blci project with the depenedency file and stubbed out blci
     configuration file
@@ -41,14 +41,8 @@ def init(projecthome, overwrite=False, bare=False):
         - Write over any old configuration file that may exist in `projecthome`.
             If `False` then the new configuration file will have the filename
             ``blci_\d+.yml``.
-    bare:
-        - means ignore the current config and write a new one
     """
-    c = None
-    if bare:
-        c = config()
-    else:
-        c = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN), projecthome)
+    c = config(os.path.join(projecthome, BL_DEFAULT_CONFIG_FN), projecthome)
 
     # Build code dependencies
     dp = DependParser(c.get("read"), projecthome)

@@ -196,7 +196,6 @@ class config():
         A `str` for the path of unique file.
         """
 
-        # Create a unique fn using the path but don't overwrite if exists
         if os.path.isdir(path):
             raise ParameterException("Path '{}' must be a file, not "
                     "a directory ...".format(path))
@@ -221,10 +220,11 @@ class config():
             - Overwrite the existing config file if it does exist.
         """
 
-        if not self.fn:
-            self.fn = BL_DEFAULT_CONFIG_FN
-
-        if not overwrite:
+        if overwrite:
+            # rename self.fn
+            os.rename(os.path.join(self.projecthome, self.fn),
+                    os.path.join(self.projecthome, self.fn + ".old"))
+        else:
             self.fn = self.unique_fn(self.fn)
 
         print "Writing config file {} ..".format(self.fn)

@@ -29,6 +29,7 @@ from include.init import init
 from include.config import config
 from include.build import trigger_build
 from include.settings import BL_DEFAULT_CONFIG_FN
+from include.clean import cleanall
 
 # Turn off stack trace when running live
 # import sys
@@ -66,20 +67,24 @@ def main():
             default="BLCI: Generic commit message", help="A(n) --add message")
     parser.add_argument("-b", "--build", action="store_true",
             help="Trigger a build of BLCI")
-    parser.add_argument("-o", "--overwrite", action="store_true", help=
+    parser.add_argument("-n", "--nooverwrite", action="store_true", help=
             "Overwrite the config when performing actions? This will not remove"
             " old settings, but instead append & merge.")
-    parser.add_argument("-B", "--bare", action="store_true", help="Scrap all "
-            "configs and start afresh?")
+    parser.add_argument("-c", "--clean", action="store_true", help="Scrap all "
+            "configs and metadata to start afresh")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Print "
+            "out some debug messages when actions are taken")
     args = parser.parse_args()
 
     if args.init:
-        init(args.projecthome, args.overwrite, args.bare)
+        init(args.projecthome, not(args.nooverwrite))
     elif args.add:
         add(args.projecthome, args.message)
     elif args.build:
         trigger_build(config(join(args.projecthome,
             BL_DEFAULT_CONFIG_FN), args.projecthome), args.projecthome)
+    elif args.clean:
+        cleanall(args.projecthome, args.verbose)
     else:
         raise NotImplementedError("Other methods incomplete!")
 
