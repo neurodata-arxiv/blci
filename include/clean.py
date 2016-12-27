@@ -42,7 +42,7 @@ def cleanall(projecthome, verbose=False):
     clean_bl_config(projecthome, verbose)
     clean_dependencies(projecthome, verbose)
     clean_base_ci_config(projecthome, verbose)
-    clean_ignore(projecthome, verbose)
+    clean_git(projecthome, verbose)
 
 def clean_bl_config(projecthome, verbose=False):
     """
@@ -90,7 +90,7 @@ def clean_base_ci_config(projecthome, verbose=False):
 
     delete(join(projecthome, BASE_CI_CONFIG_FN), verbose)
 
-def clean_ignore(projecthome, verbose=False):
+def clean_git(projecthome, verbose=False):
     """
     Delete Git ignore file
 
@@ -104,5 +104,5 @@ def clean_ignore(projecthome, verbose=False):
     verbose:
         - Print messages when actions are taken
     """
-
+    delete(join(projecthome, ".git"))
     delete(join(projecthome, GIT_IGNORE_FN))

@@ -65,5 +65,5 @@ def trigger_build(conf, projecthome):
     g = Github(read_token(conf.get(BL_CREDS)))
     uname = g.get_user().login
 
-    print "Visit {}/{}/{} to view progress ..".format("https://travis-ci.org/",
+    print "Visit {}/{}/{} to view progress ..".format("https://travis-ci.org",
             uname, conf.get(BL_NAME))

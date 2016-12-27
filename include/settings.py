@@ -80,7 +80,8 @@ BL_DEFAULT_NTHREAD = 1
 BL_DEFAULT_VERSION = ""
 BL_DEFAULT_CODE_LOCATION = ["code"]
 BL_DEFAULT_DATA_LOCATION = ["data"]
-BL_DEFAULT_IGNORE = [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]
+BL_DEFAULT_IGNORE = [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat",
+        BL_DEFAULT_CONFIG_FN+".old"]
 BL_DEFAULT_DATA_DEP = {"read": {}, "write": {}}
 BL_DEFAULT_DESCRIPTION = "A BrainLab Continuous Integration repo"
 BL_DEFAULT_CREDS = ".credentials"
