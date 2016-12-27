@@ -81,5 +81,5 @@ To clean up all BLCI metadata and configuration files use the clean operation.
 **This action deletes files so use with care.**
 
 ```
-./bl -i $PROJECT_HOME
+./bl -c $PROJECT_HOME
 ```
