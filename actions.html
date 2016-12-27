@@ -149,7 +149,11 @@
 state: <code class="docutils literal"><span class="pre">script</span></code>, <code class="docutils literal"><span class="pre">trigger</span></code> and <code class="docutils literal"><span class="pre">verify</span></code> actions.</p>
 <div class="section" id="script">
 <span id="script"></span><h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
-<p>This is enabled by the use of the <code class="docutils literal"><span class="pre">script</span></code> setting in the configuration file. This operation is passed directly to Travis CI&#8217;s <code class="docutils literal"><span class="pre">script</span></code> <a class="reference external" href="https://docs.travis-ci.com/user/customizing-the-build/">setting</a> setting. BLCI uses this to  allow users to force changes in data dependencies. If data dependencies change this may cause <code class="docutils literal"><span class="pre">trigger</span></code>s to be created.</p>
+<p>This is enabled by the use of the <code class="docutils literal"><span class="pre">script</span></code> setting in the configuration file.
+This operation is passed directly to Travis CI&#8217;s <code class="docutils literal"><span class="pre">script</span></code>
+<a class="reference external" href="https://docs.travis-ci.com/user/customizing-the-build/">setting</a>. BLCI uses
+this to allow users to force changes in data dependencies. If data dependencies
+change this may cause <code class="docutils literal"><span class="pre">trigger</span></code>s to be created.</p>
 <p>Note that BLCI creates and fully manages a <code class="docutils literal"><span class="pre">.travis.yml</span></code> file that is added to the repo when the first <code class="docutils literal"><span class="pre">add</span></code> is done. BLCI alters and adds to the <code class="docutils literal"><span class="pre">script</span></code> setting then passes it to <code class="docutils literal"><span class="pre">.travis.yml</span></code>.</p>
 <p><strong>NOTE: Do not directly alter the <code class="docutils literal"><span class="pre">.travis.yml</span></code> file that BLCI creates</strong> &#8211;
 this action results in undefined behavior. <em>TODO: Reject such actions</em></p>

@@ -11,9 +11,10 @@ BLCI provides the ability to:
 
 - Create dependency-aware pipelines that track code and data dependencies;
 performing autonomous updates when upstream changes occur.
-- Define custom **script** actions to read/write and update data when `add` or
-`build` actions are performed [the actions page](actions.html) for more
-information.
+- Define custom **script** actions to read/write and update data when
+[`add`](interface.html#add-the-repo) or
+[`build`](interface.html#build) actions are performed.
+See the [actions page](actions.html) for more information.
 - *TODO:* Define **verification** actions used to ensure either:
 	1. Code pushed to repo is valid for use with data.
 	2. Data pushed to repo is valid for use with code.
@@ -23,7 +24,7 @@ information.
 ## Compatibility and Support
 
 We support modern Linux and Mac operating systems and provide documentation
-with these in mind. BLCI has can also run in Windows environments,
+with these in mind. BLCI (theoretically) can also run in Windows environments,
 but, we do not provide Windows specific documentation. We suggest Windows
 users take advantage of virtualization environments such as
 [VirtualBox](https://www.virtualbox.org/), [VMWare](http://www.vmware.com/) to

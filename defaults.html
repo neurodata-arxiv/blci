@@ -152,8 +152,8 @@ filenames below are relative to <code class="docutils literal"><span class="pre"
 project.</p>
 <div class="section" id="filenames">
 <span id="filenames"></span><h2>Filenames<a class="headerlink" href="#filenames" title="Permalink to this headline">¶</a></h2>
-<p>The following files named are fully managed by BLCI and <strong>should not be changed
-manually</strong>:</p>
+<p>The following file names are expected by BLCI, they <strong>should not be
+renamed</strong>:</p>
 <ul class="simple">
 <li>BLCI&#8217;s main configuration file: <em>blci.yml</em></li>
 <li>For data dependencies: <em>blci.deps</em></li>
@@ -162,7 +162,9 @@ manually</strong>:</p>
 </ul>
 <p>Only the credentials filename is configurable. This file contains one
 line that has your Github API token by default it is <em>.credentials</em>. This
-can be altered using the <code class="docutils literal"><span class="pre">credentials</span></code> setting in the configuration file.</p>
+can be altered using the
+<a class="reference external" href="file:///Users/disa/Research/blci/docs/build/html/config.html#credentials"><code class="docutils literal"><span class="pre">credentials</span></code></a>
+setting in the configuration file.</p>
 </div>
 <div class="section" id="version-setting">
 <span id="version-setting"></span><h2><code class="docutils literal"><span class="pre">version</span></code> setting<a class="headerlink" href="#version-setting" title="Permalink to this headline">¶</a></h2>
@@ -180,7 +182,7 @@ to correctly parse code. We use the following as defaults for languages:</p>
 </div>
 <div class="section" id="read-setting">
 <span id="read-setting"></span><h2><code class="docutils literal"><span class="pre">read</span></code> setting<a class="headerlink" href="#read-setting" title="Permalink to this headline">¶</a></h2>
-<p>We maintain the following <code class="docutils literal"><span class="pre">read</span></code> settings defaults by file type:</p>
+<p>We maintain the following <code class="docutils literal"><span class="pre">read</span></code> setting defaults by file type:</p>
 <ul class="simple">
 <li>python: [ &#8221;.py&#8221;, &#8221;.ipynb&#8221;]</li>
 <li>julia: [&#8221;.j&#8221;, &#8221;.jl&#8221;]</li>
@@ -193,7 +195,7 @@ to correctly parse code. We use the following as defaults for languages:</p>
 </div>
 <div class="section" id="miscellaneous-configuration-settings-blci-yml">
 <span id="miscellaneous-configuration-settings-blci-yml"></span><h2>Miscellaneous configuration settings (blci.yml)<a class="headerlink" href="#miscellaneous-configuration-settings-blci-yml" title="Permalink to this headline">¶</a></h2>
-<p>The following are default configurations settings you receive if not specified.</p>
+<p>The following are default configuration settings you receive if not specified.</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">nthread</span></code>: 1</li>
 <li><code class="docutils literal"><span class="pre">code_loc</span></code>: [&#8220;code&#8221;]</li>

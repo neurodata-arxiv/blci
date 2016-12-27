@@ -27,7 +27,7 @@ BLCI root directory. Pass no argument to see help and options.
 
 Once you have a `blci.yml` configuration file in the root directory of your
 repo/project (i.e., `$PROJECT_HOME`) with at least the required configuration
-settings (`name`, `language`, `read`, `script`), You can initialize the repo as
+settings [`language`](config.html#language), You can initialize the repo as
 follows:
 
 ```
@@ -37,8 +37,8 @@ BLCI initialization performs two actions:
 
 1. Builds and saves the code dependency graph file `blci.deps`
 2. Fleshes out a minimal `blci.yml` configuration file to a point to where
-a repo is a valid BLCI repo leaving only the `data_deps` setting to be
-completed by the user.
+a repo is a valid BLCI repo leaving the `data_deps`, `script` and any other
+user-specific setting to be completed by the user.
 
 **NOTE:** The default action is to append and overwrite the minimal
 configuration file a user creates. The filename of the original
@@ -51,9 +51,10 @@ To add a repo execute:
 ./bl -a $PROJECT_HOME
 ```
 
-A BLCI action:
+A BLCI `add` action:
 
-1. Create a remote Github repo and track it using Travis CI **if none exists.**
+1. Creates a remote Github repo and tracks it using Travis CI
+(**if the repo is untracked)**.
 2. Build the Travis metadata.
 3. Add, commit, push and Travis build your repo.
 
