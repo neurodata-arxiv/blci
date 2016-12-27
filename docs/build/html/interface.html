@@ -93,11 +93,11 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">BLCI User Interface</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#initialize-the-repo">Initialize the repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-the-repo">Add the repo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#todo-undo">TODO: Undo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clean">Clean</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
@@ -149,29 +149,25 @@
   <div class="section" id="blci-user-interface">
 <span id="blci-user-interface"></span><h1>BLCI User Interface<a class="headerlink" href="#blci-user-interface" title="Permalink to this headline">¶</a></h1>
 <p>The way to interact with BLCI is through the <code class="docutils literal"><span class="pre">./bl</span></code> driver script within the
-BLCI root directory. Pass the <code class="docutils literal"><span class="pre">-h</span></code> to see all the arguments and options
-i.e., <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-h</span></code>.</p>
-<div class="section" id="configuration-file">
-<span id="configuration-file"></span><h2>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
-<p>BLCI requires a configuration file named <code class="docutils literal"><span class="pre">blci.yml</span></code> to operate.
-When a repo is initiated via the <code class="docutils literal"><span class="pre">./bl</span> <span class="pre">-i</span></code> flag, <code class="docutils literal"><span class="pre">blci.yml</span></code> is
-updated to contain <a class="reference external" href="defaults.html">defaults</a> and <strong>stub</strong>
-<a class="reference external" href="include.html#include.settings.BL_REQUIRED">settings</a>
-that are minimally required in order for BLCI to be a <em>valid</em> BLCI repo.</p>
-<p>Let&#8217;s start by creating an incomplete config file in <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>
-(the root directory for your project):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">repo</span>
-<span class="n">language</span><span class="p">:</span> <span class="n">python</span>
-<span class="n">read</span><span class="p">:</span>
-    <span class="o">-</span> <span class="o">.</span><span class="n">py</span>
-<span class="n">script</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">python</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;print &#39;Hello BLCI&#39;&quot;</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="initialize-the-repo">
+BLCI root directory. Pass no argument to see help and options.</p>
+<!--## Configuration file--><!--BLCI requires a configuration file named `blci.yml` to operate.-->
+<!--When a repo is initiated via the `./bl -i` flag, `blci.yml` is-->
+<!--updated to contain [defaults](defaults.html) and **stub**-->
+<!--[settings](include.html#include.settings.BL_REQUIRED)-->
+<!--that are minimally required in order for BLCI to be a *valid* BLCI repo.--><!--Let's start by creating an incomplete config file in `$PROJECT_HOME`-->
+<!--(the root directory for your project):--><!--```-->
+<!--name: my-repo-->
+<!--language: python-->
+<!--read:-->
+    <!--- .py-->
+<!--script:-->
+    <!--- python -c "print 'Hello BLCI'"-->
+<!--```--><div class="section" id="initialize-the-repo">
 <span id="initialize-the-repo"></span><h2>Initialize the repo<a class="headerlink" href="#initialize-the-repo" title="Permalink to this headline">¶</a></h2>
-<p>To initialize a repo execute:</p>
+<p>Once you have a <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file in the root directory of your
+repo/project (i.e., <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>) with at least the required configuration
+settings (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">language</span></code>, <code class="docutils literal"><span class="pre">read</span></code>, <code class="docutils literal"><span class="pre">script</span></code>), You can initialize the repo as
+follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>./bl -i $PROJECT_HOME
 </pre></div>
 </div>
@@ -179,12 +175,13 @@ that are minimally required in order for BLCI to be a <em>valid</em> BLCI repo.<
 <ol class="simple">
 <li>Builds and saves the code dependency graph file <code class="docutils literal"><span class="pre">blci.deps</span></code></li>
 <li>Fleshes out a minimal <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file to a point to where
-a repo is a valid BLCI repo leaving only the <code class="docutils literal"><span class="pre">data_deps</span></code> setting to be completed by the user.</li>
+a repo is a valid BLCI repo leaving only the <code class="docutils literal"><span class="pre">data_deps</span></code> setting to be
+completed by the user.</li>
 </ol>
-<p><strong>NOTE:</strong> The default action is to append and overwrite the minimal configuration file a user creates. The filename of the original
-configuration file will change to <code class="docutils literal"><span class="pre">blci.yml.old</span></code>. To change <em>append</em>
-behavior use the <code class="docutils literal"><span class="pre">-B</span> <span class="pre">[--bare]</span></code> flag, to change the <em>overrwrite</em>
-behavior use the <code class="docutils literal"><span class="pre">-N</span> <span class="pre">[--nooverwrite]</span></code> flag.</p>
+<p><strong>NOTE:</strong> The default action is to append and overwrite the minimal
+configuration file a user creates. The filename of the original
+configuration file will change to <code class="docutils literal"><span class="pre">blci.yml.old</span></code>. To change the <em>overrwrite</em>
+behavior use the <code class="docutils literal"><span class="pre">-n</span> <span class="pre">[--nooverwrite]</span></code> flag.</p>
 </div>
 <div class="section" id="add-the-repo">
 <span id="add-the-repo"></span><h2>Add the repo<a class="headerlink" href="#add-the-repo" title="Permalink to this headline">¶</a></h2>
@@ -213,6 +210,14 @@ behavior use the <code class="docutils literal"><span class="pre">-N</span> <spa
 </pre></div>
 </div>
 <p>Force a build action without changing any code within the repo.</p>
+</div>
+<div class="section" id="clean">
+<span id="clean"></span><h2>Clean<a class="headerlink" href="#clean" title="Permalink to this headline">¶</a></h2>
+<p>To clean up all BLCI metadata and configuration files use the clean operation.
+<strong>This action deletes files so use with care.</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./bl -i $PROJECT_HOME
+</pre></div>
+</div>
 </div>
 </div>
 

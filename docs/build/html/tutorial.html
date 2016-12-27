@@ -91,7 +91,10 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blci-use">BLCI Use</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-repo-project">Example repo/project</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-blci-yml-config-file">Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-init-the-repo">Initialize (<code class="docutils literal"><span class="pre">init</span></code>) the repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#complete-the-configuration-file">Complete the configuration file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#make-pipeline-repo-a-valid-blci-repo">Make pipeline/repo a valid BLCI repo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#push-blci-repo">Push BLCI repo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#update-blci-repo">Update BLCI repo</a></li>
@@ -151,43 +154,84 @@
             
   <div class="section" id="tutorial">
 <span id="tutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>We define how to get up and running for a machine with a reasonably up to date
-operating system. <strong>NOTE:</strong> You may need to run the commands listed here with
-higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
+<p>We describe how to get up and running for a machine with a reasonably up to
+date operating system. <strong>NOTE:</strong> You may need to run the commands listed
+here with higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
 <div class="section" id="install-dependencies">
 <span id="install-dependencies"></span><h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>At the OS-level we require <a class="reference external" href="https://www.python.org/downloads/release/python-2712/">Python 2.7</a>, <a class="reference external" href="https://desktop.github.com/">Git</a>, and <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a> to function.</p>
-<p>If your system does not have any of these see the <a class="reference external" href="install.html">installation page</a>.</p>
+<p>At the OS-level we require
+<a class="reference external" href="https://www.python.org/downloads/release/python-2712/">Python 2.7</a>,
+<a class="reference external" href="https://desktop.github.com/">Git</a>, and <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a>
+to function.</p>
+<p>If your system does not have any of these see the
+<a class="reference external" href="install.html">installation page</a>.</p>
 </div>
 <div class="section" id="blci-use">
 <span id="blci-use"></span><h2>BLCI Use<a class="headerlink" href="#blci-use" title="Permalink to this headline">¶</a></h2>
-<p>For more comprehensive documentation on the BLCI interface and commands, please refer to the <a class="reference external" href="interface.html">interface page</a>.</p>
-<div class="section" id="create-a-blci-yml-config-file">
-<span id="create-a-blci-yml-config-file"></span><h3>Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file<a class="headerlink" href="#create-a-blci-yml-config-file" title="Permalink to this headline">¶</a></h3>
-<p>For a complete explanation of configuration parameters and the <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file refer to the <a class="reference external" href="config.html">config file page</a>.</p>
-<p>Consider this simple example repository with the following hierarchy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">blci</span>\
-<span class="n">myrepo</span>\
-    <span class="n">code</span>\
+<p>For more comprehensive documentation on the BLCI interface and commands,
+please refer to the <a class="reference external" href="interface.html">interface page</a>.</p>
+<div class="section" id="example-repo-project">
+<span id="example-repo-project"></span><h3>Example repo/project<a class="headerlink" href="#example-repo-project" title="Permalink to this headline">¶</a></h3>
+<p>The following is a repository of code and data that we use as a running example
+throughout this tutorial.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myrepo</span><span class="o">/</span>
+    <span class="n">code</span><span class="o">/</span>
         <span class="n">a</span><span class="o">.</span><span class="n">py</span>
-    <span class="n">data</span>\
+        <span class="n">analysis</span><span class="o">/</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">data</span><span class="o">/</span>
         <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
         <span class="n">databy2</span><span class="o">.</span><span class="n">txt</span>
-    <span class="n">otherdata</span>\
+    <span class="n">otherdata</span><span class="o">/</span>
         <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<p>A minimal starting <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file is necessary as the <code class="docutils literal"><span class="pre">--init</span></code>
-call will flesh it out to include defaults and stubs as necessary. <strong>NOTE</strong> that all paths are relative to <code class="docutils literal"><span class="pre">myrepo</span></code> which blci refers to as <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>:</p>
+</div>
+<div class="section" id="create-a-blci-yml-config-file">
+<span id="create-a-blci-yml-config-file"></span><h3>Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file<a class="headerlink" href="#create-a-blci-yml-config-file" title="Permalink to this headline">¶</a></h3>
+<p>The minimum a configuration file needs to contain is the <code class="docutils literal"><span class="pre">language</span></code> setting and
+BLCI will flesh it out as much possible, before the user must complete it.
+<strong>NOTE:</strong> All paths are relative to <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>, the root directory for
+your project:</p>
+<p>All configuration settings are documented on the
+<a class="reference external" href="config.html">configuration page</a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
-<span class="n">version</span><span class="p">:</span> <span class="mf">2.7</span>
-<span class="n">name</span><span class="p">:</span> <span class="n">foobars</span>
-<span class="n">blci_root</span><span class="p">:</span> <span class="o">../</span><span class="n">blci</span>
-<span class="n">read</span><span class="p">:</span> <span class="o">*.</span><span class="n">py</span>
-<span class="n">script</span><span class="p">:</span> <span class="n">python</span> <span class="n">code</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">c</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span> <span class="mf">2.5</span> <span class="n">otherdata</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span> <span class="n">python</span>
 </pre></div>
 </div>
-<p><strong>TODO</strong>: make a minimal working config</p>
+</div>
+<div class="section" id="initialize-init-the-repo">
+<span id="initialize-init-the-repo"></span><h3>Initialize (<code class="docutils literal"><span class="pre">init</span></code>) the repo<a class="headerlink" href="#initialize-init-the-repo" title="Permalink to this headline">¶</a></h3>
+<p>BLCI initialize will result in a fleshed out, <em>but often incomplete</em>
+<code class="docutils literal"><span class="pre">blci.yml</span></code> file. In our case what we receive is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="n">version</span><span class="p">:</span> <span class="mf">2.7</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">myrepo</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">A</span> <span class="n">BrainLab</span> <span class="n">Continuous</span> <span class="n">Integration</span> <span class="n">repo</span>
+<span class="n">code_loc</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">code</span>
+<span class="n">credentials</span><span class="p">:</span> <span class="o">.</span><span class="n">credentials</span>
+<span class="n">data_dep</span><span class="p">:</span>
+  <span class="n">read</span><span class="p">:</span> <span class="p">{}</span>
+  <span class="n">write</span><span class="p">:</span> <span class="p">{}</span>
+<span class="n">data_loc</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">data</span>
+<span class="n">ignore</span><span class="p">:</span> <span class="p">[</span><span class="o">.*</span><span class="p">,</span> <span class="o">.</span><span class="n">pyc</span><span class="p">,</span> <span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="o">.</span><span class="n">o</span><span class="p">,</span> <span class="o">.</span><span class="n">javac</span><span class="p">,</span> <span class="o">.</span><span class="n">rbin</span><span class="p">,</span> <span class="o">.</span><span class="n">mat</span><span class="p">]</span>
+<span class="n">nthread</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">read</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">.</span><span class="n">py</span>
+  <span class="o">-</span> <span class="o">.</span><span class="n">ipynb</span>
+<span class="n">path</span><span class="p">:</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<p><strong>NOTE:</strong> The order of the settings does not matter.</p>
+<p>BLCI also builds a code-to-code dependency metadata file that is saved as
+<code class="docutils literal"><span class="pre">blci.deps</span></code>. This <strong>should not</strong> be edited by users.</p>
+</div>
+<div class="section" id="complete-the-configuration-file">
+<span id="complete-the-configuration-file"></span><h3>Complete the configuration file<a class="headerlink" href="#complete-the-configuration-file" title="Permalink to this headline">¶</a></h3>
+<p>We need to add the <code class="docutils literal"><span class="pre">myrepo/otherdata</span></code> directory as a data directory and
+specify all the data-to-code dependencies for the data files in
+<code class="docutils literal"><span class="pre">myrepo/data</span></code> and <code class="docutils literal"><span class="pre">myrepo/</span></code>. We add the following lines to the config file and</p>
 </div>
 <div class="section" id="make-pipeline-repo-a-valid-blci-repo">
 <span id="make-pipeline-repo-a-valid-blci-repo"></span><h3>Make pipeline/repo a valid BLCI repo<a class="headerlink" href="#make-pipeline-repo-a-valid-blci-repo" title="Permalink to this headline">¶</a></h3>

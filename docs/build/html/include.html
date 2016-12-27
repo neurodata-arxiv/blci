@@ -92,7 +92,6 @@
 <li class="toctree-l1"><a class="reference internal" href="authentication.html">Authentication</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interface.html">BLCI User Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">The configuration file</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html#settings">Settings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="actions.html">Actions</a></li>
 </ul>
 
@@ -337,8 +336,135 @@ TODO: Remove the push to repo</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-include.clean">
+<span id="include-clean-module"></span><h2>include.clean module<a class="headerlink" href="#module-include.clean" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.clean.clean_base_ci_config">
+<code class="descclassname">include.clean.</code><code class="descname">clean_base_ci_config</code><span class="sig-paren">(</span><em>projecthome</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/clean.html#clean_base_ci_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.clean.clean_base_ci_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete Travis-CI configuration file</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Print messages when actions are taken</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.clean.clean_bl_config">
+<code class="descclassname">include.clean.</code><code class="descname">clean_bl_config</code><span class="sig-paren">(</span><em>projecthome</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/clean.html#clean_bl_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.clean.clean_bl_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete BLCI configuration file</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Print messages when actions are taken</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.clean.clean_dependencies">
+<code class="descclassname">include.clean.</code><code class="descname">clean_dependencies</code><span class="sig-paren">(</span><em>projecthome</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/clean.html#clean_dependencies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.clean.clean_dependencies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete BLCI dependency metadata file</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.clean.clean_ignore">
+<code class="descclassname">include.clean.</code><code class="descname">clean_ignore</code><span class="sig-paren">(</span><em>projecthome</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/clean.html#clean_ignore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.clean.clean_ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete Git ignore file</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Print messages when actions are taken</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="include.clean.cleanall">
+<code class="descclassname">include.clean.</code><code class="descname">cleanall</code><span class="sig-paren">(</span><em>projecthome</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/clean.html#cleanall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.clean.cleanall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all BLCI configurations and metadata files</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>projecthome:</dt>
+<dd><ul class="first last simple">
+<li>The path to the root of the project</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Print messages when actions are taken</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-include.common">
 <span id="include-common-module"></span><h2>include.common module<a class="headerlink" href="#module-include.common" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="include.common.delete">
+<code class="descclassname">include.common.</code><code class="descname">delete</code><span class="sig-paren">(</span><em>path</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a file, or directory</p>
+<p><strong>Positional Arguments:</strong></p>
+<dl class="docutils">
+<dt>path:</dt>
+<dd><ul class="first last simple">
+<li>The path to the file system object to be deleted</li>
+</ul>
+</dd>
+</dl>
+<p><strong>Optional Arguments:</strong></p>
+<dl class="docutils">
+<dt>verbose:</dt>
+<dd><ul class="first last simple">
+<li>Print debug messages when actions are taken</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="function">
 <dt id="include.common.get_ext">
 <code class="descclassname">include.common.</code><code class="descname">get_ext</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/common.html#get_ext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.common.get_ext" title="Permalink to this definition">¶</a></dt>
@@ -486,7 +612,7 @@ extensions (<cite>fileext</cite>) in mind</p>
 <span id="include-config-module"></span><h2>include.config module<a class="headerlink" href="#module-include.config" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="include.config.config">
-<em class="property">class </em><code class="descclassname">include.config.</code><code class="descname">config</code><span class="sig-paren">(</span><em>fn</em>, <em>projecthome=''</em>, <em>silent_fail=False</em>, <em>add_defaults=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">include.config.</code><code class="descname">config</code><span class="sig-paren">(</span><em>fn</em>, <em>projecthome</em>, <em>on_anomaly='IGNORE'</em>, <em>add_defaults=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
 <dt id="include.config.config.add_data_loc_path">
 <code class="descname">add_data_loc_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.add_data_loc_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.add_data_loc_path" title="Permalink to this definition">¶</a></dt>
@@ -523,16 +649,11 @@ extensions (<cite>fileext</cite>) in mind</p>
 
 <dl class="method">
 <dt id="include.config.config.build_data_dep_stub">
-<code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
+<code class="descname">build_data_dep_stub</code><span class="sig-paren">(</span><em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.build_data_dep_stub"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.build_data_dep_stub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a stub of a config or add data dependencies to an existing
 config given one or more directories containing data.</p>
 <p><strong>Positional Arguments:</strong></p>
 <dl class="docutils">
-<dt>projecthome:</dt>
-<dd><ul class="first last simple">
-<li>The path to the project root directory.</li>
-</ul>
-</dd>
 <dt>overwrite:</dt>
 <dd><ul class="first last simple">
 <li>Overwrite the existing data dependency file, if it does exist.</li>
@@ -604,12 +725,12 @@ config given one or more directories containing data.</p>
 <dd><p>Is the configuration file a valid one?</p>
 <p><strong>Returns:</strong></p>
 <p>A bool for validity of the configuration file based on the
-level=IGNORE argument to <code class="xref py py-func docutils literal"><span class="pre">__check_valid__()</span></code></p>
+on_anomaly=IGNORE argument to <code class="xref py py-func docutils literal"><span class="pre">__check_valid__()</span></code></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="include.config.config.read_config">
-<code class="descname">read_config</code><span class="sig-paren">(</span><em>fn</em>, <em>silent_fail=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.read_config" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read_config</code><span class="sig-paren">(</span><em>fn</em>, <em>on_anomaly='ERROR'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/config.html#config.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.config.config.read_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a configuration file that is in <a class="reference external" href="http://yaml.org/">YAML format</a></p>
 <p><strong>Positional Arguments:</strong></p>
 <dl class="docutils">
@@ -621,9 +742,9 @@ level=IGNORE argument to <code class="xref py py-func docutils literal"><span cl
 </dl>
 <p><strong>Optional Arguments:</strong></p>
 <dl class="docutils">
-<dt>silent_fail:</dt>
+<dt>on_anomaly:</dt>
 <dd><ul class="first last simple">
-<li>If <cite>True</cite> errors in the config settings will be ignored</li>
+<li>Action to perform when we encounter an anomaly</li>
 </ul>
 </dd>
 </dl>
@@ -740,7 +861,7 @@ the proposed path until it is a non-existent path.</p>
 <span id="include-init-module"></span><h2>include.init module<a class="headerlink" href="#module-include.init" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="include.init.init">
-<code class="descclassname">include.init.</code><code class="descname">init</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=False</em>, <em>bare=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/init.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.init.init" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.init.</code><code class="descname">init</code><span class="sig-paren">(</span><em>projecthome</em>, <em>overwrite=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/include/init.html#init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#include.init.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize a blci project with the depenedency file and stubbed out blci
 configuration file</p>
 <p><strong>Positional Arguments:</strong></p>
@@ -763,11 +884,6 @@ configuration file</p>
 </li>
 </ul>
 </dd>
-<dt>bare:</dt>
-<dd><ul class="first last simple">
-<li>means ignore the current config and write a new one</li>
-</ul>
-</dd>
 </dl>
 </dd></dl>
 
@@ -775,6 +891,12 @@ configuration file</p>
 <div class="section" id="module-include.settings">
 <span id="include-settings-module"></span><h2>include.settings module<a class="headerlink" href="#module-include.settings" title="Permalink to this headline">¶</a></h2>
 <p>Default file names we expect to exsit</p>
+<dl class="data">
+<dt id="include.settings.BL_DEFAULTS">
+<code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULTS</code><em class="property"> = {'ignore': ['.*', '.pyc', '.d', '.o', '.javac', '.rbin', '.mat'], 'code_loc': ['code'], 'version': '', 'description': 'A BrainLab Continuous Integration repo', 'credentials': '.credentials', 'data_loc': ['data'], 'path': [], 'data_dep': {'read': {}, 'write': {}}, 'nthread': 1, 'name': ''}</em><a class="headerlink" href="#include.settings.BL_DEFAULTS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional arguments that can be left undefined</p>
+</dd></dl>
+
 <dl class="data">
 <dt id="include.settings.BL_DEFAULT_CREDS">
 <code class="descclassname">include.settings.</code><code class="descname">BL_DEFAULT_CREDS</code><em class="property"> = '.credentials'</em><a class="headerlink" href="#include.settings.BL_DEFAULT_CREDS" title="Permalink to this definition">¶</a></dt>
@@ -801,13 +923,13 @@ configuration file</p>
 
 <dl class="data">
 <dt id="include.settings.BL_REQUIRED">
-<code class="descclassname">include.settings.</code><code class="descname">BL_REQUIRED</code><em class="property"> = set(['name', 'language', 'script', 'read'])</em><a class="headerlink" href="#include.settings.BL_REQUIRED" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.settings.</code><code class="descname">BL_REQUIRED</code><em class="property"> = set(['read', 'language'])</em><a class="headerlink" href="#include.settings.BL_REQUIRED" title="Permalink to this definition">¶</a></dt>
 <dd><p>Separates Base CI (Travis) configurations from BLCI specific ones</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="include.settings.BL_SETTINGS">
-<code class="descclassname">include.settings.</code><code class="descname">BL_SETTINGS</code><em class="property"> = set(['code_loc', 'description', 'language', 'script', 'read', 'data_dep', 'data_loc', 'nthread', 'ignore', 'version', 'install', 'path', 'credentials', 'name'])</em><a class="headerlink" href="#include.settings.BL_SETTINGS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">include.settings.</code><code class="descname">BL_SETTINGS</code><em class="property"> = set(['code_loc', 'description', 'language', 'script', 'read', 'data_dep', 'data_loc', 'nthread', 'ignore', 'version', 'path', 'credentials', 'name'])</em><a class="headerlink" href="#include.settings.BL_SETTINGS" title="Permalink to this definition">¶</a></dt>
 <dd><p>These are the default parameters blci uses</p>
 </dd></dl>
 

@@ -166,7 +166,7 @@
 <span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../include.html#include.init.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bare</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../include.html#include.init.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize a blci project with the depenedency file and stubbed out blci</span>
 <span class="sd">    configuration file</span>
@@ -182,14 +182,8 @@
 <span class="sd">        - Write over any old configuration file that may exist in `projecthome`.</span>
 <span class="sd">            If `False` then the new configuration file will have the filename</span>
 <span class="sd">            ``blci_\d+.yml``.</span>
-<span class="sd">    bare:</span>
-<span class="sd">        - means ignore the current config and write a new one</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">c</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">bare</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">()</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span> <span class="n">projecthome</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_CONFIG_FN</span><span class="p">),</span> <span class="n">projecthome</span><span class="p">)</span>
 
     <span class="c1"># Build code dependencies</span>
     <span class="n">dp</span> <span class="o">=</span> <span class="n">DependParser</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;read&quot;</span><span class="p">),</span> <span class="n">projecthome</span><span class="p">)</span>
@@ -200,7 +194,7 @@
     <span class="n">dp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">BL_DEFAULT_DEPS_FN</span><span class="p">))</span>
 
     <span class="c1"># Build data dependencies</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">build_data_dep_stub</span><span class="p">(</span><span class="n">projecthome</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">)</span>
+    <span class="n">c</span><span class="o">.</span><span class="n">build_data_dep_stub</span><span class="p">(</span><span class="n">overwrite</span><span class="p">)</span>
     <span class="n">c</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span></div>
 </pre></div>
 

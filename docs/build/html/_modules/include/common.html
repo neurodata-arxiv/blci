@@ -162,6 +162,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">fnmatch</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="n">rmtree</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">from</span> <span class="nn">git</span> <span class="k">import</span> <span class="n">Repo</span>
 
@@ -314,6 +315,33 @@
         <span class="k">raise</span> <span class="n">ParameterException</span><span class="p">(</span><span class="s2">&quot;Problem with credentials file &quot;</span> <span class="o">+</span> <span class="n">msg</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">token</span></div>
+
+<div class="viewcode-block" id="delete"><a class="viewcode-back" href="../../include.html#include.common.delete">[docs]</a><span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a file, or directory</span>
+
+<span class="sd">    **Positional Arguments:**</span>
+
+<span class="sd">    path:</span>
+<span class="sd">        - The path to the file system object to be deleted</span>
+
+<span class="sd">    **Optional Arguments:**</span>
+
+<span class="sd">    verbose:</span>
+<span class="sd">        - Print debug messages when actions are taken</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;Deleted &#39;</span><span class="si">{}</span><span class="s2">&#39; ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s2">&quot;No such path &#39;</span><span class="si">{}</span><span class="s2">&#39; ...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
