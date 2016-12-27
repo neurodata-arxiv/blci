@@ -10,7 +10,7 @@ BrainLab-CI
     :width: 100px
     :height: 100px
 
-Welcome to BrainLab-CI (BLCI)! BLCI is an continuous integration environment
+Welcome to BrainLab-CI (BLCI)! BLCI is a continuous integration environment
 for collaborative, community experiments with data-quality controls and
 full provenance.
 

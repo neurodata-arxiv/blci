@@ -22,9 +22,11 @@ repos you will need an **authentication token**.
 Follow the steps outlined
 [here](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 Copy and paste the token into a file in the root of your project. The default name that BLCI
-expects is `.credentials`, but you can set the `credentials` setting in the `blci.yml`
-configuration to adapt the default behavior. Your token file will never be tracked by
-Git or BLCI. **It must remain local and untracked!**
+expects is `.credentials`, but you can set the
+[`credentials`](file:///Users/disa/Research/blci/docs/build/html/config.html#credentials)
+setting in the `blci.yml` configuration to adapt the default behavior.
+Your token file will never be tracked by Git or BLCI.
+**It must remain local and untracked!**
 
 ## Permission level required for OAuth token
 Your token must select the following scopes:

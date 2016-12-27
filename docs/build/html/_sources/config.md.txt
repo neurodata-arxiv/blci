@@ -1,9 +1,9 @@
 # The configuration file
 
-We document the configuration that is essential to correct functionality of
-BLCI. Note that there are several default values that are specified and
-documented [here](defaults.html). All paths are relative to the root directory
-of the project i.e., `$PROJECT_HOME`.
+We document the configuration file that is essential to the correct
+functionality of BLCI. Note that there are several default values that
+are specified and documented [here](defaults.html). All paths are relative
+to the root directory of the project i.e., `$PROJECT_HOME`.
 
 **NOTE:** Any configuration passed that is not BLCI specific is passed directly
 to the Travis CI configuration file `.travis.yml`.
@@ -16,7 +16,7 @@ We document all BLCI specific settings.
 The user defined repository name e.g., `my-repo`.
 
 ### `language`
-The programming language your project utilizes e.g., `cpp`, `julia`.
+The programming language your project utilizes e.g., `cpp`.
 
 ### `version`
 The version of the programming language you are using e.g., `2.7`.
@@ -69,4 +69,4 @@ The file that contains your Github OAuth token. The default is `.credentials`.
 
 ### `description`
 A user defined description of your repo. This can be as verbose as you deem
-necessary. e.g. `"A repo that enables Floki to to be cunning"`.
+necessary. e.g. `"A repo that enables Floki to be cunning"`.

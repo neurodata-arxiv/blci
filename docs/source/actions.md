@@ -5,7 +5,11 @@ state: `script`, `trigger` and `verify` actions.
 
 ## Script
 
-This is enabled by the use of the `script` setting in the configuration file. This operation is passed directly to Travis CI's `script` [setting](https://docs.travis-ci.com/user/customizing-the-build/) setting. BLCI uses this to  allow users to force changes in data dependencies. If data dependencies change this may cause `trigger`s to be created.
+This is enabled by the use of the `script` setting in the configuration file.
+This operation is passed directly to Travis CI's `script`
+[setting](https://docs.travis-ci.com/user/customizing-the-build/). BLCI uses
+this to allow users to force changes in data dependencies. If data dependencies
+change this may cause `trigger`s to be created.
 
 Note that BLCI creates and fully manages a `.travis.yml` file that is added to the repo when the first `add` is done. BLCI alters and adds to the `script` setting then passes it to `.travis.yml`.
 

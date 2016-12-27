@@ -166,7 +166,7 @@ BLCI root directory. Pass no argument to see help and options.</p>
 <span id="initialize-the-repo"></span><h2>Initialize the repo<a class="headerlink" href="#initialize-the-repo" title="Permalink to this headline">¶</a></h2>
 <p>Once you have a <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file in the root directory of your
 repo/project (i.e., <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>) with at least the required configuration
-settings (<code class="docutils literal"><span class="pre">name</span></code>, <code class="docutils literal"><span class="pre">language</span></code>, <code class="docutils literal"><span class="pre">read</span></code>, <code class="docutils literal"><span class="pre">script</span></code>), You can initialize the repo as
+settings <a class="reference external" href="config.html#language"><code class="docutils literal"><span class="pre">language</span></code></a>, You can initialize the repo as
 follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>./bl -i $PROJECT_HOME
 </pre></div>
@@ -175,8 +175,8 @@ follows:</p>
 <ol class="simple">
 <li>Builds and saves the code dependency graph file <code class="docutils literal"><span class="pre">blci.deps</span></code></li>
 <li>Fleshes out a minimal <code class="docutils literal"><span class="pre">blci.yml</span></code> configuration file to a point to where
-a repo is a valid BLCI repo leaving only the <code class="docutils literal"><span class="pre">data_deps</span></code> setting to be
-completed by the user.</li>
+a repo is a valid BLCI repo leaving the <code class="docutils literal"><span class="pre">data_deps</span></code>, <code class="docutils literal"><span class="pre">script</span></code> and any other
+user-specific setting to be completed by the user.</li>
 </ol>
 <p><strong>NOTE:</strong> The default action is to append and overwrite the minimal
 configuration file a user creates. The filename of the original
@@ -189,9 +189,10 @@ behavior use the <code class="docutils literal"><span class="pre">-n</span> <spa
 <div class="highlight-default"><div class="highlight"><pre><span></span>./bl -a $PROJECT_HOME
 </pre></div>
 </div>
-<p>A BLCI action:</p>
+<p>A BLCI <code class="docutils literal"><span class="pre">add</span></code> action:</p>
 <ol class="simple">
-<li>Create a remote Github repo and track it using Travis CI <strong>if none exists.</strong></li>
+<li>Creates a remote Github repo and tracks it using Travis CI
+(<strong>if the repo is untracked)</strong>.</li>
 <li>Build the Travis metadata.</li>
 <li>Add, commit, push and Travis build your repo.</li>
 </ol>

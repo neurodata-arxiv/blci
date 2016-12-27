@@ -6,8 +6,8 @@ project.
 
 ## Filenames
 
-The following files named are fully managed by BLCI and **should not be changed
-manually**:
+The following file names are expected by BLCI, they **should not be
+renamed**:
 
 - BLCI's main configuration file: *blci.yml*
 - For data dependencies: *blci.deps*
@@ -16,7 +16,9 @@ manually**:
 
 Only the credentials filename is configurable. This file contains one
 line that has your Github API token by default it is *.credentials*. This
-can be altered using the `credentials` setting in the configuration file.
+can be altered using the
+[`credentials`](file:///Users/disa/Research/blci/docs/build/html/config.html#credentials)
+setting in the configuration file.
 
 ## `version` setting
 
@@ -33,7 +35,7 @@ to correctly parse code. We use the following as defaults for languages:
 
 ## `read` setting
 
-We maintain the following `read` settings defaults by file type:
+We maintain the following `read` setting defaults by file type:
 
 - python: [ ".py", ".ipynb"]
 - julia: [".j", ".jl"]
@@ -45,7 +47,7 @@ We maintain the following `read` settings defaults by file type:
 
 ## Miscellaneous configuration settings (blci.yml)
 
-The following are default configurations settings you receive if not specified.
+The following are default configuration settings you receive if not specified.
 
 * `nthread`: 1
 * `code_loc`: ["code"]
