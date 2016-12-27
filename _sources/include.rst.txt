@@ -28,6 +28,14 @@ include.build module
     :undoc-members:
     :show-inheritance:
 
+include.clean module
+--------------------
+
+.. automodule:: include.clean
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 include.common module
 ---------------------
 

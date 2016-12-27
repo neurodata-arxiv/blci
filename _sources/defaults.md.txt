@@ -45,7 +45,7 @@ We maintain the following `read` settings defaults by file type:
 
 ## Miscellaneous configuration settings (blci.yml)
 
-The following are default configurations setting you receive if not specified.
+The following are default configurations settings you receive if not specified.
 
 * `nthread`: 1
 * `code_loc`: ["code"]
@@ -54,6 +54,7 @@ The following are default configurations setting you receive if not specified.
 * `description`: "A BrainLab Continuous Integration repo"
 * `credentials`: ".credentials"
 
-The following settings can be left undefined but will receive no-op values by default:
+The following settings can be left undefined but may receive no-op values
+by default:
 
-* `path`, `data_dep`, `install`, `version`
+* `path`, `data_dep`, `install`, `version`, `name`, `script`
