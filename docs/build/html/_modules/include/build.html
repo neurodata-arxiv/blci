@@ -196,29 +196,18 @@
             <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># Trigger a build</span>
-    <span class="nb">print</span> <span class="s2">&quot;Triggering a build&quot;</span>
+    <span class="nb">print</span> <span class="s2">&quot;Triggering a build ...&quot;</span>
     <span class="n">repo</span> <span class="o">=</span> <span class="n">Repo</span><span class="p">(</span><span class="n">projecthome</span><span class="p">)</span>
     <span class="n">Git</span> <span class="o">=</span> <span class="n">repo</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="n">work_tree</span><span class="o">=</span><span class="n">projecthome</span><span class="p">)</span>
     <span class="n">Git</span><span class="o">.</span><span class="n">checkout</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span> <span class="c1"># Ensure correct branch</span>
     <span class="n">Git</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s2">&quot;-am&quot;</span><span class="p">,</span> <span class="s2">&quot;BLCI: Trigger build&quot;</span><span class="p">)</span>
-    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span></div>
+    <span class="n">Git</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span>
 
-    <span class="c1"># FIXME</span>
-    <span class="c1"># Attempt to use Travis-CI restful api. Issue with token?</span>
-    <span class="c1"># https://docs.travis-ci.com/user/triggering-builds</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Github</span><span class="p">(</span><span class="n">read_token</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_CREDS</span><span class="p">)))</span>
+    <span class="n">uname</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span><span class="o">.</span><span class="n">login</span>
 
-    <span class="c1"># body = &#39;{&quot;request&quot;: {&quot;branch&quot;: &quot;%s&quot;}}&#39; % conf.get(BL_NAME)</span>
-    <span class="c1"># token = read_token(conf.get(BL_CREDS))</span>
-    <span class="c1"># g = Github(token)</span>
-    <span class="c1"># output = check_output([&quot;curl&quot;, &quot;-s&quot;, &quot;-X&quot;, &quot;POST&quot;,</span>
-        <span class="c1"># &quot;-H&quot;, &#39;&quot;Content-Type: application/json&quot;&#39;,</span>
-	<span class="c1"># &quot;-H&quot;, &#39;&quot;Accept: application/json&quot;&#39;,</span>
-	<span class="c1"># &quot;-H&quot;, &#39;&quot;Travis-API-Version: 3&quot;&#39;,</span>
-	<span class="c1"># &quot;-H&quot;, &#39;&quot;Authorization: token {}&quot;&#39;.format(token),</span>
-	<span class="c1"># &quot;-d&quot;, &#39;&quot;%s&quot;&#39; % body,</span>
-	<span class="c1"># &quot;https://api.travis-ci.org/repo/{}%2F{}/requests&quot;.format(</span>
-            <span class="c1"># g.get_user().login, conf.get(BL_NAME))</span>
-        <span class="c1"># ])</span>
+    <span class="nb">print</span> <span class="s2">&quot;Visit </span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2"> to view progress ..&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;https://travis-ci.org&quot;</span><span class="p">,</span>
+            <span class="n">uname</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">BL_NAME</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

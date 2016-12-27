@@ -76,14 +76,6 @@ include.settings module
     :undoc-members:
     :show-inheritance:
 
-include.verify_action module
-----------------------------
-
-.. automodule:: include.verify_action
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

@@ -91,12 +91,17 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blci-use">BLCI Use</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#example-repo-project">Example repo/project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-repo-project">Example repo/project</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-code-dir-details-of-importance">Example <code class="docutils literal"><span class="pre">code</span></code> dir  details of importance</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-blci-yml-config-file">Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initialize-init-the-repo">Initialize (<code class="docutils literal"><span class="pre">init</span></code>) the repo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#complete-the-configuration-file">Complete the configuration file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#make-pipeline-repo-a-valid-blci-repo">Make pipeline/repo a valid BLCI repo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#push-blci-repo">Push BLCI repo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modify-script-actions-to-justify-data-dep-settings">Modify <code class="docutils literal"><span class="pre">script</span></code> actions to justify <code class="docutils literal"><span class="pre">data_dep</span></code> settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-add-the-repo">Add (<code class="docutils literal"><span class="pre">add</span></code>) the repo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#update-blci-repo">Update BLCI repo</a></li>
 </ul>
 </li>
@@ -154,8 +159,8 @@
             
   <div class="section" id="tutorial">
 <span id="tutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
-<p>We describe how to get up and running for a machine with a reasonably up to
-date operating system. <strong>NOTE:</strong> You may need to run the commands listed
+<p>We assume a machine with a reasonably up to date operating system.
+<strong>NOTE:</strong> You may need to run the commands listed
 here with higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
 <div class="section" id="install-dependencies">
 <span id="install-dependencies"></span><h2>Install Dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h2>
@@ -186,13 +191,22 @@ throughout this tutorial.</p>
         <span class="n">data</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
+<p><strong>NOTE:</strong> All paths are relative to <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>, the root directory for
+your project.</p>
+<div class="section" id="example-code-dir-details-of-importance">
+<span id="example-code-dir-details-of-importance"></span><h4>Example <code class="docutils literal"><span class="pre">code</span></code> dir  details of importance<a class="headerlink" href="#example-code-dir-details-of-importance" title="Permalink to this headline">¶</a></h4>
+<ol class="simple">
+<li>The script <code class="docutils literal"><span class="pre">code/a.py</span></code> <em>reads</em> <code class="docutils literal"><span class="pre">data/data.txt</span></code> and <em>writes</em>
+<code class="docutils literal"><span class="pre">data/databy2.txt</span></code></li>
+<li>The script <code class="docutils literal"><span class="pre">code/analysis/c.py</span></code> <em>reads</em></li>
+</ol>
+</div>
 </div>
 <div class="section" id="create-a-blci-yml-config-file">
 <span id="create-a-blci-yml-config-file"></span><h3>Create a <code class="docutils literal"><span class="pre">blci.yml</span></code> config file<a class="headerlink" href="#create-a-blci-yml-config-file" title="Permalink to this headline">¶</a></h3>
-<p>The minimum a configuration file needs to contain is the <code class="docutils literal"><span class="pre">language</span></code> setting and
-BLCI will flesh it out as much possible, before the user must complete it.
-<strong>NOTE:</strong> All paths are relative to <code class="docutils literal"><span class="pre">$PROJECT_HOME</span></code>, the root directory for
-your project:</p>
+<p>At a minimum the configuration file needs to contain the <code class="docutils literal"><span class="pre">language</span></code> setting and
+BLCI will flesh it out as much possible, then users must complete it as
+necessary.</p>
 <p>All configuration settings are documented on the
 <a class="reference external" href="config.html">configuration page</a>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
@@ -201,7 +215,11 @@ your project:</p>
 </div>
 <div class="section" id="initialize-init-the-repo">
 <span id="initialize-init-the-repo"></span><h3>Initialize (<code class="docutils literal"><span class="pre">init</span></code>) the repo<a class="headerlink" href="#initialize-init-the-repo" title="Permalink to this headline">¶</a></h3>
-<p>BLCI initialize will result in a fleshed out, <em>but often incomplete</em>
+<p>Execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">bl</span> <span class="n">myrepo</span> <span class="o">-</span><span class="n">i</span>
+</pre></div>
+</div>
+<p>BLCI initialization will result in a fleshed out, <em>but often incomplete</em>
 <code class="docutils literal"><span class="pre">blci.yml</span></code> file. In our case what we receive is:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
 <span class="n">version</span><span class="p">:</span> <span class="mf">2.7</span>
@@ -211,38 +229,84 @@ your project:</p>
 <span class="o">-</span> <span class="n">code</span>
 <span class="n">credentials</span><span class="p">:</span> <span class="o">.</span><span class="n">credentials</span>
 <span class="n">data_dep</span><span class="p">:</span>
-  <span class="n">read</span><span class="p">:</span> <span class="p">{}</span>
-  <span class="n">write</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="n">read</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="n">write</span><span class="p">:</span> <span class="p">{}</span>
 <span class="n">data_loc</span><span class="p">:</span>
 <span class="o">-</span> <span class="n">data</span>
 <span class="n">ignore</span><span class="p">:</span> <span class="p">[</span><span class="o">.*</span><span class="p">,</span> <span class="o">.</span><span class="n">pyc</span><span class="p">,</span> <span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="o">.</span><span class="n">o</span><span class="p">,</span> <span class="o">.</span><span class="n">javac</span><span class="p">,</span> <span class="o">.</span><span class="n">rbin</span><span class="p">,</span> <span class="o">.</span><span class="n">mat</span><span class="p">]</span>
 <span class="n">nthread</span><span class="p">:</span> <span class="mi">1</span>
 <span class="n">read</span><span class="p">:</span>
-  <span class="o">-</span> <span class="o">.</span><span class="n">py</span>
-  <span class="o">-</span> <span class="o">.</span><span class="n">ipynb</span>
+<span class="o">-</span> <span class="o">.</span><span class="n">py</span>
+<span class="o">-</span> <span class="o">.</span><span class="n">ipynb</span>
 <span class="n">path</span><span class="p">:</span> <span class="p">[]</span>
 </pre></div>
 </div>
-<p><strong>NOTE:</strong> The order of the settings does not matter.</p>
+<p><strong>NOTE:</strong> The order of the settings does not matter, but the spacing
+matters when it comes to settings with lists as values.</p>
 <p>BLCI also builds a code-to-code dependency metadata file that is saved as
-<code class="docutils literal"><span class="pre">blci.deps</span></code>. This <strong>should not</strong> be edited by users.</p>
+<code class="docutils literal"><span class="pre">blci.deps</span></code>. This <strong>should not</strong> be edited by users. This file notes any
+code-to-code dependencies within the repo. These are obtained from
+<code class="docutils literal"><span class="pre">import</span></code>/<code class="docutils literal"><span class="pre">include</span></code> statements.</p>
 </div>
 <div class="section" id="complete-the-configuration-file">
 <span id="complete-the-configuration-file"></span><h3>Complete the configuration file<a class="headerlink" href="#complete-the-configuration-file" title="Permalink to this headline">¶</a></h3>
-<p>We need to add the <code class="docutils literal"><span class="pre">myrepo/otherdata</span></code> directory as a data directory and
-specify all the data-to-code dependencies for the data files in
-<code class="docutils literal"><span class="pre">myrepo/data</span></code> and <code class="docutils literal"><span class="pre">myrepo/</span></code>. We add the following lines to the config file and</p>
+<p>We must now specify all the data-to-code dependencies for the data files.
+First, we need to add the <code class="docutils literal"><span class="pre">data</span></code> and <code class="docutils literal"><span class="pre">otherdata</span></code> directories as data locations.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">data_loc</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">data</span>
+<span class="o">-</span> <span class="n">otherdata</span>
+</pre></div>
 </div>
-<div class="section" id="make-pipeline-repo-a-valid-blci-repo">
-<span id="make-pipeline-repo-a-valid-blci-repo"></span><h3>Make pipeline/repo a valid BLCI repo<a class="headerlink" href="#make-pipeline-repo-a-valid-blci-repo" title="Permalink to this headline">¶</a></h3>
-<p><strong>TODO</strong>: add instructions</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TODO</span>
+<p>Next, we need to indicate the following data dependencies:</p>
+<ol class="simple">
+<li><code class="docutils literal"><span class="pre">data/data.txt</span></code> is read by <code class="docutils literal"><span class="pre">code/a.py</span></code> and <code class="docutils literal"><span class="pre">code/analysis/c.py</span></code></li>
+<li><code class="docutils literal"><span class="pre">otherdata/data.txt</span></code> is written by <code class="docutils literal"><span class="pre">code/analysis/c.py</span></code></li>
+<li><code class="docutils literal"><span class="pre">data/databy2.txt</span></code> is written by <code class="docutils literal"><span class="pre">code/a.py</span></code>.</li>
+</ol>
+<p>Here is how we would achieve this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">data_dep</span><span class="p">:</span>
+    <span class="n">read</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span>
+            <span class="o">-</span> <span class="n">code</span><span class="o">/</span><span class="n">a</span><span class="o">.</span><span class="n">py</span>
+            <span class="o">-</span> <span class="n">code</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">c</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">write</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">/</span><span class="n">databy2</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span>
+            <span class="o">-</span> <span class="n">code</span><span class="o">/</span><span class="n">a</span><span class="o">.</span><span class="n">py</span>
+        <span class="n">otherdata</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span>
+            <span class="o">-</span> <span class="n">code</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">c</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="push-blci-repo">
-<span id="push-blci-repo"></span><h3>Push BLCI repo<a class="headerlink" href="#push-blci-repo" title="Permalink to this headline">¶</a></h3>
-<p><strong>TODO</strong>: push instructions</p>
+</div>
+<div class="section" id="modify-script-actions-to-justify-data-dep-settings">
+<span id="modify-script-actions-to-justify-data-dep-settings"></span><h2>Modify <code class="docutils literal"><span class="pre">script</span></code> actions to justify <code class="docutils literal"><span class="pre">data_dep</span></code> settings<a class="headerlink" href="#modify-script-actions-to-justify-data-dep-settings" title="Permalink to this headline">¶</a></h2>
+<p>Now we add the <code class="docutils literal"><span class="pre">script</span></code> action that actually performs computation and supports
+the <code class="docutils literal"><span class="pre">data_dep</span></code> settings. The following is what a <code class="docutils literal"><span class="pre">script</span></code> value might look like
+for this example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">script</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">python</span> <span class="n">code</span><span class="o">/</span><span class="n">analysis</span><span class="o">/</span><span class="n">c</span><span class="o">.</span><span class="n">py</span> <span class="n">data</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span> <span class="mf">2.5</span> <span class="n">otherdata</span><span class="o">/</span><span class="n">data</span><span class="o">.</span><span class="n">txt</span>
+    <span class="o">-</span> <span class="n">cd</span> <span class="n">code</span> <span class="o">&amp;&amp;</span> <span class="n">python</span> <span class="n">a</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Read over the
+<a class="reference external" href="https://docs.travis-ci.com/user/customizing-the-build#Customizing-the-Build-Step"><code class="docutils literal"><span class="pre">script</span></code></a>
+setting in Travis for details on what actions it triggers. Note that we use it
+not as a testing action, but instead an action to <em>perform computation</em>.</p>
+<div class="section" id="add-add-the-repo">
+<span id="add-add-the-repo"></span><h3>Add (<code class="docutils literal"><span class="pre">add</span></code>) the repo<a class="headerlink" href="#add-add-the-repo" title="Permalink to this headline">¶</a></h3>
+<p>Finally we need to add the repo as a BLCI repo. This action will:</p>
+<ol class="simple">
+<li>Create a remote repo in Github for you with the name you specify (or it was
+given by default) as the <code class="docutils literal"><span class="pre">name</span></code> argument. The repo will also have a branch with
+the same name as your remote repo.</li>
+<li>Create and track the remote repo with Travis-CI.</li>
+</ol>
+<p>To perform this action execute:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">bl</span> <span class="n">myrepo</span> <span class="o">-</span><span class="n">a</span>
+</pre></div>
+</div>
+<p>Proceed to check <a class="reference external" href="https://travis-ci.org/">https://travis-ci.org/</a> to ensure your
+repo is created correctly and builds.</p>
 </div>
 <div class="section" id="update-blci-repo">
 <span id="update-blci-repo"></span><h3>Update BLCI repo<a class="headerlink" href="#update-blci-repo" title="Permalink to this headline">¶</a></h3>
