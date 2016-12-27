@@ -55,26 +55,15 @@ def trigger_build(conf, projecthome):
             f.write("\n")
 
     # Trigger a build
-    print "Triggering a build"
+    print "Triggering a build ..."
     repo = Repo(projecthome)
     Git = repo.git(work_tree=projecthome)
     Git.checkout(conf.get(BL_NAME)) # Ensure correct branch
     Git.commit("-am", "BLCI: Trigger build")
     Git.push("origin", conf.get(BL_NAME))
 
-    # FIXME
-    # Attempt to use Travis-CI restful api. Issue with token?
-    # https://docs.travis-ci.com/user/triggering-builds
+    g = Github(read_token(conf.get(BL_CREDS)))
+    uname = g.get_user().login
 
-    # body = '{"request": {"branch": "%s"}}' % conf.get(BL_NAME)
-    # token = read_token(conf.get(BL_CREDS))
-    # g = Github(token)
-    # output = check_output(["curl", "-s", "-X", "POST",
-        # "-H", '"Content-Type: application/json"',
-	# "-H", '"Accept: application/json"',
-	# "-H", '"Travis-API-Version: 3"',
-	# "-H", '"Authorization: token {}"'.format(token),
-	# "-d", '"%s"' % body,
-	# "https://api.travis-ci.org/repo/{}%2F{}/requests".format(
-            # g.get_user().login, conf.get(BL_NAME))
-        # ])
+    print "Visit {}/{}/{} to view progress ..".format("https://travis-ci.org/",
+            uname, conf.get(BL_NAME))

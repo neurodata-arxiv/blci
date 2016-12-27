@@ -20,12 +20,13 @@
 # Email: disa@jhu.edu
 
 import sys, os
+from time import sleep, time
 from git import Repo
 from github import Github
 from travispy import TravisPy
 
 from settings import *
-from bl_exceptions import ParameterException
+from bl_exceptions import FileNotFoundException, err
 from config import config
 from common import is_git_repo, is_git_branch, read_token
 from common import write_yml
@@ -51,7 +52,7 @@ def handle_gitignore(projecthome, bl_conf):
     git_ignore_fn = join(projecthome, GIT_IGNORE_FN)
 
     if not os.path.exists(credentials_fn):
-        raise FileNotFoundException("Cannot find file credentials file {}".
+        raise FileNotFoundException("Cannot find file credentials file '{}'".
                 format(join(projecthome, credentials_fn)))
 
     has_creds = False
@@ -78,6 +79,8 @@ def handle_gitignore(projecthome, bl_conf):
             if bash_exp not in ignored:
                 f.write(bash_exp + "\n")
 
+    print "Writing gitignore .Writing gitignore ...."
+
 def create_remote_repo(bl_conf):
     """
     Uses user-defined configuration file to create a **public** github repo that
@@ -99,6 +102,7 @@ def create_remote_repo(bl_conf):
     g = Github(read_token(bl_conf.get(BL_CREDS)))
     user = g.get_user()
 
+    print "Creating remote repo '{}' ...".format(bl_conf.get(BL_NAME))
     return user.create_repo(bl_conf.get(BL_NAME), bl_conf.get(BL_DESCRIPTION),
            private=False, auto_init=True)
 
@@ -112,14 +116,31 @@ def travis_track(bl_conf):
         - A BLCI configuration :class:`~include.config.config` object
     """
 
-    print "Tracking repo with Travis ..."
     travis = TravisPy.github_auth(read_token(bl_conf.get(BL_CREDS)))
-    repo = travis.repo("{}/{}".format(
-        travis.user().login, bl_conf.get(BL_NAME)))
-    repo.enable() # Switch is now on
 
     print "Synchronizing Github and Travis ..."
     travis.user().sync()
+
+    print "Tracking repo with Travis, wait .",
+
+    response = time()
+    response_timeout = 120 # 2 minute response time max
+    while (True):
+        try:
+            repo = travis.repo("{}/{}".format(
+                travis.user().login, bl_conf.get(BL_NAME)))
+            break
+        except:
+            if (time()-response) >= response_timeout:
+                sys.stderr.write(err("Travis Tracking failed! Ensure Travis"
+                    " has synched with Github\n"))
+                exit(808)
+
+            print ".",
+            sleep(2)
+
+    print " Done!\nEnabling repo ..."
+    repo.enable() # Switch is now on
 
 def create_base_CI_conf(bl_conf, Git):
     """
@@ -165,8 +186,8 @@ def add(projecthome, message):
     """
 
     projecthome = os.path.abspath(projecthome)
-    conf = config(join(projecthome, BL_DEFAULT_CONFIG_FN),
-            silent_fail=False)
+    conf = config(join(projecthome, BL_DEFAULT_CONFIG_FN), projecthome,
+            on_anomaly="ERROR")
 
     new_repo = False # is this a new blci repo or not
     if not is_git_repo(projecthome):
