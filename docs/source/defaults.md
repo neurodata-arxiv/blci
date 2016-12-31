@@ -25,38 +25,38 @@ setting in the configuration file.
 Every language progresses so it is important we track the version of the language
 to correctly parse code. We use the following as defaults for languages:
 
-* python: 2.7,
-* julia: 0.4,
-* cpp: "c++11",
-* c: "c11",
-* r: 3,
-* java: 7,
-* mat: 7
+* python: `2.7`
+* julia:` 0.4`
+* cpp: `"c++11"`
+* c: `"c11"`
+* r: `3`
+* java: `7`
+* mat: `7`
 
 ## `read` setting
 
 We maintain the following `read` setting defaults by file type:
 
-- python: [ ".py", ".ipynb"]
-- julia: [".j", ".jl"]
-- cpp: [".cpp", ".c", ".h", ".hpp"]
-- c: [".c", ".h"]
-- r: [".r"]
-- java: [".java"]
-- mat: [".m"]
+- python: `[ ".py", ".ipynb"]`
+- julia: `[".j", ".jl"]`
+- cpp: `[".cpp", ".c", ".h", ".hpp"]`
+- c: `[".c", ".h"]`
+- r: `[".r"]`
+- java: `[".java"]`
+- mat: `[".m"]`
 
 ## Miscellaneous configuration settings (blci.yml)
 
 The following are default configuration settings you receive if not specified.
 
-* `nthread`: 1
-* `code_loc`: ["code"]
-* `data_loc`: ["data"]
-* `ignore`: [".*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]
-* `description`: "A BrainLab Continuous Integration repo"
-* `credentials`: ".credentials"
+* `nthread`: `1`
+* `code_loc`: `["code"]`
+* `data_loc`: `["data"]`
+* `ignore`: `[".\*", ".pyc", ".d", ".o", ".javac", ".rbin", ".mat"]`
+* `description`: `"A BrainLab Continuous Integration repo"`
+* `credentials`: `".credentials"`
 
 The following settings can be left undefined but may receive no-op values
 by default:
 
-* `path`, `data_dep`, `install`, `version`, `name`, `script`
+`path`, `data_dep`, `install`, `version`, `name`, `script`
