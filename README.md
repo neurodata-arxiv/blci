@@ -1,4 +1,4 @@
-# BrainLab Continuous Integration (BrainlabCIi)
+# BrainLab Continuous Integration (Brainlab-CI)
 
 An continuous integration environment for collaborative, community experiments
 with data-quality controls and full provenance.
