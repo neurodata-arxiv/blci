@@ -4,7 +4,7 @@ We assume a machine with a reasonably up to date operating system.
 **NOTE:** You may need to run the commands listed
 here with higher user privilege such as root i.e., prefix commands with `sudo`.
 
-### Install Dependencies
+## Install Dependencies
 At the OS-level we require
 [Python 2.7](https://www.python.org/downloads/release/python-2712/),
 [Git](https://desktop.github.com/), and [Pip](https://pip.pypa.io/en/stable/)
@@ -13,6 +13,20 @@ to function.
 If your system does not have any of these see the
 [installation page](install.html).
 
+## Install BLCI
+
+Assuming all dependencies are installed simply clone BLCI from gitub and run the
+installation script as follows:
+
+```bash
+git clone https://github.com/neurodata/blci.git
+cd blci/
+./install
+```
+
+If this fails, look to the full [installation guide](install.html) for detailed
+installation instructions.
+
 ## BLCI Use
 
 For more comprehensive documentation on the BLCI interface and commands,
@@ -20,8 +34,9 @@ please refer to the [interface page](interface.html).
 
 ### Example repo/project
 
-The following is a repository of code and data that we use as a running example
-throughout this tutorial.
+The following is a project with code and data that we use as a running example
+throughout this tutorial. To follow along **we advise you to [download
+it](https://github.com/neurodata/blci/blob/master/docs/assets/myrepo.zip?raw=true).**
 
 ```
 myrepo/

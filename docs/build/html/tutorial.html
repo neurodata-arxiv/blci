@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-blci">Install BLCI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#blci-use">BLCI Use</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example-repo-project">Example repo/project</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example-code-dir-details-of-importance">Example <code class="docutils literal"><span class="pre">code</span></code> dir  details of importance</a></li>
@@ -171,14 +172,27 @@ to function.</p>
 <p>If your system does not have any of these see the
 <a class="reference external" href="install.html">installation page</a>.</p>
 </div>
+<div class="section" id="install-blci">
+<span id="install-blci"></span><h2>Install BLCI<a class="headerlink" href="#install-blci" title="Permalink to this headline">¶</a></h2>
+<p>Assuming all dependencies are installed simply clone BLCI from gitub and run the
+installation script as follows:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/neurodata/blci.git
+<span class="nb">cd</span> blci/
+./install
+</pre></div>
+</div>
+<p>If this fails, look to the full <a class="reference external" href="install.html">installation guide</a> for detailed
+installation instructions.</p>
+</div>
 <div class="section" id="blci-use">
 <span id="blci-use"></span><h2>BLCI Use<a class="headerlink" href="#blci-use" title="Permalink to this headline">¶</a></h2>
 <p>For more comprehensive documentation on the BLCI interface and commands,
 please refer to the <a class="reference external" href="interface.html">interface page</a>.</p>
 <div class="section" id="example-repo-project">
 <span id="example-repo-project"></span><h3>Example repo/project<a class="headerlink" href="#example-repo-project" title="Permalink to this headline">¶</a></h3>
-<p>The following is a repository of code and data that we use as a running example
-throughout this tutorial.</p>
+<p>The following is a project with code and data that we use as a running example
+throughout this tutorial. To follow along <strong>we advise you to <a class="reference external" href="https://github.com/neurodata/blci/blob/master/docs/assets/myrepo.zip?raw=true">download
+it</a>.</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myrepo</span><span class="o">/</span>
     <span class="n">code</span><span class="o">/</span>
         <span class="n">a</span><span class="o">.</span><span class="n">py</span>

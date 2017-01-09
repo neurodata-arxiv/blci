@@ -13,9 +13,8 @@ higher user privilege such as root i.e., prefix commands with `sudo`.
 
 BrainLab-CI can be installed by cloning the Github repo as follows:
 
-- Through SSH: `git clone git@github.com:neurodata/blci.git`
 - Through HTTPS: `git clone https://github.com/neurodata/blci.git`
-```sh
+```bash
 cd blci/
 ./install
 ```
@@ -34,7 +33,7 @@ If you do not have Brew, first install it:
 
 , next install the dependencies:
 
-```
+```bash
 brew install git
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py"
 python get-pip.py
