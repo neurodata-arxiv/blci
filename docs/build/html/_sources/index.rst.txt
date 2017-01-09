@@ -23,6 +23,7 @@ full provenance.
     interface
     config
     actions
+    contact
 
 Code Documentation
 ==================
