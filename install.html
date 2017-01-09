@@ -159,10 +159,9 @@
 higher user privilege such as root i.e., prefix commands with <code class="docutils literal"><span class="pre">sudo</span></code>.</p>
 <p>BrainLab-CI can be installed by cloning the Github repo as follows:</p>
 <ul class="simple">
-<li>Through SSH: <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:neurodata/blci.git</span></code></li>
 <li>Through HTTPS: <code class="docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/neurodata/blci.git</span></code></li>
 </ul>
-<div class="highlight-sh"><div class="highlight"><pre><span></span><span class="nb">cd</span> blci/
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> blci/
 ./install
 </pre></div>
 </div>
@@ -177,10 +176,10 @@ higher user privilege such as root i.e., prefix commands with <code class="docut
 </pre></div>
 </div>
 <p>, next install the dependencies:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
-<span class="n">curl</span> <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> <span class="o">-</span><span class="n">o</span> <span class="s2">&quot;get-pip.py&quot;</span>
-<span class="n">python</span> <span class="n">get</span><span class="o">-</span><span class="n">pip</span><span class="o">.</span><span class="n">py</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">argparse</span> <span class="n">pyyaml</span> <span class="n">pytest</span> <span class="n">gitpython</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>brew install git
+curl <span class="s2">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> -o <span class="s2">&quot;get-pip.py&quot;</span>
+python get-pip.py
+pip install -U argparse pyyaml pytest gitpython
 </pre></div>
 </div>
 </div>
