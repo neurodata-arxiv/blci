@@ -4,7 +4,7 @@ An continuous integration environment for collaborative, community experiments
 with data-quality controls and full provenance.
 
 ## Website
-Our website [http://neurodata.io/blci](http://neurodata.io/blci)
+Our website [https://neurodata.github.io/blci](https://neurodata.github.io/blci)
 contains an detailed overview, installation instructions,
 examples and more!
 
