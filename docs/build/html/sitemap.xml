@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>http://docs.neurodata.io/blci/</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/overview.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/tutorial.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/defaults.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/install.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/authentication.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/interface.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/config.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/actions.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/contact.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/genindex.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/py-modindex.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/search.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/index.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/include.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/add.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/bl_exceptions.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/build.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/clean.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/common.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/config.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/dependencies.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/include/init.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+<url>
+  <loc>http://docs.neurodata.io/blci/_modules/index.html</loc>
+  <lastmod>2017-01-09T22:49:34+00:00</lastmod>
+</url>
+</urlset>
